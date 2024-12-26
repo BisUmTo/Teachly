@@ -1,50 +1,38 @@
 package net.delugan.teachly.configs;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.antlr.v4.runtime.misc.NotNull;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.resource.PathResourceResolver;
-import org.springframework.web.servlet.resource.ResourceResolverChain;
-
-import java.util.List;
-
-import static java.util.Objects.nonNull;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
-
     @Override
-    public void addResourceHandlers(@NotNull ResourceHandlerRegistry registry) {
-        serveDirectory(registry, "/", "classpath:/static/");
-    }
-
-    @Override
-    public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/api/**")
-                .allowedOriginPatterns("*");
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        if (!registry.hasMappingForPattern("/static/**")) {
+            registry.addResourceHandler("/static/**").addResourceLocations("/static/");
+        }
     }
 
 
-    private void serveDirectory(ResourceHandlerRegistry registry, String endpoint, String location) {
-        String[] endpointPatterns = endpoint.endsWith("/") ? new String[]{endpoint.substring(0, endpoint.length() - 1), endpoint, endpoint + "**"} : new String[]{endpoint, endpoint + "/", endpoint + "/**"};
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setPrefix("classpath:/templates/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+        templateResolver.setCacheable(true);
+        return templateResolver;
+    }
 
-        registry.addResourceHandler(endpointPatterns)
-                .addResourceLocations(location.endsWith("/") ? location : location + "/")
-                .resourceChain(false)
-                .addResolver(new PathResourceResolver() {
-                    @Override
-                    public Resource resolveResource(HttpServletRequest request, @NotNull String requestPath, @NotNull List<? extends Resource> locations, @NotNull ResourceResolverChain chain) {
-                        Resource resource = super.resolveResource(request, requestPath, locations, chain);
-                        if (nonNull(resource)) {
-                            return resource;
-                        } else {
-                            return super.resolveResource(request, "/index.html", locations, chain);
-                        }
-                    }
-                });
+    @Bean
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setEnableSpringELCompiler(true);
+        return templateEngine;
     }
 }

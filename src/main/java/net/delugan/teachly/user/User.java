@@ -1,55 +1,62 @@
 package net.delugan.teachly.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import net.delugan.teachly.utils.DateTracked;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends DateTracked implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
+    @Schema(description = "The username of the User", example = "teachly")
     private String username;
+
     @Column(nullable = false, unique = true)
+    @Schema(description = "The email of the User", example = "teachly@delugan.net")
     private String email;
 
+    @Schema(description = "The picture URL of the User", example = "https://picsum.photos/64")
     private String picture;
-    @Column(name = "created_at", nullable = false, updatable = false)
-    private Date createdAt;
+
     @Column(name = "last_login", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    @Schema(description = "The date of the last login of the User", example = "2024-12-26T23:35:38Z")
     private Date lastLogin;
+
     @Column(name = "google_id", nullable = false)
+    @Schema(description = "The Google ID of the User", example = "1234567890")
     private String googleId;
 
     public User(String username, String email, String picture, String googleId) {
+        super();
         this.username = username;
         this.email = email;
         this.picture = picture;
-        this.createdAt = new Date();
-        this.lastLogin = createdAt;
         this.googleId = googleId;
     }
 
+    protected User() {
+        super();
+    }
 
     public UUID getId() {
         return id;
     }
 
-    public void setPicture(String password) {
-        this.picture = password;
-    }
-
     public String getPicture() {
         return picture;
+    }
+
+    public void setPicture(String password) {
+        this.picture = password;
     }
 
     public String getUsername() {
@@ -64,8 +71,8 @@ public class User implements Serializable {
         return email;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public Date getLastLogin() {
@@ -78,9 +85,5 @@ public class User implements Serializable {
 
     public String getGoogleId() {
         return googleId;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }
