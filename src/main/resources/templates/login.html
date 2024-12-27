@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:insert="~{fragments/libraries :: head (title=#{app.name})}"></head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="app-wrapper">
+    <!--begin::App Main-->
+    <main class="app-main">
+
+        <!--begin::App Content-->
+        <div class="app-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <form th:action="@{/oauth2/authorization/google}" method="get">
+                            <button type="submit" class="btn btn-primary">Login with Google</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!--end::App Content-->
+    </main>
+    <!--end::App Main-->
+</div>
+<!--end::App Wrapper-->
+<div th:replace="~{fragments/libraries :: body}"></div>
+</body>
+<!--end::Body-->
+</html>

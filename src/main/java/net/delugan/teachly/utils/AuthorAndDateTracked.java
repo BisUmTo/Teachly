@@ -11,12 +11,12 @@ import java.util.UUID;
 
 @MappedSuperclass
 public abstract class AuthorAndDateTracked extends DateTracked {
-    @Column(name = "author_id", insertable = false, updatable = false)
+    @Column(name = "author_id", insertable = false, updatable = false, nullable = false)
     @Schema(description = "The ID of the User that generated this")
     private UUID authorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author")
+    @JoinColumn(name = "author", nullable = false)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JsonIgnore
     @Schema(description = "The User that generated this")
@@ -32,10 +32,10 @@ public abstract class AuthorAndDateTracked extends DateTracked {
 
     public void setAuthor(User author) {
         this.author = author;
-        if (author != null) {
-            this.authorId = author.getId();  // Assicurati che 'getId' restituisca l'UUID
-        } else {
-            this.authorId = null;  // Se 'author' è null, imposta anche 'authorId' su null
-        }
+        authorId = author.getId();
+    }
+
+    public boolean isAuthor(User user) {
+        return author.equals(user);
     }
 }

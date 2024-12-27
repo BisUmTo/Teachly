@@ -28,7 +28,7 @@ public class Excercise extends AuthorAndDateTracked {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Schema(description = "The type of the excercise", example = "OPEN_ANSWER")
+    @Schema(description = "The type of the excercise", example = "OPEN_QUESTION")
     private ExcerciseType type;
 
     @Enumerated(EnumType.STRING)

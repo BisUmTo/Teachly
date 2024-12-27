@@ -6,6 +6,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Map;
 
 @Service
@@ -23,16 +24,14 @@ public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2U
         Map<String, Object> attributes = oAuth2User.getAttributes();
         String email = (String) attributes.get("email");
 
-        User user = userRepository.findByEmail(email).orElseGet(() -> {
-            User newUser = new User(
-                    (String) attributes.get("name"),
-                    email,
-                    (String) attributes.get("picture"),
-                    attributes.get("sub").toString()
-            );
-            return userRepository.save(newUser);
-        });
-
+        User user = userRepository.findByEmail(email).orElseGet(() -> new User(
+                (String) attributes.get("name"),
+                email,
+                (String) attributes.get("picture"),
+                attributes.get("sub").toString()
+        ));
+        user.setLastLogin(new Date());
+        userRepository.save(user);
         return oAuth2User;
     }
 }

@@ -26,12 +26,12 @@ public class User extends DateTracked implements Serializable {
     @Schema(description = "The picture URL of the User", example = "https://picsum.photos/64")
     private String picture;
 
-    @Column(name = "last_login", nullable = false)
+    @Column(name = "last_login")
     @Temporal(TemporalType.TIMESTAMP)
     @Schema(description = "The date of the last login of the User", example = "2024-12-26T23:35:38Z")
     private Date lastLogin;
 
-    @Column(name = "google_id", nullable = false)
+    @Column(name = "google_id", unique = true, nullable = false)
     @Schema(description = "The Google ID of the User", example = "1234567890")
     private String googleId;
 

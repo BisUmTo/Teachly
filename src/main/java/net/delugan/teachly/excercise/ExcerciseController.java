@@ -1,6 +1,11 @@
 package net.delugan.teachly.excercise;
 
+import net.delugan.teachly.user.User;
+import net.delugan.teachly.user.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authorization.AuthorizationDeniedException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -9,9 +14,11 @@ import java.util.UUID;
 @RequestMapping("/api/v1/excercises")
 class ExcerciseController {
     public final ExcerciseRepository excerciseRepository;
+    private final UserRepository userRepository;
 
-    public ExcerciseController(ExcerciseRepository excerciseRepository) {
+    public ExcerciseController(ExcerciseRepository excerciseRepository, UserRepository userRepository) {
         this.excerciseRepository = excerciseRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -26,7 +33,7 @@ class ExcerciseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addExcercise(@RequestBody Excercise new_excercise) {
+    public void addExcercise(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Excercise new_excercise) {
         Excercise excercise = new Excercise(
                 new_excercise.getName(),
                 new_excercise.getQuestion(),
@@ -36,14 +43,19 @@ class ExcerciseController {
                 new_excercise.getHints(),
                 new_excercise.getSolutions()
         );
-        excercise.setAuthor(null); // TODO: author
+        excercise.setAuthor(userRepository.getByOAuth2(oAuth2User));
+        excercise.updateLastModified();
         excerciseRepository.save(excercise);
     }
 
     @PutMapping("{id}")
-    public void updateExcercise(@PathVariable UUID id, @RequestBody Excercise new_excercise) {
-        new_excercise.setAuthor(null); // TODO: author
+    public void updateExcercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Excercise new_excercise) {
+        User user = userRepository.getByOAuth2(oAuth2User);
+        new_excercise.setAuthor(user);
         Excercise excercise = excerciseRepository.findById(id).orElse(new_excercise);
+        if(!excercise.isAuthor(userRepository.getByOAuth2(oAuth2User))) {
+            throw new AuthorizationDeniedException("You are not the author of this excercise");
+        }
         excercise.setName(new_excercise.getName());
         excercise.setDifficulty(new_excercise.getDifficulty());
         excercise.setType(new_excercise.getType());
@@ -52,11 +64,16 @@ class ExcerciseController {
         excercise.setHints(new_excercise.getHints());
         excercise.setSolutions(new_excercise.getSolutions());
         excercise.setQuestion(new_excercise.getQuestion());
+        excercise.updateLastModified();
         excerciseRepository.save(excercise);
     }
 
     @DeleteMapping("{id}")
-    public void deleteExcercise(@PathVariable UUID id) {
+    public void deleteExcercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
+        Excercise excercise = excerciseRepository.findById(id).orElseThrow();
+        if(!excercise.isAuthor(userRepository.getByOAuth2(oAuth2User))) {
+            throw new AuthorizationDeniedException("You are not the author of this excercise");
+        }
         excerciseRepository.deleteById(id);
     }
 }

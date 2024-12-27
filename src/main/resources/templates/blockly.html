@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockly Example</title>
+    <!-- Include Blockly from CDN -->
+    <script src="https://unpkg.com/blockly/blockly_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/blocks_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/javascript_compressed.js"></script>
+    <script src="https://unpkg.com/blockly/msg/en.js"></script>
+    <style>
+        /* Imposta l'area di lavoro di Blockly */
+        #blocklyDiv {
+            height: 480px;
+            width: 100%;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+<h1>Prova Blockly in un'app Spring Boot</h1>
+
+<!-- Div che conterrà l'area di lavoro Blockly -->
+<div id="blocklyDiv"></div>
+
+<button onclick="saveWorkspace()">Salva blocchi</button>
+<pre id="savedBlocks"></pre>
+
+<script>
+    // Funzione per caricare la toolbox da un file JSON
+    function loadToolbox() {
+        fetch('/assets/json/toolbox.json')
+            .then(response => response.json())
+            .then(data => {
+                // Crea l'area di lavoro Blockly con la toolbox caricata
+                var workspace = Blockly.inject('blocklyDiv', {
+                    toolbox: data // Usa il JSON della toolbox per configurare Blockly
+                });
+
+                // Funzione per salvare il workspace
+                window.saveWorkspace = function() {
+                    var xml = Blockly.Xml.workspaceToXml(workspace);
+                    var xmlText = Blockly.Xml.domToText(xml);
+                    document.getElementById('savedBlocks').textContent = xmlText;
+                };
+            })
+            .catch(error => {
+                console.error('Errore nel caricare la toolbox:', error);
+            });
+    }
+
+    // Carica la toolbox quando la pagina è pronta
+    window.onload = loadToolbox;
+</script>
+</body>
+</html>
