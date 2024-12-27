@@ -2,7 +2,6 @@ package net.delugan.teachly.excercisegenerator;
 
 import net.delugan.teachly.excercise.Excercise;
 import net.delugan.teachly.excercise.ExcerciseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +32,7 @@ class ExcerciseGeneratorController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addExcerciseGenerator(@RequestBody ExcerciseGenerator new_excerciseGenerator) {
-        ExcerciseGenerator excerciseGenerator = new ExcerciseGenerator(
-                new_excerciseGenerator.getType(),
-                new_excerciseGenerator.getDifficulty(),
-                new_excerciseGenerator.getBlocklyJsonCode()
-        );
+        ExcerciseGenerator excerciseGenerator = new ExcerciseGenerator(new_excerciseGenerator.getType(), new_excerciseGenerator.getDifficulty(), new_excerciseGenerator.getBlocklyJsonCode());
         excerciseGenerator.setAuthor(null); // TODO: author
         excerciseGeneratorRepository.save(excerciseGenerator);
     }

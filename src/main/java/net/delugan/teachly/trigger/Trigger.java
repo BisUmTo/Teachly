@@ -2,7 +2,6 @@ package net.delugan.teachly.trigger;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Pattern;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.delugan.teachly.utils.JsonString;
 

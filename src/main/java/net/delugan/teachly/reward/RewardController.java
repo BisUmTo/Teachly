@@ -27,11 +27,7 @@ public class RewardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addReward(@RequestBody Reward new_reward) {
-        Reward reward = new Reward(
-                new_reward.getName(),
-                new_reward.getDescription(),
-                new_reward.getBlocklyJsonCode()
-        );
+        Reward reward = new Reward(new_reward.getName(), new_reward.getDescription(), new_reward.getBlocklyJsonCode());
         reward.setAuthor(null); // TODO: author
         rewardRepository.save(reward);
     }

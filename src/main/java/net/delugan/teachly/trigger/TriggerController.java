@@ -27,11 +27,7 @@ public class TriggerController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void addTrigger(@RequestBody Trigger new_trigger) {
-        Trigger trigger = new Trigger(
-                new_trigger.getName(),
-                new_trigger.getDescription(),
-                new_trigger.getBlocklyJsonCode()
-        );
+        Trigger trigger = new Trigger(new_trigger.getName(), new_trigger.getDescription(), new_trigger.getBlocklyJsonCode());
         trigger.setAuthor(null); // TODO: author
         triggerRepository.save(trigger);
     }

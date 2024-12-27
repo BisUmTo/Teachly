@@ -3,13 +3,11 @@ package net.delugan.teachly.excercise;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.excercisegenerator.ExcerciseGenerator;
-import net.delugan.teachly.user.User;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 

@@ -1,6 +1,5 @@
 package net.delugan.teachly.utils;
 
-import com.fasterxml.jackson.core.json.JsonParserBase;
 import com.nimbusds.jose.shaded.gson.JsonSyntaxException;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -9,7 +8,8 @@ import org.springframework.boot.json.JacksonJsonParser;
 public class JsonStringValidator implements ConstraintValidator<JsonString, String> {
 
     @Override
-    public void initialize(JsonString jsonString) { }
+    public void initialize(JsonString jsonString) {
+    }
 
     @Override
     public boolean isValid(String string, ConstraintValidatorContext context) {

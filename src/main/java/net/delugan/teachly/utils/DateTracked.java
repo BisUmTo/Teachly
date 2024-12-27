@@ -20,6 +20,11 @@ public abstract class DateTracked {
     @Schema(description = "The date when it was last modified", example = "2024-12-26T23:35:38Z")
     private Date lastModified;
 
+    protected DateTracked() {
+        this.createdAt = new Date();
+        this.lastModified = new Date();
+    }
+
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -29,11 +34,6 @@ public abstract class DateTracked {
     }
 
     public void updateLastModified() {
-        this.lastModified = new Date();
-    }
-
-    protected DateTracked() {
-        this.createdAt = new Date();
         this.lastModified = new Date();
     }
 }
