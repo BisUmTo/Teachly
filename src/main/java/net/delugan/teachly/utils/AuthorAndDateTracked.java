@@ -1,10 +1,7 @@
 package net.delugan.teachly.utils;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.persistence.Column;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import net.delugan.teachly.user.User;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -12,6 +9,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.UUID;
 
+@MappedSuperclass
 public abstract class AuthorAndDateTracked extends DateTracked {
     @Column(name = "author_id", insertable = false, updatable = false)
     @Schema(description = "The ID of the User that generated this")

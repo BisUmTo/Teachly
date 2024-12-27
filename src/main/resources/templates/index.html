@@ -1,64 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Landon Hotel | Occupancy</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-</head>
-<body>
-<header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark" aria-label="Header">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Landon Hotel</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#site-nav" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="site-nav">
-                <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#" th:href="@{/rooms}">Rooms</a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" aria-current="page" href="#" th:href="@{/occupancy}">Occupancy</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-</header>
-<main class="container">
-    <h1>Occupancy</h1>
-    <div class="container">
-        <input id="picker" type="date" onchange="handleDate()" th:text="${date}" />
-    </div>
-    <table class="table">
-        <thead>
-        <th scope="col">Room Number</th>
-        <th scope="col">Room Name</th>
-        <th scope="col">Guest</th>
-        </thead>
-        <tbody>
-        <tr th:each="reservation : ${triggers}">
-            <td th:text="${reservation.getName()}">Room Number</td>
-            <td th:text="${reservation.getDescription()}">Room Name</td>
-            <td th:text="${reservation.getBlocklyJsonCode()}">Guest</td>
-        </tr>
-        </tbody>
-    </table>
+<head th:insert="~{fragments/libraries :: head (title=#{app.name})}"></head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="app-wrapper">
+    <nav th:replace="~{fragments/header :: header}"></nav>
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-</main>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<script type="text/javascript">
-    function handleDate(){
-        let date = document.getElementById("picker").valueAsDate
-        let result = date.toISOString().split('T')[0]
-        if ('URLSearchParams' in window) {
-            var searchParams = new URLSearchParams(window.location.search);
-            searchParams.set("date", result);
-            window.location.search = searchParams.toString();
-        }
-    }
-</script>
+    <!--begin::App Main-->
+    <main class="app-main">
+        <!--begin::App Content Header-->
+        <div class="app-content-header">
+            <!--begin::Container-->
+            <div class="container-fluid">
+                <!--begin::Row-->
+                <div class="row">
+                    <div class="col-sm-6"><h3 class="mb-0">Layout</h3></div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-end">
+                            <li class="breadcrumb-item"><a href="#">Docs</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Layout</li>
+                        </ol>
+                    </div>
+                </div>
+                <!--end::Row-->
+            </div>
+            <!--end::Container-->
+        </div>
+        <!--end::App Content Header-->
+        <!--begin::App Content-->
+        <div class="app-content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-6">
+                        <div th:replace="~{fragments/widgets/small-box :: primary(
+                            title=${userCount},
+                            description='Users',
+                            path='M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z',
+                            link=@{/}
+                        )}"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!--end::App Content-->
+    </main>
+    <!--end::App Main-->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<!--end::App Wrapper-->
+<div th:replace="~{fragments/libraries :: body}"></div>
 </body>
+<!--end::Body-->
 </html>
