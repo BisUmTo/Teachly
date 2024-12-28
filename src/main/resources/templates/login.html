@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:insert="~{fragments/libraries :: head (title=#{app.name})}"></head>
+<head th:insert="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Login</title>
+</head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 <div class="app-wrapper">
     <!--begin::App Main-->
@@ -24,7 +26,7 @@
     <!--end::App Main-->
 </div>
 <!--end::App Wrapper-->
-<div th:replace="~{fragments/libraries :: body}"></div>
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
 </body>
 <!--end::Body-->
 </html>

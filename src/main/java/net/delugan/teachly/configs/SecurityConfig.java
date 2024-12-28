@@ -17,7 +17,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/login").permitAll()
                         .requestMatchers("/api/v1", "/api", "/docs").permitAll()
-                        .requestMatchers("/js/**", "/css/**", "/assets/**").permitAll()
+                        .requestMatchers("/js/**", "/css/**", "/img/**", "/json/**", "/plugins/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/api/v1/**").authenticated()
                         .requestMatchers("/dashboard/**").authenticated()
@@ -25,9 +25,9 @@ public class SecurityConfig {
                 )
                 .oauth2Login(auth -> auth
                         .loginPage("/login")
-                        .successHandler((request, response, authentication) ->
+                        /*.successHandler((request, response, authentication) ->
                                 response.sendRedirect("/dashboard")
-                        )
+                        )*/
                 )
                 .build();
     }

@@ -1,55 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:insert="~{fragments/libraries :: head (title=#{app.name})}"></head>
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Dashboard</title>
+</head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="app-wrapper">
-    <nav th:replace="~{fragments/header :: navbar}"></nav>
+<div class="wrapper">
+    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <!--begin::App Main-->
-    <main class="app-main">
-        <!--begin::App Content Header-->
-        <div class="app-content-header">
-            <!--begin::Container-->
-            <div class="container-fluid">
-                <!--begin::Row-->
-                <div class="row">
-                    <div class="col-sm-6"><h3 class="mb-0">Layout</h3></div>
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-end">
-                            <li class="breadcrumb-item"><a href="#">Docs</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Layout</li>
-                        </ol>
-                    </div>
-                </div>
-                <!--end::Row-->
-            </div>
-            <!--end::Container-->
-        </div>
-        <!--end::App Content Header-->
-        <!--begin::App Content-->
-        <div class="app-content">
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header('Dashboard')}"></div>
+
+        <!-- Main content -->
+        <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-3 col-6">
-                        <div th:replace="~{fragments/widgets/small-box :: primary(
-                            title=${userCount},
-                            description='Users',
-                            path='M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z',
-                            link=@{/}
-                        )}"></div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                </p>
+
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div>
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <h5 class="card-title">Card title</h5>
+
+                                <p class="card-text">
+                                    Some quick example text to build on the card title and make up the bulk of the
+                                    card's
+                                    content.
+                                </p>
+                                <a href="#" class="card-link">Card link</a>
+                                <a href="#" class="card-link">Another link</a>
+                            </div>
+                        </div><!-- /.card -->
                     </div>
+                    <!-- /.col-md-6 -->
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="m-0">Featured</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Special title treatment</h6>
+
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+
+                        <div class="card card-primary card-outline">
+                            <div class="card-header">
+                                <h5 class="m-0">Featured</h5>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">Special title treatment</h6>
+
+                                <p class="card-text">With supporting text below as a natural lead-in to additional
+                                    content.</p>
+                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col-md-6 -->
                 </div>
-            </div>
-            <!-- /.container-fluid -->
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
         </div>
-        <!--end::App Content-->
-    </main>
+        <!-- /.content -->
+    </div>
     <!--end::App Main-->
     <footer th:replace="~{fragments/footer :: footer}"></footer>
 </div>
 <!--end::App Wrapper-->
-<div th:replace="~{fragments/libraries :: body}"></div>
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
 </body>
 <!--end::Body-->
 </html>

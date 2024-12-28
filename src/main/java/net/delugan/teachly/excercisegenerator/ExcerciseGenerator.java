@@ -19,6 +19,10 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
+    @Column(nullable = false, unique = true)
+    @Schema(description = "The name of the excercise generator", example = "Pythagorean triples generator")
+    private String name;
+
     @Column(nullable = false)
     @Schema(description = "The type of the excercise", example = "MULTIPLE_CHOICE")
     private ExcerciseType type;
@@ -37,8 +41,9 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The date of the last generation of the excercise with this generator", example = "2024-12-26T23:35:38Z")
     private Date lastGeneration;
 
-    public ExcerciseGenerator(ExcerciseType type, ExcerciseDifficulty difficulty, String blocklyJsonCode) {
+    public ExcerciseGenerator(String name, ExcerciseType type, ExcerciseDifficulty difficulty, String blocklyJsonCode) {
         super();
+        this.name = name;
         this.type = type;
         this.difficulty = difficulty;
         this.blocklyJsonCode = blocklyJsonCode;
@@ -89,5 +94,13 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
         List<Excercise> excercises = null;
         // TODO: Implement excercise generation
         return excercises;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

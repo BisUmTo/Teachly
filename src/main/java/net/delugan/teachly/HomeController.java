@@ -1,6 +1,8 @@
 package net.delugan.teachly;
 
 import net.delugan.teachly.user.UserRepository;
+import net.delugan.teachly.utils.AuthenticatedModelAndView;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HomeController {
-    UserRepository userRepository;
+    final UserRepository userRepository;
 
     public HomeController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -17,9 +19,8 @@ public class HomeController {
 
     @GetMapping("/dashboard")
     public ModelAndView index(@AuthenticationPrincipal OAuth2User oAuth2User) {
-        ModelAndView modelAndView = new ModelAndView("index");
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("index", userRepository.getByOAuth2(oAuth2User));
         modelAndView.addObject("userCount", userRepository.count());
-        modelAndView.addObject("me", userRepository.getByOAuth2(oAuth2User));
         return modelAndView;
     }
 
@@ -28,7 +29,7 @@ public class HomeController {
         return "login";
     }
 
-    @GetMapping("/blockly")
+    @GetMapping("/dashboard/blockly")
     public String blockly() {
         return "blockly";
     }
