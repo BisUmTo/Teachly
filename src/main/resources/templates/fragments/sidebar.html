@@ -7,8 +7,8 @@
 <body>
 <aside th:fragment="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link border-secondary pt-3 pb-3">
-        <img th:src="@{/img/AdminLTELogo.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/}" class="brand-link border-secondary pt-3 pb-3">
+        <img th:src="@{/img/delugan_net.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light" th:text="#{app.name}"></span>
     </a>
 
@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/dashboard/lessons}" class="nav-link">
-                        <i class="nav-icon fa-chalkboard-teacher"></i>
+                        <i class="nav-icon fa-chalkboard"></i>
                         <p>Lessons</p>
                     </a>
                 </li>
@@ -57,29 +57,6 @@
                         <p>Rewards</p>
                     </a>
                 </li>
-                <!--<li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Starter Pages
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>-->
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -89,12 +66,13 @@
             <div class="image">
                 <img th:src="${me.getPicture()}" class="img-circle elevation-2" alt="User Image" referrerpolicy="no-referrer">
             </div>
-            <div class="info">
+            <div class="info w-100" style="display: flex !important;">
                 <a th:href="@{/dashboard/profile}" class="d-block" th:text="${me.getUsername()}">Alexander Pierce</a>
+                <div class="logout ml-auto">
+                    <a th:href="@{/logout}"><i class="nav-icon fas fa-sign-out-alt pr-3"></i></a>
+                </div>
             </div>
-            <div class="logout ml-auto">
-                <a th:href="@{/logout}"><i class="nav-icon fas fa-sign-out-alt pr-3"></i></a>
-            </div>
+
         </div>
 
     </div>
