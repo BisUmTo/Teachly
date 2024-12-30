@@ -26,7 +26,7 @@ public class RewardViewController {
 
     @GetMapping
     public ModelAndView index(@AuthenticationPrincipal OAuth2User oAuth2User) {
-        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("reward/list", userRepository.getByOAuth2(oAuth2User));
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/rewards/list", userRepository.getByOAuth2(oAuth2User));
         modelAndView.addObject("rewards", rewardRepository.findAll());
         return modelAndView;
     }

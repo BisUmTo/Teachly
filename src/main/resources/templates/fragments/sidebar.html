@@ -7,8 +7,8 @@
 <body>
 <aside th:fragment="sidebar" class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a th:href="@{/}" class="brand-link border-secondary pt-3 pb-3">
-        <img th:src="@{/img/delugan_net.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a th:href="@{/}" class="brand-link border-secondary pt-3 pb-2">
+        <img th:src="@{/img/delugan_net.png}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3">
         <span class="brand-text font-weight-light" th:text="#{app.name}"></span>
     </a>
 
@@ -26,7 +26,7 @@
                 </li>
                 <li class="nav-item">
                     <a th:href="@{/dashboard/lessons}" class="nav-link">
-                        <i class="nav-icon fa-chalkboard"></i>
+                        <i class="nav-icon fas fa-chalkboard-teacher"></i>
                         <p>Lessons</p>
                     </a>
                 </li>
@@ -57,12 +57,18 @@
                         <p>Rewards</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a th:href="@{/dashboard/users}" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Community</p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
 
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-auto pt-3 pb-3 d-flex border-secondary border-top">
+        <div class="user-panel mt-auto pt-2 pb-3 d-flex border-secondary border-top">
             <div class="image">
                 <img th:src="${me.getPicture()}" class="img-circle elevation-2" alt="User Image" referrerpolicy="no-referrer">
             </div>

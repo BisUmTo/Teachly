@@ -43,6 +43,7 @@ class ExerciseGeneratorRestController {
                 new_exerciseGenerator.getName(),
                 new_exerciseGenerator.getType(),
                 new_exerciseGenerator.getDifficulty(),
+                new_exerciseGenerator.getTags(),
                 new_exerciseGenerator.getBlocklyJsonCode()
         );
         exerciseGenerator.setAuthor(userRepository.getByOAuth2(oAuth2User));

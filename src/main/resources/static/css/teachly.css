@@ -10,3 +10,13 @@
 .list-element-author-icon {
     margin-top: -4px;
 }
+
+@font-face {
+    font-family: high_summit;
+    src: local('High Summit'),
+         url('/fonts/High Summit.otf') format('opentype');
+}
+
+.brand-text {
+    font-family: high_summit, cursive;
+}

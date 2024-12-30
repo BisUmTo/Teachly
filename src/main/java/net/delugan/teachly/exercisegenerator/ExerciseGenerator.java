@@ -31,6 +31,11 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The difficulty of the exercise", example = "EASY")
     private ExerciseDifficulty difficulty;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "exercise_tags", joinColumns = @JoinColumn(name = "exercise_id"))
+    @Schema(description = "The tags of the exercise", example = "[\"math\", \"geometry\"]")
+    private List<String> tags;
+
     @Column(name = "blockly_json_code", nullable = false)
     @JsonString
     @Schema(description = "The Blockly JSON code of the reward", example = "{\"blocks\": {\"languageVersion\": 0,\"blocks\": [{...}]}}")
@@ -41,11 +46,12 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The date of the last generation of the exercise with this generator", example = "2024-12-26T23:35:38Z")
     private Date lastGeneration;
 
-    public ExerciseGenerator(String name, ExerciseType type, ExerciseDifficulty difficulty, String blocklyJsonCode) {
+    public ExerciseGenerator(String name, ExerciseType type, ExerciseDifficulty difficulty, List<String> tags, String blocklyJsonCode) {
         super();
         this.name = name;
         this.type = type;
         this.difficulty = difficulty;
+        this.tags = tags;
         this.blocklyJsonCode = blocklyJsonCode;
     }
 
@@ -102,5 +108,13 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{fragments/libraries :: head (~{::title},~{::link})}">
-    <title>Exercise Generators - Teachly</title>
+    <title>Lessons - Teachly</title>
     <!-- DataTables -->
     <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
     <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
@@ -12,7 +12,7 @@
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <div class="content-wrapper" data-barba="container">
-        <div th:replace="~{fragments/header :: header('Exercise Generators')}"></div>
+        <div th:replace="~{fragments/header :: header('Lessons')}"></div>
 
         <!-- Main content -->
         <section class="content">
@@ -22,17 +22,15 @@
                         <table id="list" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>Generator name</th>
-                                <th>Tags</th>
+                                <th>Lesson name</th>
                                 <th>Author</th>
                                 <th>Latest Edit</th>
                                 <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:with="item='exercises/generators'" th:each="e : ${generators}" class="list-element" th:attr="data-element-id=${e.getId()}">
+                            <tr th:with="item='lessons'" th:each="e : ${lessons}" class="list-element" th:attr="data-element-id=${e.getId()}">
                                 <td th:replace="~{fragments/datatable :: name (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: tags (item)}"></td>
                                 <td th:replace="~{fragments/datatable :: author (item)}"></td>
                                 <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
                                 <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
@@ -52,7 +50,7 @@
 <!--end::App Wrapper-->
 <th:block th:replace="~{fragments/libraries :: body}"></th:block>
 <!-- DataTables  & Plugins -->
-<th:block th:replace="~{fragments/datatable :: libraries}"></th:block>
+
 </body>
 <!--end::Body-->
 </html>

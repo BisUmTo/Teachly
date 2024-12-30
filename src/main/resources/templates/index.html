@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
-    <title>Dashboard</title>
+    <title>Dashboard - Teachly</title>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper">
+<div class="wrapper" data-barba="wrapper">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper">
+    <div class="content-wrapper" data-barba="container">
         <div th:replace="~{fragments/header :: header('Dashboard')}"></div>
 
         <!-- Main content -->

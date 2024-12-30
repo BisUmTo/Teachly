@@ -26,7 +26,7 @@ public class ExerciseGeneratorViewController {
     @GetMapping
     public ModelAndView index(@AuthenticationPrincipal OAuth2User oAuth2User) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/list", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("exerciseGenerators", exerciseGeneratorRepository.findAll());
+        modelAndView.addObject("generators", exerciseGeneratorRepository.findAll());
         return modelAndView;
     }
 
@@ -39,14 +39,14 @@ public class ExerciseGeneratorViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("exerciseGenerator", exerciseGeneratorRepository.findById(id).orElseThrow());
+        modelAndView.addObject("generator", exerciseGeneratorRepository.findById(id).orElseThrow());
         return modelAndView;
     }
 
     @GetMapping("show/{id}")
     public ModelAndView show(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/show", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("exerciseGenerator", exerciseGeneratorRepository.findById(id).orElseThrow());
+        modelAndView.addObject("generator", exerciseGeneratorRepository.findById(id).orElseThrow());
         return modelAndView;
     }
 

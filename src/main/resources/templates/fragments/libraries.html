@@ -15,7 +15,9 @@
     <th:block th:replace="${links}" />
 </head>
 <body>
-<th:block th:fragment="body (links)">
+<th:block th:fragment="body">
+    <!-- Animations -->
+    <script th:src="@{/plugins/barba/barba.umd.js}"></script>
     <!-- jQuery -->
     <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
     <!-- Bootstrap 4 -->
@@ -23,6 +25,7 @@
     <!-- AdminLTE App -->
     <script th:src="@{/js/adminlte.min.js}"></script>
     <script th:src="@{/js/teachly.js}"></script>
+
 </th:block>
 </body>
 </html>

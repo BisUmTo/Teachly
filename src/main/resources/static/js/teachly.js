@@ -1,5 +1,32 @@
 $(document).ready(function() {
-    // Ottieni il path dalla URL corrente
+    initializePage()
+
+    barba.init({
+        transitions: [{
+            name: 'default-transition',
+            leave(data) {
+            },
+            enter(data) {
+            },
+            after() {
+                initializePage();
+                window.dispatchEvent(new Event('resize'));
+            }
+        }]
+    });
+});
+
+function initializePage(){
+    updateBreadcrumb();
+    updateNavLinks();
+    updateDataTable();
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    });
+}
+
+function updateBreadcrumb() {
     let path = window.location.pathname;
 
     if (path.startsWith("/")) {
@@ -33,29 +60,37 @@ $(document).ready(function() {
         // Aggiungi l'elemento al breadcrumb
         $breadcrumb.append($li);
     });
+}
 
+function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function updateNavLinks(){
+    let path = window.location.pathname;
     $('.nav-link').each(function () {
         // Verifica se l'href del link corrisponde al percorso attuale
         if ($(this).attr('href').endsWith(path)) {
-            // Aggiungi la classe "active" al link
             $(this).addClass('active');
-
-            // Aggiungi la classe "menu-open" al genitore se necessario
             $(this).closest('.nav-item').addClass('menu-open');
+        } else {
+            $(this).removeClass('active');
+            $(this).closest('.nav-item').removeClass('menu-open');
         }
     });
+}
 
-    // Funzione per capitalizzare la prima lettera di un segmento
-    function capitalize(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+function updateDataTable() {
+    $("#list").DataTable({
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+        "responsive": true,
+        "columnDefs": [
+            { "orderable": false, "targets": -1 }
+        ]
     });
-
-    /*$('.list-element[data-element-id]').on("click", function () {
-        const id = $(this).data("element-id");
-        window.location.href = window.location.pathname + `/show/${id}`;
-    });*/
-});
+}

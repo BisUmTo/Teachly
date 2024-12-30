@@ -5,11 +5,11 @@
     <title>Footer</title>
 </head>
 <body>
-<footer th:fragment="footer" class="main-footer d-flex justify-content-between">
-    <div>
-        <strong>&copy; 2024-2025 <a th:href="@{/}">Teachly</a></strong> by <i>Kevin Delugan</i>.
+<footer th:fragment="footer" class="main-footer d-flex flex-wrap text-center align-content-center justify-content-between">
+    <div class="mx-auto">
+        &copy; 2024-2025 <strong><a th:href="@{/}">Teachly</a></strong> by <i>Kevin Delugan</i>.
     </div>
-    <div>
+    <div class="flex-shrink-0 mx-auto">
         <nav>
             <a href="https://github.com/BisUmTo/Teachly" target="_blank"
                data-toggle="tooltip" data-placement="top" title="Source Code"
@@ -24,7 +24,7 @@
             ><i class="fas fa-scroll"></i></a>
         </nav>
     </div>
-    <div>
+    <div class="mx-auto">
         <nav>
             <a th:href="@{/privacy}">Privacy Policy</a> |
             <a th:href="@{/cookies}" >Cookie Policy</a> |
