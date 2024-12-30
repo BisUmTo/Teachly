@@ -1,19 +1,6 @@
 $(document).ready(function() {
     initializePage()
-
-    barba.init({
-        transitions: [{
-            name: 'default-transition',
-            leave(data) {
-            },
-            enter(data) {
-            },
-            after() {
-                initializePage();
-                window.dispatchEvent(new Event('resize'));
-            }
-        }]
-    });
+    initializeBarba()
 });
 
 function initializePage(){
@@ -22,7 +9,7 @@ function initializePage(){
     updateDataTable();
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
     });
 }
 
@@ -81,16 +68,35 @@ function updateNavLinks(){
 }
 
 function updateDataTable() {
-    $("#list").DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-        "columnDefs": [
-            { "orderable": false, "targets": -1 }
-        ]
-    });
+    let datatable = $("#list");
+    if(datatable.DataTable)
+        datatable.DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+            "columnDefs": [
+                { "orderable": false, "targets": -1 }
+            ]
+        });
+}
+
+function initializeBarba(){
+    if(barba)
+        barba.init({
+            transitions: [{
+                name: 'default-transition',
+                leave(data) {
+                },
+                enter(data) {
+                },
+                after() {
+                    initializePage();
+                    window.dispatchEvent(new Event('resize'));
+                }
+            }]
+        });
 }
