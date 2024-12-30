@@ -1,7 +1,11 @@
 package net.delugan.teachly.configs;
 
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.filter.UrlHandlerFilter;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -33,5 +37,16 @@ public class MvcConfig implements WebMvcConfigurer {
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
+    }
+
+    @Bean
+    public FilterRegistrationBean urlHandlerFilterRegistrationBean() {
+        FilterRegistrationBean<OncePerRequestFilter> registrationBean = new FilterRegistrationBean<>();
+        UrlHandlerFilter urlHandlerFilter = UrlHandlerFilter.trailingSlashHandler("/dashboard/**").
+                redirect(HttpStatus.PERMANENT_REDIRECT).
+                build();
+        registrationBean.setFilter(urlHandlerFilter);
+
+        return registrationBean;
     }
 }

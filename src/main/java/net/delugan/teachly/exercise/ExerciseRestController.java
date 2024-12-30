@@ -44,6 +44,7 @@ class ExerciseRestController {
                 new_exercise.getSolutions()
         );
         exercise.setAuthor(userRepository.getByOAuth2(oAuth2User));
+        System.out.println(exercise.getAuthorId());
         exercise.updateLastModified();
         exerciseRepository.save(exercise);
     }

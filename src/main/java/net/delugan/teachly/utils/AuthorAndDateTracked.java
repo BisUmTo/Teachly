@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @MappedSuperclass
 public abstract class AuthorAndDateTracked extends DateTracked {
-    @Column(name = "author_id", insertable = false, updatable = false, nullable = false)
+    @Column(name = "author_id", updatable = false, nullable = false)
     @Schema(description = "The ID of the User that generated this")
     private UUID authorId;
 

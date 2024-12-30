@@ -2,33 +2,26 @@ $(document).ready(function() {
     // Ottieni il path dalla URL corrente
     let path = window.location.pathname;
 
-    // Rimuovi il carattere iniziale "/" per ottenere solo i segmenti
     if (path.startsWith("/")) {
         path = path.substring(1);
     }
 
-    // Suddividi il path in un array di segmenti
     let segments = path.split("/");
 
-    // Regex per identificare un UUID
-    let uuidRegex = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
-
     // Se l'ultimo segmento è un UUID, rimuovilo
+    let uuidRegex = /^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
     if (uuidRegex.test(segments[segments.length - 1])) {
         segments.pop();
     }
-    segments.pop();
+    // segments.pop();
 
-    // Riferimento all'elemento breadcrumb
     let $breadcrumb = $("#breadcrumb");
-
-    // Costruisci dinamicamente il breadcrumb
     let url = "";
     $.each(segments, function(index, segment) {
         url += "/" + segment;
         let $li = $("<li>").addClass("breadcrumb-item");
 
-        if (index === segments.length) {
+        if (index === segments.length - 1) {
             // L'ultimo elemento è l'elemento attivo
             $li.addClass("active").attr("aria-current", "page").text(capitalize(segment));
         } else {
@@ -59,5 +52,10 @@ $(document).ready(function() {
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-    })
+    });
+
+    /*$('.list-element[data-element-id]').on("click", function () {
+        const id = $(this).data("element-id");
+        window.location.href = window.location.pathname + `/show/${id}`;
+    });*/
 });

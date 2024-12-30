@@ -6,3 +6,7 @@
 .swagger_icon:hover img {
     filter: invert(15%) sepia(100%) saturate(7034%) hue-rotate(204deg) brightness(89%) contrast(101%);
 }
+
+.list-element-author-icon {
+    margin-top: -4px;
+}
