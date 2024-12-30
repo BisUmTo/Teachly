@@ -2,7 +2,7 @@ package net.delugan.teachly.lesson;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import net.delugan.teachly.excercise.Excercise;
+import net.delugan.teachly.exercise.Exercise;
 import net.delugan.teachly.reward.Reward;
 import net.delugan.teachly.trigger.Trigger;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
@@ -38,18 +38,18 @@ public class Lesson extends AuthorAndDateTracked {
 
     @ManyToMany
     @JoinTable(
-            name = "lesson_excercises",
+            name = "lesson_exercises",
             joinColumns = @JoinColumn(name = "lesson_id"),
-            inverseJoinColumns = @JoinColumn(name = "excercise_id"))
-    @Schema(description = "The excercises that are part of the lesson")
-    private List<Excercise> excercises;
+            inverseJoinColumns = @JoinColumn(name = "exercise_id"))
+    @Schema(description = "The exercises that are part of the lesson")
+    private List<Exercise> exercises;
 
     @ManyToMany
     @JoinTable(
             name = "lesson_triggers",
             joinColumns = @JoinColumn(name = "lesson_id"),
             inverseJoinColumns = @JoinColumn(name = "trigger_id"))
-    @Schema(description = "The triggers to show an excercise during the lesson")
+    @Schema(description = "The triggers to show an exercise during the lesson")
     private List<Trigger> triggers;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -116,12 +116,12 @@ public class Lesson extends AuthorAndDateTracked {
         this.links = links;
     }
 
-    public List<Excercise> getExcercises() {
-        return excercises;
+    public List<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setExcercises(List<Excercise> excercises) {
-        this.excercises = excercises;
+    public void setExercises(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 
     public List<Trigger> getTriggers() {

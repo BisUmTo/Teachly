@@ -9,11 +9,10 @@
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
 <div class="wrapper">
-    <nav th:replace="~{fragments/navigation :: navigation}"></nav>
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <div class="content-wrapper">
-        <div th:replace="~{fragments/header :: header('Dashboard')}"></div>
+        <div th:replace="~{fragments/header :: header('Generators')}"></div>
 
         <!-- Main content -->
         <section class="content">
@@ -30,15 +29,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="e : ${excerciseGenerators}">
+                            <tr th:each="e : ${exerciseGenerators}">
                                 <td th:text="${e.getName()}">Generator name</td>
                                 <td th:text="${e.getAuthor().getUsername()}">Author</td>
                                 <td th:text="${e.getLastModified()}">Latest Edit</td>
                                 <td class="text-right py-0 align-middle">
                                     <div class="btn-group btn-group-sm">
-                                        <a th:href="@{/dashboard/excercises/generators/show/{id}(id=${e.getId()})}" class="btn btn-info"><i class="fas fa-eye"></i></a>
-                                        <a th:href="@{/dashboard/excercises/generators/edit/{id}(id=${e.getId()})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                                        <a th:href="@{/dashboard/excercises/generators/delete/{id}(id=${e.getId()})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        <a th:href="@{/dashboard/exercises/generators/show/{id}(id=${e.getId()})}" class="btn btn-info"><i class="fas fa-eye"></i></a>
+                                        <a th:href="@{/dashboard/exercises/generators/edit/{id}(id=${e.getId()})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                                        <a th:href="@{/dashboard/exercises/generators/delete/{id}(id=${e.getId()})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                     </div>
                                 </td>
                             </tr>

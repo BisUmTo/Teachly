@@ -1,8 +1,8 @@
-package net.delugan.teachly.excercise;
+package net.delugan.teachly.exercise;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import net.delugan.teachly.excercisegenerator.ExcerciseGenerator;
+import net.delugan.teachly.exercisegenerator.ExerciseGenerator;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
@@ -12,56 +12,56 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "excercises")
-public class Excercise extends AuthorAndDateTracked {
+@Table(name = "exercises")
+public class Exercise extends AuthorAndDateTracked {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    @Schema(description = "The name of the excercise", example = "Pythagorean theorem - exercise 1")
+    @Schema(description = "The name of the exercise", example = "Pythagorean theorem - exercise 1")
     private String name;
 
     @Column(nullable = false)
-    @Schema(description = "The question of the excercise", example = "What is the hypotenuse of a right triangle with catheti of 6 and 8?")
+    @Schema(description = "The question of the exercise", example = "What is the hypotenuse of a right triangle with catheti of 6 and 8?")
     private String question;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    @Schema(description = "The type of the excercise", example = "OPEN_QUESTION")
-    private ExcerciseType type;
+    @Schema(description = "The type of the exercise", example = "OPEN_QUESTION")
+    private ExerciseType type;
 
     @Enumerated(EnumType.STRING)
-    @Schema(description = "The difficulty of the excercise", example = "EASY")
-    private ExcerciseDifficulty difficulty;
+    @Schema(description = "The difficulty of the exercise", example = "EASY")
+    private ExerciseDifficulty difficulty;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "excercise_tags", joinColumns = @JoinColumn(name = "excercise_id"))
-    @Schema(description = "The tags of the excercise", example = "[\"math\", \"geometry\"]")
+    @CollectionTable(name = "exercise_tags", joinColumns = @JoinColumn(name = "exercise_id"))
+    @Schema(description = "The tags of the exercise", example = "[\"math\", \"geometry\"]")
     private List<String> tags;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "excercise_hints", joinColumns = @JoinColumn(name = "excercise_id"))
-    @Schema(description = "The hints of the excercise", example = "[\"Try to use the Pythagorean theorem\"]")
+    @CollectionTable(name = "exercise_hints", joinColumns = @JoinColumn(name = "exercise_id"))
+    @Schema(description = "The hints of the exercise", example = "[\"Try to use the Pythagorean theorem\"]")
     private List<String> hints;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "excercise_solutions", joinColumns = @JoinColumn(name = "excercise_id"))
-    @Schema(description = "The solutions of the excercise", example = "[\"10\", \"10cm\", \"10 cm\"]")
+    @CollectionTable(name = "exercise_solutions", joinColumns = @JoinColumn(name = "exercise_id"))
+    @Schema(description = "The solutions of the exercise", example = "[\"10\", \"10cm\", \"10 cm\"]")
     private List<String> solutions;
 
     @Column(name = "generator_id", insertable = false, updatable = false)
-    @Schema(description = "The ID of the excercise generator that generated this excercise")
+    @Schema(description = "The ID of the exercise generator that generated this exercise")
     private UUID generatorId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "generator")
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
-    @Schema(description = "The excercise generator that generated this excercise")
-    private ExcerciseGenerator generator;
+    @Schema(description = "The exercise generator that generated this exercise")
+    private ExerciseGenerator generator;
 
-    public Excercise(String name, String question, ExcerciseType type, ExcerciseDifficulty difficulty, List<String> tags, List<String> hints, List<String> solutions) {
+    public Exercise(String name, String question, ExerciseType type, ExerciseDifficulty difficulty, List<String> tags, List<String> hints, List<String> solutions) {
         super();
         this.name = name;
         this.question = question;
@@ -72,7 +72,7 @@ public class Excercise extends AuthorAndDateTracked {
         this.solutions = solutions;
     }
 
-    protected Excercise() {
+    protected Exercise() {
         super();
     }
 
@@ -96,19 +96,19 @@ public class Excercise extends AuthorAndDateTracked {
         this.question = question;
     }
 
-    public ExcerciseType getType() {
+    public ExerciseType getType() {
         return type;
     }
 
-    public void setType(ExcerciseType type) {
+    public void setType(ExerciseType type) {
         this.type = type;
     }
 
-    public ExcerciseDifficulty getDifficulty() {
+    public ExerciseDifficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(ExcerciseDifficulty difficulty) {
+    public void setDifficulty(ExerciseDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -140,11 +140,11 @@ public class Excercise extends AuthorAndDateTracked {
         return generatorId;
     }
 
-    public ExcerciseGenerator getGenerator() {
+    public ExerciseGenerator getGenerator() {
         return generator;
     }
 
-    public void setGenerator(ExcerciseGenerator generator) {
+    public void setGenerator(ExerciseGenerator generator) {
         this.generator = generator;
         if (generator != null) {
             this.generatorId = generator.getId();  // Assicurati che 'getId' restituisca l'UUID

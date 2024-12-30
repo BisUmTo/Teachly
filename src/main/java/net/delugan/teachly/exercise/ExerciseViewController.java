@@ -1,4 +1,4 @@
-package net.delugan.teachly.excercise;
+package net.delugan.teachly.exercise;
 
 import net.delugan.teachly.user.UserRepository;
 import net.delugan.teachly.utils.AuthenticatedModelAndView;
@@ -13,40 +13,40 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/dashboard/excercises")
-public class ExcerciseViewController {
-    final ExcerciseRepository excerciseRepository;
+@RequestMapping("/dashboard/exercises")
+public class ExerciseViewController {
+    final ExerciseRepository exerciseRepository;
     final UserRepository userRepository;
 
-    public ExcerciseViewController(ExcerciseRepository excerciseRepository, UserRepository userRepository) {
-        this.excerciseRepository = excerciseRepository;
+    public ExerciseViewController(ExerciseRepository exerciseRepository, UserRepository userRepository) {
+        this.exerciseRepository = exerciseRepository;
         this.userRepository = userRepository;
     }
 
     @GetMapping
     public ModelAndView index(@AuthenticationPrincipal OAuth2User oAuth2User) {
-        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/excercises/list", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("excercises", excerciseRepository.findAll());
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/list", userRepository.getByOAuth2(oAuth2User));
+        modelAndView.addObject("exercises", exerciseRepository.findAll());
         return modelAndView;
     }
 
     @GetMapping("create")
     public ModelAndView create(@AuthenticationPrincipal OAuth2User oAuth2User) {
-        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/excercises/create", userRepository.getByOAuth2(oAuth2User));
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/create", userRepository.getByOAuth2(oAuth2User));
         return modelAndView;
     }
 
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
-        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/excercises/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("excercise", excerciseRepository.findById(id).orElseThrow());
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/edit", userRepository.getByOAuth2(oAuth2User));
+        modelAndView.addObject("exercise", exerciseRepository.findById(id).orElseThrow());
         return modelAndView;
     }
 
     @GetMapping("show/{id}")
     public ModelAndView show(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
-        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/excercises/show", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("excercise", excerciseRepository.findById(id).orElseThrow());
+        AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/show", userRepository.getByOAuth2(oAuth2User));
+        modelAndView.addObject("exercise", exerciseRepository.findById(id).orElseThrow());
         return modelAndView;
     }
 

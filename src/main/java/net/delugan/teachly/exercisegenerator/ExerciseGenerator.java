@@ -1,10 +1,10 @@
-package net.delugan.teachly.excercisegenerator;
+package net.delugan.teachly.exercisegenerator;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import net.delugan.teachly.excercise.Excercise;
-import net.delugan.teachly.excercise.ExcerciseDifficulty;
-import net.delugan.teachly.excercise.ExcerciseType;
+import net.delugan.teachly.exercise.Exercise;
+import net.delugan.teachly.exercise.ExerciseDifficulty;
+import net.delugan.teachly.exercise.ExerciseType;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.delugan.teachly.utils.JsonString;
 
@@ -13,23 +13,23 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "excercise_generators")
-public class ExcerciseGenerator extends AuthorAndDateTracked {
+@Table(name = "exercise_generators")
+public class ExerciseGenerator extends AuthorAndDateTracked {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false, unique = true)
-    @Schema(description = "The name of the excercise generator", example = "Pythagorean triples generator")
+    @Schema(description = "The name of the exercise generator", example = "Pythagorean triples generator")
     private String name;
 
     @Column(nullable = false)
-    @Schema(description = "The type of the excercise", example = "MULTIPLE_CHOICE")
-    private ExcerciseType type;
+    @Schema(description = "The type of the exercise", example = "MULTIPLE_CHOICE")
+    private ExerciseType type;
 
     @Enumerated(EnumType.STRING)
-    @Schema(description = "The difficulty of the excercise", example = "EASY")
-    private ExcerciseDifficulty difficulty;
+    @Schema(description = "The difficulty of the exercise", example = "EASY")
+    private ExerciseDifficulty difficulty;
 
     @Column(name = "blockly_json_code", nullable = false)
     @JsonString
@@ -38,10 +38,10 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
 
     @Column(name = "last_generation")
     @Temporal(TemporalType.TIMESTAMP)
-    @Schema(description = "The date of the last generation of the excercise with this generator", example = "2024-12-26T23:35:38Z")
+    @Schema(description = "The date of the last generation of the exercise with this generator", example = "2024-12-26T23:35:38Z")
     private Date lastGeneration;
 
-    public ExcerciseGenerator(String name, ExcerciseType type, ExcerciseDifficulty difficulty, String blocklyJsonCode) {
+    public ExerciseGenerator(String name, ExerciseType type, ExerciseDifficulty difficulty, String blocklyJsonCode) {
         super();
         this.name = name;
         this.type = type;
@@ -49,7 +49,7 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
         this.blocklyJsonCode = blocklyJsonCode;
     }
 
-    protected ExcerciseGenerator() {
+    protected ExerciseGenerator() {
         super();
     }
 
@@ -57,19 +57,19 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
         return id;
     }
 
-    public ExcerciseType getType() {
+    public ExerciseType getType() {
         return type;
     }
 
-    public void setType(ExcerciseType type) {
+    public void setType(ExerciseType type) {
         this.type = type;
     }
 
-    public ExcerciseDifficulty getDifficulty() {
+    public ExerciseDifficulty getDifficulty() {
         return difficulty;
     }
 
-    public void setDifficulty(ExcerciseDifficulty difficulty) {
+    public void setDifficulty(ExerciseDifficulty difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -89,11 +89,11 @@ public class ExcerciseGenerator extends AuthorAndDateTracked {
         this.lastGeneration = lastGeneration;
     }
 
-    public List<Excercise> generateExcercise() {
+    public List<Exercise> generateExercise() {
         setLastGeneration(new Date());
-        List<Excercise> excercises = null;
-        // TODO: Implement excercise generation
-        return excercises;
+        List<Exercise> exercises = null;
+        // TODO: Implement exercise generation
+        return exercises;
     }
 
     public String getName() {

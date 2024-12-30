@@ -17,6 +17,7 @@ $(document).ready(function() {
     if (uuidRegex.test(segments[segments.length - 1])) {
         segments.pop();
     }
+    segments.pop();
 
     // Riferimento all'elemento breadcrumb
     let $breadcrumb = $("#breadcrumb");
@@ -27,7 +28,7 @@ $(document).ready(function() {
         url += "/" + segment;
         let $li = $("<li>").addClass("breadcrumb-item");
 
-        if (index === segments.length - 1) {
+        if (index === segments.length) {
             // L'ultimo elemento è l'elemento attivo
             $li.addClass("active").attr("aria-current", "page").text(capitalize(segment));
         } else {
@@ -38,6 +39,17 @@ $(document).ready(function() {
 
         // Aggiungi l'elemento al breadcrumb
         $breadcrumb.append($li);
+    });
+
+    $('.nav-link').each(function () {
+        // Verifica se l'href del link corrisponde al percorso attuale
+        if ($(this).attr('href').endsWith(path)) {
+            // Aggiungi la classe "active" al link
+            $(this).addClass('active');
+
+            // Aggiungi la classe "menu-open" al genitore se necessario
+            $(this).closest('.nav-item').addClass('menu-open');
+        }
     });
 
     // Funzione per capitalizzare la prima lettera di un segmento

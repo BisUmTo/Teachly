@@ -12,6 +12,9 @@ spring:
     show-sql: false
   thymeleaf:
     cache: false
+  session:
+    jdbc:
+      initialize-schema: always
   security:
     oauth2:
       client:

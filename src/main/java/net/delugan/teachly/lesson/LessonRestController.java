@@ -37,7 +37,7 @@ class LessonRestController {
     public void addLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Lesson new_lesson) {
         Lesson lesson = new Lesson(new_lesson.getName(), new_lesson.getDescription(), new_lesson.getExplanation());
         lesson.setLinks(new_lesson.getLinks());
-        lesson.setExcercises(new_lesson.getExcercises());
+        lesson.setExercises(new_lesson.getExercises());
         lesson.setTriggers(new_lesson.getTriggers());
         lesson.setCorrectReward(new_lesson.getCorrectReward());
         lesson.setWrongReward(new_lesson.getWrongReward());
