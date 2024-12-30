@@ -1,0 +1,8 @@
+.swagger_icon img {
+    filter: invert(32%) sepia(91%) saturate(3258%) hue-rotate(201deg) brightness(104%) contrast(104%);
+    margin-top:-4px;
+}
+
+.swagger_icon:hover img {
+    filter: invert(15%) sepia(100%) saturate(7034%) hue-rotate(204deg) brightness(89%) contrast(101%);
+}

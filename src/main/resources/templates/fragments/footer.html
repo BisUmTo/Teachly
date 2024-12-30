@@ -5,11 +5,25 @@
     <title>Footer</title>
 </head>
 <body>
-<footer th:fragment="footer" class="main-footer d-flex">
-    <div class="flex-grow-1">
+<footer th:fragment="footer" class="main-footer d-flex justify-content-between">
+    <div>
         <strong>&copy; 2024-2025 <a th:href="@{/}">Teachly</a></strong> by <i>Kevin Delugan</i>.
     </div>
-
+    <div>
+        <nav>
+            <a href="https://github.com/BisUmTo/Teachly" target="_blank"
+               data-toggle="tooltip" data-placement="top" title="Source Code"
+            ><i class="fab fa-github"></i></a>
+            <a th:href="@{/docs}" target="_blank" class="swagger_icon"
+               data-toggle="tooltip" data-placement="top" title="Rest API Documentation"
+            >
+                <img width="16px" th:src="@{/img/svg/swagger.svg}" alt="API" />
+            </a>
+            <a href="#" target="_blank"
+               data-toggle="tooltip" data-placement="top" title="Bachelor's Degree Thesis"
+            ><i class="fas fa-scroll"></i></a>
+        </nav>
+    </div>
     <div>
         <nav>
             <a th:href="@{/privacy}">Privacy Policy</a> |
@@ -18,14 +32,7 @@
             <a href="https://opensource.org/licenses/MIT" target="_blank">License</a>
         </nav>
     </div>
-    <div class="flex-shrink-1 ml-md-3">
-        <nav>
-            <a href="https://github.com/BisUmTo/Teachly" target="_blank"><i class="fab fa-github"></i></a>
-            <a th:href="@{/docs}" target="_blank">
-                <img width="16px" th:src="@{/img/svg/swagger.svg}" style="filter: invert(30%) sepia(93%) saturate(2280%) hue-rotate(200deg) brightness(102%) contrast(109%); margin-top:-4px;" alt="API" />
-            </a>
-        </nav>
-    </div>
+
 </footer>
 </body>
 </html>

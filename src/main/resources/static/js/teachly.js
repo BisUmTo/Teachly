@@ -56,4 +56,8 @@ $(document).ready(function() {
     function capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
 });
