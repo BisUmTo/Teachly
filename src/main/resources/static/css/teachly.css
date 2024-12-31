@@ -20,3 +20,13 @@
 .brand-text {
     font-family: high_summit, cursive;
 }
+
+.create-button, .invite-button {
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tagify-input {
+    display: inline-flex;
+    height: auto;
+}

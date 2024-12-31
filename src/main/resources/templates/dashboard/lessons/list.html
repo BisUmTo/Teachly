@@ -25,7 +25,7 @@
                                 <th>Lesson name</th>
                                 <th>Author</th>
                                 <th>Latest Edit</th>
-                                <th>Actions</th>
+                                <td th:replace="~{fragments/datatable :: create('lessons', 'lesson')}"></td>
                             </tr>
                             </thead>
                             <tbody>
@@ -47,10 +47,8 @@
 </div>
 <!--end::App Main-->
 <footer th:replace="~{fragments/footer :: footer}"></footer>
-<!--end::App Wrapper-->
-<th:block th:replace="~{fragments/libraries :: body}"></th:block>
 <!-- DataTables  & Plugins -->
-
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
 </body>
 <!--end::Body-->
 </html>

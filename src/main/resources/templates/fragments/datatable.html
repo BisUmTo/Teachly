@@ -35,6 +35,16 @@
                 <a th:href="@{/dashboard/{item}/show/{id}(id=${e.getId()},item=${item})}" class="btn btn-primary w-100"><i class="fas fa-eye"></i></a>
             </div>
         </td>
+        <td th:fragment="create (item, name)" class="align-middle py-0">
+            <a class="btn btn-success btn btn-success create-button btn-s px-3 w-100" th:href="@{/dashboard/{item}/create(item=${item})}">
+                <i class="fas fa-plus mr-1"></i> new <span th:text="${name}"></span>
+            </a>
+        </td>
+        <td th:fragment="invite" class="align-middle py-0">
+            <a class="btn btn-success btn btn-success invite-button btn-s px-3 w-100" onclick="shareApp()">
+                <i class="fas fa-user-plus mr-1"></i> invite friends
+            </a>
+        </td>
     </tr>
 </table>
 <th:block th:fragment="libraries">

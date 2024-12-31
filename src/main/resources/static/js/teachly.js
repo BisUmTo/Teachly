@@ -7,6 +7,7 @@ function initializePage(){
     updateBreadcrumb();
     updateNavLinks();
     updateDataTable();
+    initializeTagify();
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
@@ -79,7 +80,12 @@ function updateDataTable() {
             "autoWidth": false,
             "responsive": true,
             "columnDefs": [
-                { "orderable": false, "targets": -1 }
+                {
+                    "orderable": false,
+                    "targets": -1,
+                    "autoWidth": false,
+                    "width": "1px"
+                }
             ]
         });
 }
@@ -99,4 +105,20 @@ function initializeBarba(){
                 }
             }]
         });
+}
+
+function shareApp(){
+    navigator.share({
+        title: "Teachly",
+        text: "Start using Teachly to gamify your lessons!",
+        url: "https://teachly.delugan.net/",
+    });
+}
+
+function initializeTagify() {
+    $('input.tagify-input').each((i, e) => {
+        let tagify = new Tagify(e, {
+            whitelist: ['foo', 'bar', 'and baz', 0, 1, 2]
+        })
+    })
 }

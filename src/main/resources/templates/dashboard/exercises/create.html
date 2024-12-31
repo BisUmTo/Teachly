@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{::link})}">
+    <title>Create Exercise - Teachly</title>
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" data-barba="wrapper">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper" data-barba="container">
+        <div th:replace="~{fragments/header :: header('Create Exercise')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                       <!-- <table id="list" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Exercise name</th>
+                                <th>Tags</th>
+                                <th>Author</th>
+                                <th>Latest Edit</th>
+                                <td th:replace="~{fragments/datatable :: create('exercises', 'exercise')}"></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
+                                <td th:replace="~{fragments/datatable :: name (item)}"></td>
+                                <td th:replace="~{fragments/datatable :: tags (item)}"></td>
+                                <td th:replace="~{fragments/datatable :: author (item)}"></td>
+                                <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
+                                <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
+                            </tr>
+                            </tbody>
+                        </table>-->
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="name">Name</label>
+                                    <input type="text" id="name" class="form-control" value="AdminLTE">
+                                </div>
+                                <div class="form-group">
+                                    <label for="type">Type</label>
+                                    <select id="type" class="form-control custom-select">
+                                        <option value="MULTIPLE_CHOICE">Multiple choice</option>
+                                        <option value="OPEN_QUESTION">Open question</option>
+                                        <option value="TRUE_FALSE">True or False</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Difficulty</label>
+                                    <div class="row">
+                                        <div class="form-check col-4 text-center">
+                                            <input class="form-check-input" type="radio" id="difficulty1" name="difficulty" value="EASY" />
+                                            <label for="difficulty1" class="form-check-label">Easy</label>
+                                        </div>
+                                        <div class="form-check col-4 text-center">
+                                            <input class="form-check-input" type="radio" id="difficulty2" name="difficulty" value="MEDIUM"  checked="" />
+                                            <label for="difficulty2" class="form-check-label">Medium</label>
+                                        </div>
+                                        <div class="form-check col-4 text-center">
+                                            <input class="form-check-input" type="radio" id="difficulty3" name="difficulty" value="HARD"  />
+                                            <label for="difficulty3" class="form-check-label">Hard</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tags">Tags</label>
+                                    <input type="text" id="tags" class="form-control tagify-input" >
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card card-primary card-outline">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="question">Question</label>
+                                    <textarea id="question" class="form-control" rows="4"></textarea>
+                                </div>
+                                <div data-type-value="MULTIPLE_CHOICE">
+                                    <div class="form-group" >
+                                        <label for="solutions"></label>
+                                        <input type="text" id="solutions" class="form-control tagify-input" >
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>

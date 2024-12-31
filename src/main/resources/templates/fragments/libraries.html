@@ -4,11 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title th:replace="${title}">AdminLTE 3 | Starter</title>
+    <link rel="icon" type="image/x-icon" href="/img/favicon/favicon.ico">
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+    <!-- Tagify -->
+    <link rel="stylesheet" th:href="@{/plugins/tagify/tagify.css}">
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{/css/teachly.css}">
@@ -22,10 +26,14 @@
     <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
     <!-- Bootstrap 4 -->
     <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+    <!-- Tagify -->
+    <script th:src="@{/plugins/tagify/tagify.js}"></script>
+    <script th:src="@{/plugins/tagify/tagify.polyfills.min.js}"></script>
     <!-- AdminLTE App -->
     <script th:src="@{/js/adminlte.min.js}"></script>
+    <!-- Data Tables -->
+    <th:block th:replace="~{fragments/datatable :: libraries}"></th:block>
     <script th:src="@{/js/teachly.js}"></script>
-
 </th:block>
 </body>
 </html>

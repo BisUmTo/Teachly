@@ -32,7 +32,7 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     private ExerciseDifficulty difficulty;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "exercise_tags", joinColumns = @JoinColumn(name = "exercise_id"))
+    @CollectionTable(name = "exercise_generators_tags", joinColumns = @JoinColumn(name = "exercise_id"))
     @Schema(description = "The tags of the exercise", example = "[\"math\", \"geometry\"]")
     private List<String> tags;
 
