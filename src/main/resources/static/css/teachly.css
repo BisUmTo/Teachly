@@ -26,7 +26,16 @@
     white-space: nowrap;
 }
 
+/* TAGIFY */
 .tagify-input {
     display: inline-flex;
     height: auto;
+}
+
+.tagify__tag {
+    background: #E5E5E5;
+}
+
+.tagify__tag:hover {
+    background: #D3E2E2;
 }

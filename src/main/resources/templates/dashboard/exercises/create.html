@@ -17,88 +17,191 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-6">
-                       <!-- <table id="list" class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                <th>Exercise name</th>
-                                <th>Tags</th>
-                                <th>Author</th>
-                                <th>Latest Edit</th>
-                                <td th:replace="~{fragments/datatable :: create('exercises', 'exercise')}"></td>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                <td th:replace="~{fragments/datatable :: name (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: tags (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: author (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
-                            </tr>
-                            </tbody>
-                        </table>-->
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name" class="form-control" value="AdminLTE">
+                <form action="/api/v1/exercises" method="post" id="create-form">
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- <table id="list" class="table table-bordered table-hover">
+                                 <thead>
+                                 <tr>
+                                     <th>Exercise name</th>
+                                     <th>Tags</th>
+                                     <th>Author</th>
+                                     <th>Latest Edit</th>
+                                     <td th:replace="~{fragments/datatable :: create('exercises', 'exercise')}"></td>
+                                 </tr>
+                                 </thead>
+                                 <tbody>
+                                 <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
+                                     <td th:replace="~{fragments/datatable :: name (item)}"></td>
+                                     <td th:replace="~{fragments/datatable :: tags (item)}"></td>
+                                     <td th:replace="~{fragments/datatable :: author (item)}"></td>
+                                     <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
+                                     <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
+                                 </tr>
+                                 </tbody>
+                             </table>-->
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-book mr-2"></i>
+                                        Exercise
+                                    </h3>
                                 </div>
-                                <div class="form-group">
-                                    <label for="type">Type</label>
-                                    <select id="type" class="form-control custom-select">
-                                        <option value="MULTIPLE_CHOICE">Multiple choice</option>
-                                        <option value="OPEN_QUESTION">Open question</option>
-                                        <option value="TRUE_FALSE">True or False</option>
-                                    </select>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input data-json-key="name" type="text" id="name" class="form-control">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="type">Type</label>
+                                        <select data-json-key="type" id="type" class="form-control custom-select">
+                                            <option value="MULTIPLE_CHOICE">Multiple choice</option>
+                                            <option value="OPEN_QUESTION">Open question</option>
+                                            <option value="TRUE_FALSE">True or False</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Difficulty</label>
+                                        <div class="row">
+                                            <div class="form-check col-4 text-center">
+                                                <input data-json-key="difficulty" class="form-check-input" type="radio"
+                                                       id="difficulty1" name="difficulty" value="EASY"/>
+                                                <label for="difficulty1" class="form-check-label">Easy</label>
+                                            </div>
+                                            <div class="form-check col-4 text-center">
+                                                <input class="form-check-input" type="radio" id="difficulty2"
+                                                       name="difficulty" value="MEDIUM" checked=""/>
+                                                <label for="difficulty2" class="form-check-label">Medium</label>
+                                            </div>
+                                            <div class="form-check col-4 text-center">
+                                                <input class="form-check-input" type="radio" id="difficulty3"
+                                                       name="difficulty" value="HARD"/>
+                                                <label for="difficulty3" class="form-check-label">Hard</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tags">Tags</label>
+                                        <input data-json-key="tags" type="text" id="tags"
+                                               class="form-control tagify-input">
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>Difficulty</label>
-                                    <div class="row">
-                                        <div class="form-check col-4 text-center">
-                                            <input class="form-check-input" type="radio" id="difficulty1" name="difficulty" value="EASY" />
-                                            <label for="difficulty1" class="form-check-label">Easy</label>
-                                        </div>
-                                        <div class="form-check col-4 text-center">
-                                            <input class="form-check-input" type="radio" id="difficulty2" name="difficulty" value="MEDIUM"  checked="" />
-                                            <label for="difficulty2" class="form-check-label">Medium</label>
-                                        </div>
-                                        <div class="form-check col-4 text-center">
-                                            <input class="form-check-input" type="radio" id="difficulty3" name="difficulty" value="HARD"  />
-                                            <label for="difficulty3" class="form-check-label">Hard</label>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <!-- Multiple choice -->
+                        <div class="col-6 question-details" data-type-value="MULTIPLE_CHOICE">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-th-list mr-2"></i>
+                                        Multiple choice
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_question">Question</label>
+                                        <textarea data-json-key="question" id="MULTIPLE_CHOICE_question"
+                                                  class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_options">Answer options</label>
+                                        <input data-json-key="hints" type="text" id="MULTIPLE_CHOICE_options"
+                                               class="form-control tagify-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_solutions">Correct options
+                                            <i class="fas fa-info-circle"
+                                               data-toggle="tooltip" data-placement="bottom"
+                                               title="Any option is equally correct"
+                                            ></i>
+                                        </label>
+                                        <input data-json-key="solutions" type="text" id="MULTIPLE_CHOICE_solutions"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Open question -->
+                        <div class="col-6 question-details" data-type-value="OPEN_QUESTION">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-comment-dots mr-2"></i>
+                                        Open Question
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_question">Question</label>
+                                        <textarea data-json-key="question" id="OPEN_QUESTION_question"
+                                                  class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_hints">Hints</label>
+                                        <input data-json-key="hints" type="text" id="OPEN_QUESTION_hints"
+                                               class="form-control tagify-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_solutions">Correct answers
+                                            <i class="fas fa-info-circle"
+                                               data-toggle="tooltip" data-placement="bottom"
+                                               title="Any answer is equally correct"
+                                            ></i>
+                                        </label>
+                                        <input data-json-key="solutions" type="text" id="OPEN_QUESTION_solutions"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- True false -->
+                        <div class="col-6 question-details" data-type-value="TRUE_FALSE">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-comment-dots mr-2"></i>
+                                        True or False
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="TRUE_FALSE_question">Question</label>
+                                        <textarea data-json-key="question" id="TRUE_FALSE_question" class="form-control"
+                                                  rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="form-check col-6 text-center">
+                                                <input data-json-key="solutions" class="form-check-input" type="radio"
+                                                       id="TRUE_FALSE_true" name="TRUE_FALSE_solutions" value="EASY"/>
+                                                <label for="TRUE_FALSE_true" class="form-check-label">True</label>
+                                            </div>
+                                            <div class="form-check col-6 text-center">
+                                                <input class="form-check-input" type="radio" id="TRUE_FALSE_false"
+                                                       name="TRUE_FALSE_solutions" value="MEDIUM" checked=""/>
+                                                <label for="TRUE_FALSE_false" class="form-check-label">False</label>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="tags">Tags</label>
-                                    <input type="text" id="tags" class="form-control tagify-input" >
-                                </div>
                             </div>
-                            <!-- /.card-body -->
                         </div>
                     </div>
-                    <div class="col-6">
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="question">Question</label>
-                                    <textarea id="question" class="form-control" rows="4"></textarea>
-                                </div>
-                                <div data-type-value="MULTIPLE_CHOICE">
-                                    <div class="form-group" >
-                                        <label for="solutions"></label>
-                                        <input type="text" id="solutions" class="form-control tagify-input" >
-                                    </div>
-                                </div>
-
-                            </div>
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
+                            <button id="save-button" class="btn btn-primary">Save</button>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- /.content -->
+        <script th:src="@{/js/create.js}"></script>
+        <script th:src="@{/js/create/exercise.js}"></script>
     </div>
     <!-- /.content-wrapper -->
 </div>

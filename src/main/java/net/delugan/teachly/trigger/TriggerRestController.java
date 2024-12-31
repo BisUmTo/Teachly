@@ -33,15 +33,16 @@ public class TriggerRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Trigger new_trigger) {
+    public Trigger addTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Trigger new_trigger) {
         Trigger trigger = new Trigger(new_trigger.getName(), new_trigger.getDescription(), new_trigger.getBlocklyJsonCode());
         trigger.setAuthor(userRepository.getByOAuth2(oAuth2User));
         trigger.updateLastModified();
         triggerRepository.save(trigger);
+        return trigger;
     }
 
     @PutMapping("{id}")
-    public void updateTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Trigger new_trigger) {
+    public Trigger updateTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Trigger new_trigger) {
         User user = userRepository.getByOAuth2(oAuth2User);
         new_trigger.setAuthor(user);
         Trigger trigger = triggerRepository.findById(id).orElse(new_trigger);
@@ -53,6 +54,7 @@ public class TriggerRestController {
         trigger.setBlocklyJsonCode(new_trigger.getBlocklyJsonCode());
         trigger.updateLastModified();
         triggerRepository.save(trigger);
+        return trigger;
     }
 
     @DeleteMapping("{id}")

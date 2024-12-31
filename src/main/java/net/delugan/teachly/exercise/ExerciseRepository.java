@@ -7,4 +7,7 @@ import java.util.UUID;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
     List<Exercise> findAllByGeneratorId(UUID generatorId);
+    default List<String> getAllTags(){
+        return findAll().stream().map(Exercise::getTags).flatMap(List::stream).distinct().toList();
+    }
 }

@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -33,7 +34,7 @@ class ExerciseRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Exercise new_exercise) {
+    public Exercise addExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Exercise new_exercise) {
         Exercise exercise = new Exercise(
                 new_exercise.getName(),
                 new_exercise.getQuestion(),
@@ -46,10 +47,11 @@ class ExerciseRestController {
         exercise.setAuthor(userRepository.getByOAuth2(oAuth2User));
         exercise.updateLastModified();
         exerciseRepository.save(exercise);
+        return exercise;
     }
 
     @PutMapping("{id}")
-    public void updateExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Exercise new_exercise) {
+    public Exercise updateExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Exercise new_exercise) {
         User user = userRepository.getByOAuth2(oAuth2User);
         new_exercise.setAuthor(user);
         Exercise exercise = exerciseRepository.findById(id).orElse(new_exercise);
@@ -66,6 +68,7 @@ class ExerciseRestController {
         exercise.setQuestion(new_exercise.getQuestion());
         exercise.updateLastModified();
         exerciseRepository.save(exercise);
+        return exercise;
     }
 
     @DeleteMapping("{id}")
@@ -75,6 +78,11 @@ class ExerciseRestController {
             throw new AuthorizationDeniedException("You are not the author of this exercise");
         }
         exerciseRepository.deleteById(id);
+    }
+
+    @GetMapping("/tags")
+    public List<String> getTags() {
+        return exerciseRepository.getAllTags();
     }
 }
 

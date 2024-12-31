@@ -34,7 +34,7 @@ class LessonRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Lesson new_lesson) {
+    public Lesson addLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Lesson new_lesson) {
         Lesson lesson = new Lesson(new_lesson.getName(), new_lesson.getDescription(), new_lesson.getExplanation());
         lesson.setLinks(new_lesson.getLinks());
         lesson.setExercises(new_lesson.getExercises());
@@ -44,10 +44,11 @@ class LessonRestController {
         lesson.setAuthor(userRepository.getByOAuth2(oAuth2User));
         lesson.updateLastModified();
         lessonRepository.save(lesson);
+        return lesson;
     }
 
     @PutMapping("{id}")
-    public void updateLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Lesson new_lesson) {
+    public Lesson updateLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Lesson new_lesson) {
         User user = userRepository.getByOAuth2(oAuth2User);
         new_lesson.setAuthor(user);
         Lesson lesson = lessonRepository.findById(id).orElse(new_lesson);
@@ -59,6 +60,7 @@ class LessonRestController {
         lesson.setExplanation(new_lesson.getExplanation());
         lesson.updateLastModified();
         lessonRepository.save(lesson);
+        return lesson;
     }
 
     @DeleteMapping("{id}")

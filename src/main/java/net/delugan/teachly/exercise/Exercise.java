@@ -42,7 +42,7 @@ public class Exercise extends AuthorAndDateTracked {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "exercise_hints", joinColumns = @JoinColumn(name = "exercise_id"))
-    @Schema(description = "The hints of the exercise", example = "[\"Try to use the Pythagorean theorem\"]")
+    @Schema(description = "The hints of the exercise if type is OPEN_QUESTION, options if MULTIPLE_CHOICE", example = "[\"Try to use the Pythagorean theorem\"]")
     private List<String> hints;
 
     @ElementCollection(fetch = FetchType.LAZY)

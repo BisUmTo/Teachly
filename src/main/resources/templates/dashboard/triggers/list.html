@@ -12,7 +12,7 @@
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <div class="content-wrapper" data-barba="container">
-        <div th:replace="~{fragments/header :: header('Triggers')}"></div>
+        <div th:replace="~{fragments/header :: withCreate ('Triggers','triggers')}"></div>
 
         <!-- Main content -->
         <section class="content">

@@ -7,7 +7,6 @@ function initializePage(){
     updateBreadcrumb();
     updateNavLinks();
     updateDataTable();
-    initializeTagify();
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
@@ -70,7 +69,12 @@ function updateNavLinks(){
 
 function updateDataTable() {
     let datatable = $("#list");
-    if(datatable.DataTable)
+    if(datatable.length && $.fn.DataTable) {
+        console.log("DataTables trovato.");
+        if ($.fn.DataTable.isDataTable(datatable)) {
+            datatable.DataTable().destroy();
+            console.log("DataTables distrutto.");
+        }
         datatable.DataTable({
             "paging": true,
             "lengthChange": false,
@@ -88,6 +92,11 @@ function updateDataTable() {
                 }
             ]
         });
+        console.log("DataTables inizializzato.");
+        console.log(datatable.DataTable().settings());
+    }else {
+        console.warn("DataTables non è disponibile o non trova #list.");
+    }
 }
 
 function initializeBarba(){
@@ -100,8 +109,10 @@ function initializeBarba(){
                 enter(data) {
                 },
                 after() {
-                    initializePage();
-                    window.dispatchEvent(new Event('resize'));
+                    // initializePage();
+                    initializtions();
+
+                    //window.dispatchEvent(new Event('resize'));
                 }
             }]
         });
@@ -113,12 +124,4 @@ function shareApp(){
         text: "Start using Teachly to gamify your lessons!",
         url: "https://teachly.delugan.net/",
     });
-}
-
-function initializeTagify() {
-    $('input.tagify-input').each((i, e) => {
-        let tagify = new Tagify(e, {
-            whitelist: ['foo', 'bar', 'and baz', 0, 1, 2]
-        })
-    })
 }

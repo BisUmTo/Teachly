@@ -6,7 +6,7 @@
 </head>
 <body>
 <!--begin::App Content Header-->
-<div th:fragment="header (title)" class="content-header">
+<div th:fragment="builder (title, right)" class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -16,11 +16,20 @@
                 </h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-                <ol id="breadcrumb" class="breadcrumb float-sm-right"></ol>
+                <th:block th:replace="${right}"></th:block>
+
             </div><!-- /.col -->
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 <!--end::App Content Header-->
+<div th:fragment="withCreate (title, item)" th:replace="~{fragments/header :: builder (${title}, ~{:: create})}">
+    <div th:fragment="create" class="col-sm-6">
+        <a class="btn btn-success btn btn-success create-button btn-s float-right" th:href="@{/dashboard/{item}/create(item=${item})}">
+            <i class="fas fa-plus mr-1"></i> new <span th:text="${title}"></span>
+        </a>
+    </div>
+</div>
+<div th:fragment="header (title)" th:replace="~{fragments/header :: builder (${title}, ~{})}"></div>
 </body>
 </html>

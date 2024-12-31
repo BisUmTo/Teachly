@@ -38,7 +38,7 @@ class ExerciseGeneratorRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void addExerciseGenerator(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody ExerciseGenerator new_exerciseGenerator) {
+    public ExerciseGenerator addExerciseGenerator(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody ExerciseGenerator new_exerciseGenerator) {
         ExerciseGenerator exerciseGenerator = new ExerciseGenerator(
                 new_exerciseGenerator.getName(),
                 new_exerciseGenerator.getType(),
@@ -49,10 +49,11 @@ class ExerciseGeneratorRestController {
         exerciseGenerator.setAuthor(userRepository.getByOAuth2(oAuth2User));
         exerciseGenerator.updateLastModified();
         exerciseGeneratorRepository.save(exerciseGenerator);
+        return exerciseGenerator;
     }
 
     @PutMapping("{id}")
-    public void updateExerciseGenerator(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody ExerciseGenerator new_exerciseGenerator) {
+    public ExerciseGenerator updateExerciseGenerator(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody ExerciseGenerator new_exerciseGenerator) {
         User user = userRepository.getByOAuth2(oAuth2User);
         new_exerciseGenerator.setAuthor(user);
         ExerciseGenerator exerciseGenerator = exerciseGeneratorRepository.findById(id).orElse(new_exerciseGenerator);
@@ -64,6 +65,7 @@ class ExerciseGeneratorRestController {
         exerciseGenerator.setBlocklyJsonCode(new_exerciseGenerator.getBlocklyJsonCode());
         exerciseGenerator.updateLastModified();
         exerciseGeneratorRepository.save(exerciseGenerator);
+        return exerciseGenerator;
     }
 
     @DeleteMapping("{id}")
