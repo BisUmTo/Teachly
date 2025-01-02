@@ -1,7 +1,6 @@
 $(document).ready(function() {
     updateBreadcrumb();
     updateNavLinks();
-
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
     });

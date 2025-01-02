@@ -32,7 +32,7 @@
                                 <div class="ml-auto">
                                     <span th:if="${exercise.getGeneratorId() != null}">
                                        Generated with
-                                        <a th:href="@{/dashboard/exercises/generators/{id}(id=${exercise.getGeneratorId()})}"
+                                        <a th:href="@{/dashboard/exercises/generators/show/{id}(id=${exercise.getGeneratorId()})}"
                                            th:text="${exercise.getGenerator().getName()}">
                                             Generator Name
                                         </a>
