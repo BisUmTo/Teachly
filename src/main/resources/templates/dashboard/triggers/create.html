@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{::link})}">
+    <title>Create Trigger - Teachly</title>
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header('Create Trigger')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid pb-3">
+                <form action="/api/v1/triggers" method="post" id="create-form">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-keyboard mr-2"></i>
+                                        Trigger
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <div th:replace="~{fragments/create :: create-name}"></div>
+                                            <div th:replace="~{fragments/create :: create-tags}"></div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div th:replace="~{fragments/create :: create-description (5)}"></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- maximixable card -->
+                            <div class="card card-primary card-outline" id="blocklyCard">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-code mr-2"></i>
+                                        Code
+                                    </h3>
+                                    <div class="card-tools">
+                                        <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                            <i class="fas fa-expand"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="card-body" id="blocklyArea">
+                                    <div id="blocklyDiv"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
+                            <button id="save-button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/plugins/blockly/blockly.min.js}"></script>
+        <script th:src="@{/plugins/blockly/workspace-backpack/index.js}"></script>
+        <script th:src="@{/js/common/create.js}"></script>
+        <script th:src="@{/js/triggers/create.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>

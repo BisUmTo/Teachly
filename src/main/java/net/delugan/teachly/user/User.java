@@ -1,5 +1,6 @@
 package net.delugan.teachly.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.utils.DateTracked;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "users")
 public class User extends DateTracked implements Serializable {
     @Id

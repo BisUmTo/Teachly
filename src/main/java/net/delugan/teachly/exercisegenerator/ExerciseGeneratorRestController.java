@@ -104,4 +104,9 @@ class ExerciseGeneratorRestController {
         exerciseRepository.deleteAll(exercises);
         return exercises.size();
     }
+
+    @GetMapping("/tags")
+    public List<String> getTags() {
+        return exerciseGeneratorRepository.getAllTags();
+    }
 }

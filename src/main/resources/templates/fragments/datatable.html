@@ -11,6 +11,7 @@
             <a th:href="@{/dashboard/{item}/show/{id}(id=${e.getId()},item=${item})}" th:text="${e.getName()}">Name</a>
         </td>
         <td th:fragment="tags (item)">
+            <span th:if="${e.getTags().isEmpty()}" class="badge bg-secondary mr-1">No Tags</span>
             <span class="badge bg-primary mr-1" th:each="t : ${e.getTags()}" th:text="${t}">Tags</span>
         </td>
         <td th:fragment="author (item)" th:with="a=${e.class.name == 'net.delugan.teachly.user.User'?e:e.getAuthor()}">

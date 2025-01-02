@@ -1,5 +1,6 @@
 package net.delugan.teachly.exercisegenerator;
 
+import net.delugan.teachly.exercise.ExerciseRepository;
 import net.delugan.teachly.user.UserRepository;
 import net.delugan.teachly.utils.AuthenticatedModelAndView;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,10 +17,12 @@ import java.util.UUID;
 @RequestMapping("/dashboard/exercises/generators")
 public class ExerciseGeneratorViewController {
     final ExerciseGeneratorRepository exerciseGeneratorRepository;
+    final ExerciseRepository exerciseRepository;
     final UserRepository userRepository;
 
-    public ExerciseGeneratorViewController(ExerciseGeneratorRepository exerciseGeneratorRepository, UserRepository userRepository) {
+    public ExerciseGeneratorViewController(ExerciseGeneratorRepository exerciseGeneratorRepository, ExerciseRepository exerciseRepository, UserRepository userRepository) {
         this.exerciseGeneratorRepository = exerciseGeneratorRepository;
+        this.exerciseRepository = exerciseRepository;
         this.userRepository = userRepository;
     }
 
@@ -47,6 +50,7 @@ public class ExerciseGeneratorViewController {
     public ModelAndView show(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/show", userRepository.getByOAuth2(oAuth2User));
         modelAndView.addObject("generator", exerciseGeneratorRepository.findById(id).orElseThrow());
+        modelAndView.addObject("generatedExercises", exerciseRepository.findAllByGeneratorId(id));
         return modelAndView;
     }
 

@@ -4,10 +4,10 @@
     <title>Lesson - Teachly</title>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper" data-barba="wrapper">
+<div class="wrapper" id="#swup">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper" data-barba="container">
+    <div class="content-wrapper">
         <div th:replace="~{fragments/header :: header ('Lesson')}"></div>
 
         <!-- Main content -->
@@ -37,6 +37,7 @@
                                     <dd class="col-sm-8 col-md-9" th:text="${lesson.getDescription()}"></dd>
                                     <dt class="col-sm-4 col-md-3">Explanation</dt>
                                     <dd class="col-sm-8 col-md-9" th:text="${lesson.getExplanation()}"></dd>
+                                    <th:block th:replace="~{fragments/show :: tags (${e})}"></th:block>
                                     <dt class="col-sm-4 col-md-3">Links</dt>
                                     <dd class="col-sm-8 col-md-9">
                                         <th:block th:if="${lesson.getLinks().size() == 0}">
@@ -116,7 +117,6 @@
                                             </div>
                                         </div>
                                     </dd>
-                                    <th:block th:replace="~{fragments/show :: tags (${e})}"></th:block>
                                 </dl>
                             </div>
                             <div class="card-body row" th:fragment="card-body (e)" id="generation">

@@ -1,17 +1,14 @@
 $(document).ready(function() {
-    initializePage()
-    initializeBarba()
-});
-
-function initializePage(){
     updateBreadcrumb();
     updateNavLinks();
-    updateDataTable();
 
     $(function () {
         $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
     });
-}
+    $('.tooltip').tooltip('hide');
+
+    new Swup();
+});
 
 function updateBreadcrumb() {
     let path = window.location.pathname;
@@ -65,50 +62,6 @@ function updateNavLinks(){
             $(this).closest('.nav-item').removeClass('menu-open');
         }
     });
-}
-
-function updateDataTable() {
-    let datatable = $("#list");
-    if(datatable.length && $.fn.DataTable) {
-        if ($.fn.DataTable.isDataTable(datatable)) {
-            datatable.DataTable().destroy();
-        }
-        datatable.DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-            "columnDefs": [
-                {
-                    "orderable": false,
-                    "targets": -1,
-                    "autoWidth": false,
-                    "width": "1px"
-                }
-            ]
-        });
-        console.info("DataTables inizializzato.");
-    }
-}
-
-function initializeBarba(){
-    if(barba)
-        barba.init({
-            transitions: [{
-                name: 'default-transition',
-                leave(data) {
-                },
-                enter(data) {
-                },
-                after() {
-                    initializePage();
-                    window.dispatchEvent(new Event('resize'));
-                }
-            }]
-        });
 }
 
 function shareApp(){

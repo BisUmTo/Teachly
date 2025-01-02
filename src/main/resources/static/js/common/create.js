@@ -24,6 +24,17 @@ function sendForm(){
             json[key] = $(element).val();
         }
     });
+
+    // Blockly JavaScript
+    const blocklyDiv = document.getElementById('blocklyDiv');
+    if (blocklyDiv) {
+        const workspace = Blockly.getMainWorkspace();
+        const blockly_json = Blockly.serialization.workspaces.save(workspace)
+        json['blocklyJsonCode'] = JSON.stringify(blockly_json);
+    }
+
+
+
     console.warn(json);
 
     fetch(url, {
@@ -53,10 +64,44 @@ function sendForm(){
             // Handle the successful response data
             console.log("Success:", data);
             let id = data.id;
-            window.location.href = "../show/" + id;
+            let currentUrl = window.location.href;
+            window.location.href = currentUrl.substring(0, currentUrl.lastIndexOf('/')) + '/show/' + id;
         })
         .catch(error => {
             console.error("Error:", error); // Log the error to the console for debugging
             alert("An error occurred: " + error.message); // Show a user-friendly message
         });
+}
+
+function initializeTags() {
+    // TAGS
+    const tagsInput = document.querySelector('#tags');
+    const tagsTagify = new Tagify(tagsInput, {
+        delimiters: ",|\n|\r",
+        whitelist: [],
+        enforceWhitelist: false, // Permetti di aggiungere nuove tag
+        dropdown: {
+            enabled: 0,
+            maxItems: 10,
+            closeOnSelect: false
+        }
+    });
+    (async () => {
+        const existingTags = await fetchTags();
+        tagsTagify.settings.whitelist.push(...existingTags);
+        tagsTagify.dropdown.refilter();
+    })();
+}
+let API_TAG_FETCH_URL = '';
+async function fetchTags() {
+    try {
+        const response = await fetch(API_TAG_FETCH_URL);
+        if (!response.ok) {
+            throw new Error("Error while getting tags");
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error while loading tags:", error);
+        return [];
+    }
 }

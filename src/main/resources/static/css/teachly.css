@@ -43,3 +43,19 @@
 .tagify__tag:hover {
     background: #D3E2E2;
 }
+
+/* BLOCKLY */
+#blocklyArea{
+    height: 100%;
+    min-height: 300px;
+    width: 100%;
+
+    resize: vertical;
+}
+.maximized-card #blocklyArea{
+    resize: none;
+}
+#blocklyDiv {
+    min-height: 300px;
+    position: absolute;
+}

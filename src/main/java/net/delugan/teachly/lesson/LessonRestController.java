@@ -16,10 +16,12 @@ import java.util.UUID;
 class LessonRestController {
     public final LessonRepository lessonRepository;
     public final UserRepository userRepository;
+    public final LessonService lessonService;
 
-    public LessonRestController(LessonRepository lessonRepository, UserRepository userRepository) {
+    public LessonRestController(LessonRepository lessonRepository, UserRepository userRepository, LessonService lessonService) {
         this.lessonRepository = lessonRepository;
         this.userRepository = userRepository;
+        this.lessonService = lessonService;
     }
     
     @GetMapping
@@ -34,37 +36,21 @@ class LessonRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Lesson addLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Lesson new_lesson) {
-        Lesson lesson = new Lesson(new_lesson.getName(), new_lesson.getDescription(), new_lesson.getExplanation());
-        lesson.setLinks(new_lesson.getLinks());
-        lesson.setExercises(new_lesson.getExercises());
-        lesson.setTriggers(new_lesson.getTriggers());
-        lesson.setTags(new_lesson.getTags());
-        lesson.setCorrectReward(new_lesson.getCorrectReward());
-        lesson.setWrongReward(new_lesson.getWrongReward());
-        lesson.setAuthor(userRepository.getByOAuth2(oAuth2User));
+    public Lesson addLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody LessonRequest lessonRequest) {
+        Lesson lesson = lessonService.createLesson(lessonRequest, oAuth2User);
         lesson.updateLastModified();
         lessonRepository.save(lesson);
         return lesson;
     }
 
     @PutMapping("{id}")
-    public Lesson updateLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Lesson new_lesson) {
-        User user = userRepository.getByOAuth2(oAuth2User);
-        new_lesson.setAuthor(user);
+    public Lesson updateLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody LessonRequest lessonRequest) {
+        Lesson new_lesson = lessonService.createLesson(lessonRequest, oAuth2User);
         Lesson lesson = lessonRepository.findById(id).orElse(new_lesson);
         if(!lesson.isAuthor(userRepository.getByOAuth2(oAuth2User))) {
             throw new AuthorizationDeniedException("You are not the author of this lesson");
         }
-        lesson.setName(new_lesson.getName());
-        lesson.setDescription(new_lesson.getDescription());
-        lesson.setExplanation(new_lesson.getExplanation());
-        lesson.setLinks(new_lesson.getLinks());
-        lesson.setExercises(new_lesson.getExercises());
-        lesson.setTriggers(new_lesson.getTriggers());
-        lesson.setTags(new_lesson.getTags());
-        lesson.setCorrectReward(new_lesson.getCorrectReward());
-        lesson.setWrongReward(new_lesson.getWrongReward());
+        lesson = lessonService.updateLesson(lesson, lessonRequest);
         lesson.updateLastModified();
         lessonRepository.save(lesson);
         return lesson;
@@ -77,5 +63,10 @@ class LessonRestController {
             throw new AuthorizationDeniedException("You are not the author of this lesson");
         }
         lessonRepository.deleteById(id);
+    }
+
+    @GetMapping("/tags")
+    public List<String> getTags() {
+        return lessonRepository.getAllTags();
     }
 }

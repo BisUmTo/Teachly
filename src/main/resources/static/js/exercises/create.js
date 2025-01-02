@@ -1,23 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-
-    // TAGS
-    const tagsInput = document.querySelector('#tags');
-    const tagsTagify = new Tagify(tagsInput, {
-        delimiters: ",|\n|\r",
-        whitelist: [],
-        enforceWhitelist: false, // Permetti di aggiungere nuove tag
-        dropdown: {
-            enabled: 0,
-            maxItems: 10,
-            closeOnSelect: false
-        }
-    });
-    (async () => {
-        const existingTags = await fetchTags();
-        tagsTagify.settings.whitelist.push(...existingTags);
-        tagsTagify.dropdown.refilter();
-    })();
-
+    initializeTags();
 
     // QUESTION
     const questionDetails = $('.question-details');
@@ -66,17 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hintsTagify = new Tagify(hintsInput, {delimiters: "\n|\r"});
     const solutions2Tagify = new Tagify(solutions2Input, {delimiters: "\n|\r"});
+
+    console.info('Creation page loaded');
 });
 
-async function fetchTags() {
-    try {
-        const response = await fetch('/api/v1/exercises/tags');
-        if (!response.ok) {
-            throw new Error("Error while getting tags");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error while loading tags:", error);
-        return [];
-    }
-}
+API_TAG_FETCH_URL = '/api/v1/exercises/tags';

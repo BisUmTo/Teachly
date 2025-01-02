@@ -1,5 +1,6 @@
 package net.delugan.teachly.exercisegenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.exercise.Exercise;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "exercise_generators")
 public class ExerciseGenerator extends AuthorAndDateTracked {
     @Id
@@ -36,7 +38,7 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The tags of the exercise", example = "[\"math\", \"geometry\"]")
     private List<String> tags;
 
-    @Column(name = "blockly_json_code", nullable = false)
+    @Column(name = "blockly_json_code", nullable = false, length = 10485760)
     @JsonString
     @Schema(description = "The Blockly JSON code of the reward", example = "{\"blocks\": {\"languageVersion\": 0,\"blocks\": [{...}]}}")
     private String blocklyJsonCode;

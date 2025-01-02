@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,6 +37,7 @@ public class RewardRestController {
     public Reward addReward(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Reward new_reward) {
         Reward reward = new Reward(new_reward.getName(), new_reward.getDescription(), new_reward.getBlocklyJsonCode());
         reward.setAuthor(userRepository.getByOAuth2(oAuth2User));
+        reward.setTags(new_reward.getTags());
         reward.updateLastModified();
         rewardRepository.save(reward);
         return reward;
@@ -52,6 +54,7 @@ public class RewardRestController {
         reward.setName(new_reward.getName());
         reward.setDescription(new_reward.getDescription());
         reward.setBlocklyJsonCode(new_reward.getBlocklyJsonCode());
+        reward.setTags(new_reward.getTags());
         reward.updateLastModified();
         rewardRepository.save(reward);
         return reward;
@@ -64,5 +67,10 @@ public class RewardRestController {
             throw new AuthorizationDeniedException("You are not the author of this reward");
         }
         rewardRepository.deleteById(id);
+    }
+
+    @GetMapping("/tags")
+    public List<String> getTags() {
+        return rewardRepository.getAllTags();
     }
 }

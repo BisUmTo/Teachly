@@ -1,5 +1,6 @@
 package net.delugan.teachly.exercise;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.exercisegenerator.ExerciseGenerator;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "exercises")
 public class Exercise extends AuthorAndDateTracked {
     @Id
@@ -149,7 +151,7 @@ public class Exercise extends AuthorAndDateTracked {
         if (generator != null) {
             this.generatorId = generator.getId();  // Assicurati che 'getId' restituisca l'UUID
         } else {
-            this.generatorId = null;  // Se 'author' è null, imposta anche 'authorId' su null
+            this.generatorId = null;  // Se 'generator' è null, imposta anche 'generatorId' su null
         }
     }
 }

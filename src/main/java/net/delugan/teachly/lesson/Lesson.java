@@ -1,5 +1,6 @@
 package net.delugan.teachly.lesson;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.exercise.Exercise;
@@ -15,6 +16,7 @@ import java.util.UUID;
 import org.apache.commons.lang3.tuple.Pair;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "lessons")
 public class Lesson extends AuthorAndDateTracked {
     @Id
@@ -67,7 +69,7 @@ public class Lesson extends AuthorAndDateTracked {
     @Schema(description = "The reward given when the student answers incorrectly")
     private Reward wrongReward;
 
-    @Column(name = "javascript_generated_code")
+    @Column(name = "javascript_generated_code", length = 10485760)
     private String javascriptGeneratedCode;
 
     @Column(name = "last_generation")

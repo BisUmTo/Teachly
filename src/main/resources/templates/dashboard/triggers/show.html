@@ -4,10 +4,10 @@
     <title>Trigger - Teachly</title>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper" data-barba="wrapper">
+<div class="wrapper" id="#swup">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper" data-barba="container">
+    <div class="content-wrapper">
         <div th:replace="~{fragments/header :: header ('Trigger')}"></div>
 
         <!-- Main content -->
@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-primary card-outline" th:fragment="card (trigger)" th:with="e=${trigger}" th:id="${trigger.getId()}">
+                        <div class="card card-primary card-outline" th:fragment="card (trigger)" th:with="e=${trigger}" th:id="'trigger-'+${trigger.getId()}">
                             <!-- card-header -->
                             <div class="card-header d-flex">
                                 <h3 class="card-title">
@@ -26,7 +26,7 @@
                                 </h3>
                                 <div class="ml-auto">
                                     by
-                                    <a th:replace="~{fragments/show :: author (${e})}"></a>
+                                    <a th:replace="~{fragments/show :: author (${trigger})}"></a>
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -35,19 +35,38 @@
                                 <dl class="row mb-0">
                                     <dt class="col-sm-4 col-md-3">Description</dt>
                                     <dd class="col-sm-8 col-md-9" th:text="${trigger.getDescription()}"></dd>
+                                    <th:block th:replace="~{fragments/show :: tags (${trigger})}"></th:block>
                                     <!-- TODO: Blockly -->
                                 </dl>
                             </div>
                             <!-- /.card-body -->
-                            <div th:replace="~{fragments/show :: card-footer (${e}, 'triggers')}" ></div>
+                            <div th:replace="~{fragments/show :: card-footer (${trigger}, 'triggers')}" ></div>
+                        </div>
+                        <div class="card card-primary card-outline" id="blocklyCard">
+                            <div class="card-header">
+                                <h3 class="card-title">
+                                    <i class="fas fa-code mr-2"></i>
+                                    Code
+                                </h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                                        <i class="fas fa-expand"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body" id="blocklyArea">
+                                <div id="blocklyDiv" th:text="${trigger.getBlocklyJsonCode()}"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
         <!-- /.content -->
+        <script th:src="@{/plugins/blockly/blockly.min.js}"></script>
+        <script th:src="@{/plugins/blockly/workspace-backpack/index.js}"></script>
         <script th:src="@{/js/common/show.js}"></script>
-        <script th:src="@{/js/lessons/show.js}"></script>
+        <script th:src="@{/js/triggers/show.js}"></script>
     </div>
     <!-- /.content-wrapper -->
 </div>

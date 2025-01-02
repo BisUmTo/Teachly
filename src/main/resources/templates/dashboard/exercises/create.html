@@ -8,38 +8,18 @@
     <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper" data-barba="wrapper">
+<div class="wrapper" id="#swup">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper" data-barba="container">
+    <div class="content-wrapper">
         <div th:replace="~{fragments/header :: header('Create Exercise')}"></div>
 
         <!-- Main content -->
         <section class="content">
-            <div class="container-fluid">
+            <div class="container-fluid  pb-3">
                 <form action="/api/v1/exercises" method="post" id="create-form">
                     <div class="row">
                         <div class="col-6">
-                            <!-- <table id="list" class="table table-bordered table-hover">
-                                 <thead>
-                                 <tr>
-                                     <th>Exercise name</th>
-                                     <th>Tags</th>
-                                     <th>Author</th>
-                                     <th>Latest Edit</th>
-                                     <td th:replace="~{fragments/datatable :: create('exercises', 'exercise')}"></td>
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                 <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                     <td th:replace="~{fragments/datatable :: name (${item})}"></td>
-                                     <td th:replace="~{fragments/datatable :: tags (${item})}"></td>
-                                     <td th:replace="~{fragments/datatable :: author (${item})}"></td>
-                                     <td th:replace="~{fragments/datatable :: last_modified (${item})}"></td>
-                                     <td th:replace="~{fragments/datatable :: buttons(${item})}"></td>
-                                 </tr>
-                                 </tbody>
-                             </table>-->
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title">
@@ -48,43 +28,10 @@
                                     </h3>
                                 </div>
                                 <div class="card-body">
-                                    <div class="form-group">
-                                        <label for="name">Name</label>
-                                        <input data-json-key="name" type="text" id="name" class="form-control">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="type">Type</label>
-                                        <select data-json-key="type" id="type" class="form-control custom-select">
-                                            <option value="MULTIPLE_CHOICE">Multiple choice</option>
-                                            <option value="OPEN_QUESTION">Open question</option>
-                                            <option value="TRUE_FALSE">True or False</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Difficulty</label>
-                                        <div class="row">
-                                            <div class="form-check col-4 text-center">
-                                                <input data-json-key="difficulty" class="form-check-input" type="radio"
-                                                       id="difficulty1" name="difficulty" value="EASY"/>
-                                                <label for="difficulty1" class="form-check-label">Easy</label>
-                                            </div>
-                                            <div class="form-check col-4 text-center">
-                                                <input class="form-check-input" type="radio" id="difficulty2"
-                                                       name="difficulty" value="MEDIUM" checked=""/>
-                                                <label for="difficulty2" class="form-check-label">Medium</label>
-                                            </div>
-                                            <div class="form-check col-4 text-center">
-                                                <input class="form-check-input" type="radio" id="difficulty3"
-                                                       name="difficulty" value="HARD"/>
-                                                <label for="difficulty3" class="form-check-label">Hard</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="tags">Tags</label>
-                                        <input data-json-key="tags" type="text" id="tags"
-                                               class="form-control tagify-input">
-                                    </div>
+                                    <div th:replace="~{fragments/create :: create-name}"></div>
+                                    <div th:replace="~{fragments/create :: create-type}"></div>
+                                    <div th:replace="~{fragments/create :: create-difficulty}"></div>
+                                    <div th:replace="~{fragments/create :: create-tags}"></div>
                                 </div>
                                 <!-- /.card-body -->
                             </div>

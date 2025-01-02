@@ -8,10 +8,10 @@
     <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper" data-barba="wrapper">
+<div class="wrapper" id="#swup">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper" data-barba="container">
+    <div class="content-wrapper">
         <div th:replace="~{fragments/header :: withCreate ('Rewards','rewards')}"></div>
 
         <!-- Main content -->
@@ -23,6 +23,7 @@
                             <thead>
                             <tr>
                                 <th>Reward name</th>
+                                <th>Tags</th>
                                 <th>Author</th>
                                 <th>Latest Edit</th>
                                 <th>Actions</th>
@@ -31,6 +32,7 @@
                             <tbody>
                             <tr th:with="item='rewards'" th:each="e : ${rewards}" class="list-element" th:attr="data-element-id=${e.getId()}">
                                 <td th:replace="~{fragments/datatable :: name (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: tags (${item})}"></td>
                                 <td th:replace="~{fragments/datatable :: author (${item})}"></td>
                                 <td th:replace="~{fragments/datatable :: last_modified (${item})}"></td>
                                 <td th:replace="~{fragments/datatable :: buttons(${item})}"></td>
@@ -42,6 +44,7 @@
             </div>
         </section>
         <!-- /.content -->
+        <script th:src="@{/js/common/list.js}"></script>
     </div>
     <!-- /.content-wrapper -->
 </div>

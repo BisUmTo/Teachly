@@ -1,13 +1,16 @@
 package net.delugan.teachly.trigger;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.delugan.teachly.utils.JsonString;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "triggers")
 public class Trigger extends AuthorAndDateTracked {
     @Id
@@ -21,11 +24,15 @@ public class Trigger extends AuthorAndDateTracked {
     @Schema(description = "The description of the trigger", example = "Triggers when a mob is killed by a player")
     private String description;
 
-    @Column(name = "blockly_json_code", nullable = false)
+    @Column(name = "blockly_json_code", nullable = false, length = 10485760)
     @JsonString
     @Schema(description = "The Blockly JSON code of the reward", example = "{\"blocks\": {\"languageVersion\": 0,\"blocks\": [{...}]}}")
     private String blocklyJsonCode;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "trigger_tags", joinColumns = @JoinColumn(name = "trigger_id"))
+    @Schema(description = "The tags of the trigger", example = "[\"math\", \"geometry\"]")
+    private List<String> tags;
 
     public Trigger(String name, String description, String blocklyJsonCode) {
         super();
@@ -66,4 +73,11 @@ public class Trigger extends AuthorAndDateTracked {
         this.blocklyJsonCode = blocklyJsonCode;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 }

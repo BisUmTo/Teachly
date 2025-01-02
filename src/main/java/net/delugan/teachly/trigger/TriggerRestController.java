@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -36,6 +37,7 @@ public class TriggerRestController {
     public Trigger addTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Trigger new_trigger) {
         Trigger trigger = new Trigger(new_trigger.getName(), new_trigger.getDescription(), new_trigger.getBlocklyJsonCode());
         trigger.setAuthor(userRepository.getByOAuth2(oAuth2User));
+        trigger.setTags(new_trigger.getTags());
         trigger.updateLastModified();
         triggerRepository.save(trigger);
         return trigger;
@@ -53,6 +55,7 @@ public class TriggerRestController {
         trigger.setDescription(new_trigger.getDescription());
         trigger.setBlocklyJsonCode(new_trigger.getBlocklyJsonCode());
         trigger.updateLastModified();
+        trigger.setTags(new_trigger.getTags());
         triggerRepository.save(trigger);
         return trigger;
     }
@@ -64,5 +67,10 @@ public class TriggerRestController {
             throw new AuthorizationDeniedException("You are not the author of this trigger");
         }
         triggerRepository.deleteById(id);
+    }
+
+    @GetMapping("/tags")
+    public List<String> getTags() {
+        return triggerRepository.getAllTags();
     }
 }

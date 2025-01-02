@@ -4,10 +4,10 @@
     <title>Exercise - Teachly</title>
 </head>
 <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="wrapper" data-barba="wrapper">
+<div class="wrapper" id="#swup">
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
-    <div class="content-wrapper" data-barba="container">
+    <div class="content-wrapper">
         <div th:replace="~{fragments/header :: header ('Exercise')}"></div>
 
         <!-- Main content -->
@@ -15,7 +15,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
-                        <div class="card card-primary card-outline" th:fragment="card (exercise)" th:with="e=${exercise}" th:id="${exercise.getId()}">
+                        <div class="card card-primary card-outline" th:fragment="card (exercise)" th:with="e=${exercise}" th:id="'exercise-'+${exercise.getId()}">
                             <!-- card-header -->
                             <div class="card-header d-flex">
                                 <h3 class="card-title">
@@ -32,7 +32,7 @@
                                 <div class="ml-auto">
                                     <span th:if="${exercise.getGeneratorId() != null}">
                                        Generated with
-                                        <a th:href="@{/generator/{id}(id=${exercise.getGeneratorId()})}"
+                                        <a th:href="@{/dashboard/exercises/generators/{id}(id=${exercise.getGeneratorId()})}"
                                            th:text="${exercise.getGenerator().getName()}">
                                             Generator Name
                                         </a>

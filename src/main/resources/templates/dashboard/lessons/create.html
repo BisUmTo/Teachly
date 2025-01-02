@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{::link})}">
+    <title>Create Lesson - Teachly</title>
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header('Create Lesson')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid  pb-3">
+                <form action="/api/v1/lessons" method="post" id="create-form">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                        Lesson
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div th:replace="~{fragments/create :: create-name}"></div>
+                                    <div th:replace="~{fragments/create :: create-description (5)}"></div>
+                                    <div class="form-group">
+                                        <label for="explanation">Explanation</label>
+                                        <textarea data-json-key="explanation" id="explanation"
+                                                  class="form-control" rows="5"></textarea>
+                                    </div>
+                                    <div th:replace="~{fragments/create :: create-tags}"></div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <!-- Triggers -->
+                        <div class="col-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-keyboard mr-2"></i>
+                                        Triggers
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="triggers" style="display: none;">Exercises</label>
+                                        <input data-json-key="triggers" type="text" id="triggers"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-book mr-2"></i>
+                                        Exercises
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="exercises" style="display: none;">Exercises</label>
+                                        <input data-json-key="exercises" type="text" id="exercises"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-gem mr-2"></i>
+                                        Rewards
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="correct-reward">Correct Answers Reward</label>
+                                        <input data-json-key="correctReward" type="text" id="correct-reward"
+                                               class="form-control tagify-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="wrong-reward">Wrong Answers Reward</label>
+                                        <input data-json-key="wrongReward" type="text" id="wrong-reward"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="float-right">
+                            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
+                            <button id="save-button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/js/common/create.js}"></script>
+        <script th:src="@{/js/lessons/create.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>
