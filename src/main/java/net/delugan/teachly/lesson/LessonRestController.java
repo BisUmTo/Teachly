@@ -39,6 +39,7 @@ class LessonRestController {
         lesson.setLinks(new_lesson.getLinks());
         lesson.setExercises(new_lesson.getExercises());
         lesson.setTriggers(new_lesson.getTriggers());
+        lesson.setTags(new_lesson.getTags());
         lesson.setCorrectReward(new_lesson.getCorrectReward());
         lesson.setWrongReward(new_lesson.getWrongReward());
         lesson.setAuthor(userRepository.getByOAuth2(oAuth2User));
@@ -58,6 +59,12 @@ class LessonRestController {
         lesson.setName(new_lesson.getName());
         lesson.setDescription(new_lesson.getDescription());
         lesson.setExplanation(new_lesson.getExplanation());
+        lesson.setLinks(new_lesson.getLinks());
+        lesson.setExercises(new_lesson.getExercises());
+        lesson.setTriggers(new_lesson.getTriggers());
+        lesson.setTags(new_lesson.getTags());
+        lesson.setCorrectReward(new_lesson.getCorrectReward());
+        lesson.setWrongReward(new_lesson.getWrongReward());
         lesson.updateLastModified();
         lessonRepository.save(lesson);
         return lesson;

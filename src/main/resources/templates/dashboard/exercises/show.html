@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Exercise - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" data-barba="wrapper">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper" data-barba="container">
+        <div th:replace="~{fragments/header :: header ('Exercise')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline" th:fragment="card (exercise)" th:with="e=${exercise}" th:id="${exercise.getId()}">
+                            <!-- card-header -->
+                            <div class="card-header d-flex">
+                                <h3 class="card-title">
+                                    <th:block th:fragment="card-title (exercise)">
+                                        <i th:if="${exercise.getType().toString()} == 'OPEN_QUESTION'"
+                                           class="fas fa-comment-dots mr-2"></i>
+                                        <i th:if="${exercise.getType().toString()} == 'MULTIPLE_CHOICE'"
+                                           class="fas fa-th-list mr-2"></i>
+                                        <i th:if="${exercise.getType().toString()} == 'TRUE_FALSE'"
+                                           class="fas fa-check-double mr-2"></i>
+                                        <span th:text="${exercise.getName()}">Exercise Name</span>
+                                    </th:block>
+                                </h3>
+                                <div class="ml-auto">
+                                    <span th:if="${exercise.getGeneratorId() != null}">
+                                       Generated with
+                                        <a th:href="@{/generator/{id}(id=${exercise.getGeneratorId()})}"
+                                           th:text="${exercise.getGenerator().getName()}">
+                                            Generator Name
+                                        </a>
+                                    </span>
+                                    by
+                                    <a th:replace="~{fragments/show :: author (${exercise})}"></a>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- card-body -->
+                            <div class="card-body" th:fragment="card-body (exercise)">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 col-md-3">Question</dt>
+                                    <dd class="col-sm-8 col-md-9" th:text="${exercise.getQuestion()}"></dd>
+                                    <dt class="col-sm-4 col-md-3">Solutions</dt>
+                                    <dd class="col-sm-8 col-md-9">
+                                        <ul class="list-unstyled">
+                                            <li th:each="solution : ${exercise.getSolutions()}" th:text="${solution}">
+                                                Solution
+                                            </li>
+                                        </ul>
+                                    </dd>
+                                    <th:block th:if=" ${exercise.getHints().size() > 0}">
+                                        <dt class="col-sm-4 col-md-3" th:test="${exercise.getType().toString()} == 'OPEN_QUESTION' ? 'Hints' : 'Options'"></dt>
+                                        <dd class="col-sm-8 col-md-9">
+                                            <ul class="list-unstyled">
+                                                <li th:each="hint : ${exercise.getHints()}" th:text="${hint}">Hint</li>
+                                            </ul>
+                                        </dd>
+                                    </th:block>
+                                    <th:block th:replace="~{fragments/show :: tags (${exercise})}"></th:block>
+                                    <th:block th:replace="~{fragments/show :: difficulty (${exercise})}"></th:block>
+                                    <th:block th:replace="~{fragments/show :: type (${exercise})}"></th:block>
+                                </dl>
+                            </div>
+                            <!-- /.card-body -->
+                            <div th:replace="~{fragments/show :: card-footer (${exercise}, 'exercises')}" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/js/common/show.js}"></script>
+        <script th:src="@{/js/exercises/show.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>

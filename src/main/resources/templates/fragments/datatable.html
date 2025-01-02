@@ -24,10 +24,16 @@
         <td th:fragment="created_at (item)" th:text="${#dates.format(e.getCreatedAt(), 'yyyy-MM-dd hh:mm')}">Created At</td>
         <td th:fragment="buttons (item)" class="py-0 align-middle">
             <div class="btn-group btn-group-sm">
-                <a th:href="@{/dashboard/{item}/show/{id}(id=${e.getId()},item=${item})}" class="btn btn-primary w-100"><i class="fas fa-eye"></i></a>
-                <a th:if="${e.getAuthorId() == me.getId()}" th:href="@{/dashboard/{item}/edit/{id}(id=${e.getId()},item=${item})}" class="btn btn-warning"><i class="fas fa-edit"></i></a>
-                <a th:href="@{/dashboard/{item}/create(id=${e.getId()},item=${item})}" class="btn btn-info"><i class="fas fa-clone"></i></a>
-                <!--<a th:href="@{/dashboard/{item}/delete/{id}(id=${e.getId()},item=${item})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>-->
+                <a th:href="@{/dashboard/{item}/show/{id}(id=${e.getId()},item=${item})}" class="btn btn-primary w-100"
+                    data-toggle="tooltip" title="Show" data-placement="top"
+                ><i class="fas fa-eye"></i></a>
+                <a th:if="${e.getAuthorId() == me.getId()}" th:href="@{/dashboard/{item}/edit/{id}(id=${e.getId()},item=${item})}" class="btn btn-warning"
+                   data-toggle="tooltip" title="Edit" data-placement="top"
+                ><i class="fas fa-edit"></i></a>
+                <a th:href="@{/dashboard/{item}/create(id=${e.getId()},item=${item})}" class="btn btn-info"
+                   data-toggle="tooltip" title="Clone" data-placement="top"
+                ><i class="fas fa-clone"></i></a>
+                <!--<a th:if="${e.getAuthorId() == me.getId()}" th:href="@{/dashboard/{item}/delete/{id}(id=${e.getId()},item=${item})}" class="btn btn-danger"><i class="fas fa-trash"></i></a>-->
             </div>
         </td>
         <td th:fragment="show (item)" class="py-0 align-middle">

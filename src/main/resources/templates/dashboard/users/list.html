@@ -12,7 +12,7 @@
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <div class="content-wrapper" data-barba="container">
-        <div th:replace="~{fragments/header :: header('Community')}"></div>
+        <div th:replace="~{fragments/header :: withInvite ('Community')}"></div>
 
         <!-- Main content -->
         <section class="content">
@@ -25,15 +25,15 @@
                                 <th>User</th>
                                 <th>Last Login</th>
                                 <th>Created At</th>
-                                <td th:replace="~{fragments/datatable :: invite}"></td>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:with="item='users'" th:each="e : ${users}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                <td th:replace="~{fragments/datatable :: author (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: last_login (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: created_at (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: show (item)}"></td>
+                                <td th:replace="~{fragments/datatable :: author (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: last_login (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: created_at (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: show (${item})}"></td>
                             </tr>
                             </tbody>
                         </table>

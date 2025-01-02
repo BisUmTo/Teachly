@@ -11,25 +11,33 @@
         <div class="row mb-2">
             <div class="col-sm-6">
 
-                <h1 class="m-0"> <a data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                <h1 class="m-0"><a data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                     <span class="ml-2" th:text="${title}">Starter Page</span>
                 </h1>
             </div><!-- /.col -->
-            <div class="col-sm-6">
-                <th:block th:replace="${right}"></th:block>
-
-            </div><!-- /.col -->
+            <div th:replace="${right}"></div>
         </div><!-- /.row -->
     </div><!-- /.container-fluid -->
 </div>
 <!--end::App Content Header-->
+
 <div th:fragment="withCreate (title, item)" th:replace="~{fragments/header :: builder (${title}, ~{:: create})}">
     <div th:fragment="create" class="col-sm-6">
-        <a class="btn btn-success btn btn-success create-button btn-s float-right" th:href="@{/dashboard/{item}/create(item=${item})}">
+        <a class="btn btn-success btn btn-success create-button btn-s float-right"
+           th:href="@{/dashboard/{item}/create(item=${item})}">
             <i class="fas fa-plus mr-1"></i> new <span th:text="${title}"></span>
         </a>
     </div>
 </div>
+
+<div th:fragment="withInvite (title)" th:replace="~{fragments/header :: builder (${title}, ~{:: invite})}">
+    <div th:fragment="invite" class="col-sm-6">
+        <a class="btn btn-success btn btn-success invite-button btn-s float-right" onclick="shareApp()">
+            <i class="fas fa-user-plus mr-1"></i> invite friends
+        </a>
+    </div>
+</div>
+
 <div th:fragment="header (title)" th:replace="~{fragments/header :: builder (${title}, ~{})}"></div>
 </body>
 </html>

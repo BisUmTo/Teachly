@@ -70,10 +70,8 @@ function updateNavLinks(){
 function updateDataTable() {
     let datatable = $("#list");
     if(datatable.length && $.fn.DataTable) {
-        console.log("DataTables trovato.");
         if ($.fn.DataTable.isDataTable(datatable)) {
             datatable.DataTable().destroy();
-            console.log("DataTables distrutto.");
         }
         datatable.DataTable({
             "paging": true,
@@ -92,10 +90,7 @@ function updateDataTable() {
                 }
             ]
         });
-        console.log("DataTables inizializzato.");
-        console.log(datatable.DataTable().settings());
-    }else {
-        console.warn("DataTables non è disponibile o non trova #list.");
+        console.info("DataTables inizializzato.");
     }
 }
 
@@ -109,10 +104,8 @@ function initializeBarba(){
                 enter(data) {
                 },
                 after() {
-                    // initializePage();
-                    initializtions();
-
-                    //window.dispatchEvent(new Event('resize'));
+                    initializePage();
+                    window.dispatchEvent(new Event('resize'));
                 }
             }]
         });

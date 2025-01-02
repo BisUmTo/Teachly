@@ -25,15 +25,15 @@
                                 <th>Trigger name</th>
                                 <th>Author</th>
                                 <th>Latest Edit</th>
-                                <td th:replace="~{fragments/datatable :: create('triggers', 'trigger')}"></td>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:with="item='triggers'" th:each="e : ${triggers}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                <td th:replace="~{fragments/datatable :: name (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: author (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
+                                <td th:replace="~{fragments/datatable :: name (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: author (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: last_modified (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: buttons(${item})}"></td>
                             </tr>
                             </tbody>
                         </table>

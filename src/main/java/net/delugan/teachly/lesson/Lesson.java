@@ -44,6 +44,11 @@ public class Lesson extends AuthorAndDateTracked {
     @Schema(description = "The exercises that are part of the lesson")
     private List<Exercise> exercises;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "lesson_tags", joinColumns = @JoinColumn(name = "lesson_id"))
+    @Schema(description = "The tags of the lesson", example = "[\"math\", \"geometry\"]")
+    private List<String> tags;
+
     @ManyToMany
     @JoinTable(
             name = "lesson_triggers",
@@ -161,4 +166,11 @@ public class Lesson extends AuthorAndDateTracked {
         return lastGeneration;
     }
 
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
 }

@@ -32,11 +32,11 @@
                                  </thead>
                                  <tbody>
                                  <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                     <td th:replace="~{fragments/datatable :: name (item)}"></td>
-                                     <td th:replace="~{fragments/datatable :: tags (item)}"></td>
-                                     <td th:replace="~{fragments/datatable :: author (item)}"></td>
-                                     <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
-                                     <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
+                                     <td th:replace="~{fragments/datatable :: name (${item})}"></td>
+                                     <td th:replace="~{fragments/datatable :: tags (${item})}"></td>
+                                     <td th:replace="~{fragments/datatable :: author (${item})}"></td>
+                                     <td th:replace="~{fragments/datatable :: last_modified (${item})}"></td>
+                                     <td th:replace="~{fragments/datatable :: buttons(${item})}"></td>
                                  </tr>
                                  </tbody>
                              </table>-->
@@ -123,7 +123,7 @@
                             </div>
                         </div>
                         <!-- Open question -->
-                        <div class="col-6 question-details" data-type-value="OPEN_QUESTION">
+                        <div class="col-6 question-details" data-type-value="OPEN_QUESTION" style="display: none;">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title">
@@ -156,11 +156,11 @@
                             </div>
                         </div>
                         <!-- True false -->
-                        <div class="col-6 question-details" data-type-value="TRUE_FALSE">
+                        <div class="col-6 question-details" data-type-value="TRUE_FALSE" style="display: none;">
                             <div class="card card-primary card-outline">
                                 <div class="card-header">
                                     <h3 class="card-title">
-                                        <i class="fas fa-comment-dots mr-2"></i>
+                                        <i class="fas fa-check-double mr-2"></i>
                                         True or False
                                     </h3>
                                 </div>
@@ -200,8 +200,8 @@
             </div>
         </section>
         <!-- /.content -->
-        <script th:src="@{/js/create.js}"></script>
-        <script th:src="@{/js/create/exercise.js}"></script>
+        <script th:src="@{/js/common/create.js}"></script>
+        <script th:src="@{/js/exercises/create.js}"></script>
     </div>
     <!-- /.content-wrapper -->
 </div>

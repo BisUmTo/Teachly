@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Trigger - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" data-barba="wrapper">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper" data-barba="container">
+        <div th:replace="~{fragments/header :: header ('Trigger')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline" th:fragment="card (trigger)" th:with="e=${trigger}" th:id="${trigger.getId()}">
+                            <!-- card-header -->
+                            <div class="card-header d-flex">
+                                <h3 class="card-title">
+                                    <th:block th:fragment="card-title (trigger)">
+                                        <i class="fas fa-gem mr-2"></i>
+                                        <span th:text="${trigger.getName()}"></span>
+                                    </th:block>
+                                </h3>
+                                <div class="ml-auto">
+                                    by
+                                    <a th:replace="~{fragments/show :: author (${e})}"></a>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- card-body -->
+                            <div class="card-body" th:fragment="card-body (trigger)">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 col-md-3">Description</dt>
+                                    <dd class="col-sm-8 col-md-9" th:text="${trigger.getDescription()}"></dd>
+                                    <!-- TODO: Blockly -->
+                                </dl>
+                            </div>
+                            <!-- /.card-body -->
+                            <div th:replace="~{fragments/show :: card-footer (${e}, 'triggers')}" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/js/common/show.js}"></script>
+        <script th:src="@{/js/lessons/show.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>

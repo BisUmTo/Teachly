@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Lesson - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" data-barba="wrapper">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper" data-barba="container">
+        <div th:replace="~{fragments/header :: header ('Lesson')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-primary card-outline" th:fragment="card (lesson)" th:with="e=${lesson}" th:id="'lesson-'+${lesson.getId()}">
+                            <!-- card-header -->
+                            <div class="card-header d-flex">
+                                <h3 class="card-title" >
+                                    <th:block th:fragment="card-title (lesson)">
+                                        <i class="fas fa-chalkboard-teacher mr-2"></i>
+                                        <span th:text="${lesson.getName()}"></span>
+                                    </th:block>
+                                </h3>
+                                <div class="ml-auto">
+                                    by
+                                    <a th:replace="~{fragments/show :: author (${e})}"></a>
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <!-- card-body -->
+                            <div class="card-body">
+                                <dl class="row mb-0">
+                                    <dt class="col-sm-4 col-md-3">Description</dt>
+                                    <dd class="col-sm-8 col-md-9" th:text="${lesson.getDescription()}"></dd>
+                                    <dt class="col-sm-4 col-md-3">Explanation</dt>
+                                    <dd class="col-sm-8 col-md-9" th:text="${lesson.getExplanation()}"></dd>
+                                    <dt class="col-sm-4 col-md-3">Links</dt>
+                                    <dd class="col-sm-8 col-md-9">
+                                        <th:block th:if="${lesson.getLinks().size() == 0}">
+                                            <span>No links found</span>
+                                        </th:block>
+                                        <ul class="list-unstyled" th:unless="${lesson.getLinks().size() == 0}">
+                                            <li th:each="link : ${lesson.getLinks()}">
+                                                <a th:href="${link.getValue()}" th:text="${link.getKey()}"></a>
+                                            </li>
+                                        </ul>
+                                    </dd>
+                                    <dt class="col-12">Triggers</dt>
+                                    <dd class="col-12" id="triggers">
+                                        <th:block th:if="${lesson.getTriggers().size() == 0}">
+                                            <span>No triggers found</span>
+                                        </th:block>
+                                        <div th:unless="${lesson.getTriggers().size() == 0}" class="card card-primary" th:each="trigger : ${lesson.getTriggers()}">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    <a class="d-block w-100 collapsed" data-toggle="collapse" th:href="${'#trigger-' + trigger.getId()}"
+                                                       aria-expanded="false" th:insert="~{dashboard/triggers/show :: card-title (${trigger})}"></a>
+                                                </h4>
+                                            </div>
+                                            <div th:id="'trigger-'+${trigger.getId()}" class="collapse" th:attr="data-parent='#lesson-'+${lesson.getId()}"
+                                                 th:insert="~{dashboard/triggers/show :: card-body (${trigger})}">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                    <dt class="col-12">Exercises</dt>
+                                    <dd class="col-12" id="exercises">
+                                        <th:block th:if="${lesson.getExercises().size() == 0}">
+                                            <span>No exercises found</span>
+                                        </th:block>
+                                        <div th:unless="${lesson.getExercises().size() == 0}" class="card card-primary" th:each="exercise : ${lesson.getExercises()}">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    <a class="d-block w-100 collapsed" data-toggle="collapse" th:href="${'#exercise-' + exercise.getId()}"
+                                                       aria-expanded="false" th:insert="~{dashboard/exercises/show :: card-title (${exercise})}"></a>
+                                                </h4>
+                                            </div>
+                                            <div th:id="'exercise-'+${exercise.getId()}" class="collapse" th:attr="data-parent='#lesson-'+${lesson.getId()}"
+                                                 th:insert="~{dashboard/exercises/show :: card-body (${exercise})}">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                    <dt class="col-12">Correct Answers Reward</dt>
+                                    <dd class="col-12" th:with="r=${lesson.getCorrectReward()}" id="correct-reward">
+                                        <th:block th:if="${r == null}">
+                                            <span>No reward found</span>
+                                        </th:block>
+                                        <div th:unless="${r == null}" class="card card-primary">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    <a class="d-block w-100 collapsed" data-toggle="collapse" th:href="${'#correct-reward-' + r.getId()}"
+                                                       aria-expanded="false" th:insert="~{dashboard/rewards/show :: card-title (${r})}"></a>
+                                                </h4>
+                                            </div>
+                                            <div th:id="'correct-reward-'+${r.getId()}" class="collapse" th:attr="data-parent='#lesson-'+${lesson.getId()}"
+                                                 th:insert="~{dashboard/rewards/show :: card-body (${r})}">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                    <dt class="col-12">Wrong Answers Reward</dt>
+                                    <dd class="col-12" th:with="r=${lesson.getWrongReward()}" id="wrong-reward">
+                                        <th:block th:if="${r == null}">
+                                            <span>No reward found</span>
+                                        </th:block>
+                                        <div th:unless="${r == null}" class="card card-primary">
+                                            <div class="card-header">
+                                                <h4 class="card-title w-100">
+                                                    <a class="d-block w-100 collapsed" data-toggle="collapse" th:href="${'#wrong-reward-' + r.getId()}"
+                                                            aria-expanded="false" th:insert="~{dashboard/rewards/show :: card-title (${r})}"></a>
+                                                </h4>
+                                            </div>
+                                            <div th:id="'wrong-reward-'+${r.getId()}" class="collapse" th:attr="data-parent='#lesson-'+${lesson.getId()}"
+                                                 th:insert="~{dashboard/rewards/show :: card-body (${r})}">
+                                            </div>
+                                        </div>
+                                    </dd>
+                                    <th:block th:replace="~{fragments/show :: tags (${e})}"></th:block>
+                                </dl>
+                            </div>
+                            <div class="card-body row" th:fragment="card-body (e)" id="generation">
+                                <div class="col-sm-6 d-flex flex-wrap">
+                                    <div class="d-flex align-items-center mr-3">
+                                        <i class="fas fa-industry text-primary mr-1"></i>
+                                        <strong class="mr-1">Last generation:</strong>
+                                        <span th:text="${lesson.getLastGeneration()==null?' / ':#dates.format(lesson.getLastGeneration(), 'yyyy-MM-dd hh:mm')}" id="last-generation"></span>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="btn-group btn-group-sm float-right">
+                                        <button type="button" class="btn btn-default disabled" data-toggle="modal" data-target="#downloadModal" id="download">
+                                            <i class="fa fa-download"></i>
+                                        </button>
+                                        <!-- Download Modal -->
+                                        <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-xl" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="downloadModalLabel">Lesson Generated Code</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <textarea id="generatedCode" th:text="${lesson.getJavascriptGeneratedCode()}"></textarea>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        <button type="button" class="btn btn-primary">Download</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <a href="#" class="btn btn-success"
+                                           data-toggle="tooltip" title="Generate" data-placement="top"
+                                        >Generate Lesson</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.card-body -->
+                            <div th:replace="~{fragments/show :: card-footer (${e}, 'lessons')}" ></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/plugins/codemirror/codemirror.js}"></script>
+        <script th:src="@{/plugins/codemirror/mode/css/css.js}"></script>
+        <script th:src="@{/plugins/codemirror/mode/xml/xml.js}"></script>
+        <script th:src="@{/plugins/codemirror/mode/htmlmixed/htmlmixed.js}"></script>
+        <script th:src="@{/js/common/show.js}"></script>
+        <script th:src="@{/js/lessons/show.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+<!--end::Body-->
+</html>

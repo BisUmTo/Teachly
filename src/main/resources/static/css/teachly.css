@@ -26,6 +26,10 @@
     white-space: nowrap;
 }
 
+.table tr {
+    background-color: var(--white);
+}
+
 /* TAGIFY */
 .tagify-input {
     display: inline-flex;

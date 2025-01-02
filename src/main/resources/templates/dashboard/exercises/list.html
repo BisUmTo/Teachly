@@ -12,7 +12,7 @@
     <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
 
     <div class="content-wrapper" data-barba="container">
-        <div th:replace="~{fragments/header :: header('Exercises')}"></div>
+        <div th:replace="~{fragments/header :: withCreate ('Exercises','exercises')}"></div>
 
         <!-- Main content -->
         <section class="content">
@@ -26,16 +26,16 @@
                                 <th>Tags</th>
                                 <th>Author</th>
                                 <th>Latest Edit</th>
-                                <td th:replace="~{fragments/datatable :: create('exercises', 'exercise')}"></td>
+                                <th>Actions</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:with="item='exercises'" th:each="e : ${exercises}" class="list-element" th:attr="data-element-id=${e.getId()}">
-                                <td th:replace="~{fragments/datatable :: name (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: tags (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: author (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: last_modified (item)}"></td>
-                                <td th:replace="~{fragments/datatable :: buttons(item)}"></td>
+                                <td th:replace="~{fragments/datatable :: name (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: tags (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: author (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: last_modified (${item})}"></td>
+                                <td th:replace="~{fragments/datatable :: buttons(${item})}"></td>
                             </tr>
                             </tbody>
                         </table>
