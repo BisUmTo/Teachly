@@ -610,38 +610,6 @@
             "name": "Functions",
             "categorystyle": "procedure_category",
             "custom": "PROCEDURE"
-        },
-        {
-            "kind": "category",
-            "name": "Events",
-            "categorystyle": "mutex_category",
-            "contents" : [
-                {
-                    "kind": "block",
-                    "type": "event_procedure"
-                },
-                {
-                    "kind": "block",
-                    "type": "event_getter",
-                    "fields": {
-                        "EVENT": ""
-                    }
-                },
-                {
-                    "kind": "block",
-                    "type": "event_boolean_getter",
-                    "fields": {
-                        "EVENT": ""
-                    }
-                },
-                {
-                    "kind": "block",
-                    "type": "event_setter",
-                    "fields": {
-                        "EVENT": ""
-                    }
-                }
-            ]
         }
     ]
 }

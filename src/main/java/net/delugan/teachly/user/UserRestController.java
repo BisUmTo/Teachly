@@ -33,6 +33,6 @@ public class UserRestController {
 
     @GetMapping("users/{id}")
     public User getUserById(@PathVariable UUID id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findByIdWithoutEmail(id).orElseThrow();
     }
 }

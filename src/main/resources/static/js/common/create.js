@@ -25,6 +25,12 @@ function sendForm(){
         }
     });
 
+    // I blocchi .tagify-input vanno messi a [] se vuoti
+    $(form).find('.tagify-input').each((index, element) => {
+        const key = $(element).data('json-key');
+        if (!json[key])  json[key] = [];
+    });
+
     // Blockly JavaScript
     const blocklyDiv = document.getElementById('blocklyDiv');
     if (blocklyDiv) {
@@ -32,8 +38,6 @@ function sendForm(){
         const blockly_json = Blockly.serialization.workspaces.save(workspace)
         json['blocklyJsonCode'] = JSON.stringify(blockly_json);
     }
-
-
 
     console.warn(json);
 
@@ -87,21 +91,10 @@ function initializeTags() {
         }
     });
     (async () => {
-        const existingTags = await fetchTags();
+        const existingTags = await fetchJson(API_TAG_FETCH_URL);
         tagsTagify.settings.whitelist.push(...existingTags);
         tagsTagify.dropdown.refilter();
     })();
 }
+
 let API_TAG_FETCH_URL = '';
-async function fetchTags() {
-    try {
-        const response = await fetch(API_TAG_FETCH_URL);
-        if (!response.ok) {
-            throw new Error("Error while getting tags");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error while loading tags:", error);
-        return [];
-    }
-}

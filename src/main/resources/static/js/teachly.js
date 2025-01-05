@@ -70,3 +70,16 @@ function shareApp(){
         url: "https://teachly.delugan.net/",
     });
 }
+
+async function fetchJson(path) {
+    try {
+        const response = await fetch(path);
+        if (!response.ok) {
+            throw new Error("Error while getting json file at " + path);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error while loading file:", error);
+        return "";
+    }
+}

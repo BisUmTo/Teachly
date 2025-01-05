@@ -35,3 +35,4 @@ build/
 ### Environment ###
 .env
 /src/main/resources/static/plugins/**/node_modules/
+/src/main/resources/static/json/interfaces

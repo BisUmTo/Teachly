@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.UUID;
@@ -16,6 +17,8 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/dashboard/exercises/generators")
 public class ExerciseGeneratorViewController {
+    private static final String DEFAULT_BLOCKLY_CODE = "{}" ;
+
     final ExerciseGeneratorRepository exerciseGeneratorRepository;
     final ExerciseRepository exerciseRepository;
     final UserRepository userRepository;
@@ -34,8 +37,15 @@ public class ExerciseGeneratorViewController {
     }
 
     @GetMapping("create")
-    public ModelAndView create(@AuthenticationPrincipal OAuth2User oAuth2User) {
+    public ModelAndView create(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestParam(value="id", required = false) UUID clone_id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/create", userRepository.getByOAuth2(oAuth2User));
+        if (clone_id != null) {
+            ExerciseGenerator clone = exerciseGeneratorRepository.findById(clone_id).orElseThrow();
+            modelAndView.addObject("generator", clone);
+            modelAndView.addObject("blocklyCode", clone.getBlocklyJsonCode());
+        } else {
+            modelAndView.addObject("blocklyCode", DEFAULT_BLOCKLY_CODE);
+        }
         return modelAndView;
     }
 

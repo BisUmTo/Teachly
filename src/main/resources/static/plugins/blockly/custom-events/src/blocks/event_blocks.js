@@ -1,21 +1,16 @@
-const event_list = [
-  
-]
+import events from './events.json'
 
 export const blocks = [
   {
     "type": "event_procedure",
     "tooltip": "",
     "helpUrl": "",
-    "message0": "on %1 event\n%2",
+    "message0": "on %1 \n %2",
     "args0": [
       {
         "type": "field_dropdown",
         "name": "EVENT",
-        "options": [
-          ["double click", "dblclick"],
-          ["click", "click"]
-        ]
+        "options": events['events']
       },
       {
         "type": "input_statement",
@@ -29,27 +24,18 @@ export const blocks = [
     "type": "event_getter",
     "tooltip": "",
     "helpUrl": "",
-    "message0": "from %1 event get %2 %3",
+    "message0": "from %1 get %2 %3",
     "args0": [
       {
         "type": "field_label_serializable",
-        "text": "click",
+        "text": "",
         "name": "EVENT"
       },
       {
         "type": "field_dependent_dropdown",
         "name": "GETTER",
         "parentName": 'EVENT',
-        "optionMapping" :{
-          "click": [
-            ["x", "width"],
-            ["y", "height"]
-          ],
-          "dblclick": [
-            ["dblx", "width"],
-            ["dbly", "height"]
-          ]
-        }
+        "optionMapping" : events['getters']
       },
       {
         "type": "input_end_row",
@@ -64,27 +50,18 @@ export const blocks = [
     "type": "event_boolean_getter",
     "tooltip": "",
     "helpUrl": "",
-    "message0": "is %1 event %2 %3",
+    "message0": "is %1 %2 %3",
     "args0": [
       {
         "type": "field_label_serializable",
-        "text": "click",
+        "text": "",
         "name": "EVENT"
       },
       {
         "type": "field_dependent_dropdown",
         "name": "GETTER",
         "parentName": 'EVENT',
-        "optionMapping" :{
-          "click": [
-            ["sleeping", "width"],
-            ["sneaking", "height"]
-          ],
-          "dblclick": [
-            ["dblsleeping", "width"],
-            ["dblsneaking", "height"]
-          ]
-        }
+        "optionMapping" : events['boolean_getters']
       },
       {
         "type": "input_end_row",
@@ -110,16 +87,7 @@ export const blocks = [
         "type": "field_dependent_dropdown",
         "name": "SETTER",
         "parentName": 'EVENT',
-        "optionMapping" :{
-          "click": [
-            ["sleeping", "width"],
-            ["sneaking", "height"]
-          ],
-          "dblclick": [
-            ["dblsleeping", "width"],
-            ["dblsneaking", "height"]
-          ]
-        }
+        "optionMapping": events['setters'] 
       },
       {
         "type": "input_value",

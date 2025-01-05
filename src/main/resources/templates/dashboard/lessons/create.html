@@ -116,6 +116,7 @@
 <footer th:replace="~{fragments/footer :: footer}"></footer>
 <!--end::App Wrapper-->
 <th:block th:replace="~{fragments/libraries :: body}"></th:block>
+<script th:replace="~{fragments/create :: clone-values (${lesson})}"></script>
 </body>
 <!--end::Body-->
 </html>

@@ -58,4 +58,11 @@
 #blocklyDiv {
     min-height: 300px;
     position: absolute;
+    color: #fff;
+}
+#blocklyDiv * {
+    color: #212529;
+}
+.blocklyDropDownDiv {
+    z-index: 1050 !important;
 }

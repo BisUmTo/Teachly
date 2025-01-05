@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blockly</title>
+</head>
+<body>
+<div class="col-12" th:fragment="codeCard (workspaceState)">
+    <div class="card card-primary card-outline" id="blocklyCard">
+        <div class="card-header">
+            <h3 class="card-title">
+                <i class="fas fa-code mr-2"></i>
+                Code
+            </h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body" id="blocklyArea">
+            <div id="blocklyDiv" th:text="${workspaceState}"></div>
+        </div>
+    </div>
+</div>
+
+<th:block th:fragment="libraries (item)">
+    <script th:src="@{/plugins/blockly/blockly.min.js}"></script>
+    <script th:src="@{/plugins/blockly/javascript_compressed.js}"></script>
+    <script th:src="@{/plugins/blockly/block-shareable-procedures/index.js}"></script>
+    <script th:src="@{/js/common/code_utils/block-shareable-procedures-helper.js}"></script>
+    <script th:src="@{/plugins/blockly/workspace-backpack/index.js}"></script>
+    <script th:src="@{/plugins/blockly/field-dependent-dropdown/index.js}"></script>
+    <script th:src="@{/plugins/blockly/plugin-cross-tab-copy-paste/index.js}"></script>
+    <script th:src="@{/plugins/blockly/plugin-strict-connection-checker/index.js}"></script>
+    <script th:src="@{/plugins/blockly/theme-modern/index.js}"></script>
+    <script th:src="@{/js/common/code_utils/theme-modern-helper.js}"></script>
+    <script th:src="@{/js/common/code.js}"></script>
+
+    <script th:src="@{/js/common/code_utils/game/actions/loader.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/actions/generators.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/actions/toolbox.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/actions/validators.js}"></script>
+
+    <script th:src="@{/js/common/code_utils/game/events/loader.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/events/generators.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/events/toolbox.js}"></script>
+    <script th:src="@{/js/common/code_utils/game/events/validators.js}"></script>
+
+    <script th:src="@{/js/{item}/code/loader.js(item=${item})}"></script>
+    <script th:src="@{/js/{item}/code/generators.js(item=${item})}"></script>
+    <script th:src="@{/js/{item}/code/toolbox.js(item=${item})}"></script>
+    <script th:src="@{/js/{item}/code/validators.js(item=${item})}"></script>
+</th:block>
+</body>
+</html>

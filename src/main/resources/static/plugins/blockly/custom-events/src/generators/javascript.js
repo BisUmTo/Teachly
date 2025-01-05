@@ -21,32 +21,14 @@ forBlock['add_text'] = function (block, generator) {
   return code;
 };
 
-// Event block
-forBlock['event_procedure'] = function(block, generator) {
-  const event = block.getFieldValue('EVENT');
-  const statement = generator.statementToCode(block,'STATEMENT');
-  // TOFIX: Codice intermedio
-  const addEvent = generator.provideFunction_(
-    'addEvent',
-    `function ${generator.FUNCTION_NAME_PLACEHOLDER_}(event, statement) {
-    // Add text to the output area.
-    const outputDiv = document.getElementById('output');
-    outputDiv.addEventListener(event, statement);
-}`);
-  function indent(code) {
-    if (!code) return '';
-    return code.split('\n').map(line => `  ${line}`.trimEnd()).join('\n');
-  }
-  const code = `${addEvent}("${event}", (${event}Event)=>{\n${indent(statement)}});\n`;
-  return code;
-}
+
 
 // Event getter block
 forBlock['event_getter'] = forBlock['event_boolean_getter'] = function(block, generator) {
   const event = block.getFieldValue('EVENT');
   const getter = block.getFieldValue('GETTER');
   
-  const code = `${event}Event.${getter}`;
+  const code = `${event}.${getter}()`;
   return [code, Order.NONE];
 }
 
@@ -55,35 +37,18 @@ forBlock['event_setter'] = function(block, generator) {
   const event = block.getFieldValue('EVENT');
   const setter = block.getFieldValue('SETTER');
   const value = generator.valueToCode(block, 'VALUE', Order.NONE) || "''";
-  const code = `${event}Event.${setter} = ${value};\n`;
+  const code = `${event}.${setter}(${value});\n`;
   return code;
 }
 
 
 // VALIDATORS - EXTENSION //
-function updateEventName(block) {
-  let parent = block.parentBlock_;
-  while (parent && parent.type !== 'event_procedure') {
-    parent = parent.parentBlock_;
-  }
-  if (parent) {
-    const parentEvent = parent.getFieldValue('EVENT');
-    block.setFieldValue(parentEvent, 'EVENT');
-  } else {
-    block.setFieldValue('', 'EVENT');
-  }
-  block.setWarningText(
-    parent
-      ? null
-      : `Event blocks must be nested inside an event procedure.`,
-  );
-  return !!parent;
-}
+
 
 export const validators = {
   'event_auto_field_extension' : function() {
     this.setOnChange(function (event) {
-      let valid = updateEventName(this)
+      let invalid = !updateEventName(this)
   
       // Disable invalid blocks (unless it's in a toolbox flyout,
       // since you can't drag disabled blocks to your workspace).
@@ -91,7 +56,7 @@ export const validators = {
         const initialGroup = Events.getGroup();
         // Make it so the move and the disable event get undone together.
         if (!event || !event.group) Events.setGroup(event.group);
-        this.setEnabled(valid);
+        this.setDisabledReason(invalid, 'Event blocks must be nested inside an event procedure.');
         Events.setGroup(initialGroup);
       }
     });
