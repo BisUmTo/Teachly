@@ -59,42 +59,44 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 API_TAG_FETCH_URL = '/api/v1/lessons/tags';
+VALIDATE_OPTIONS = {
+    rules: {
+        name: {
+            required: true,
+            minlength: 1,
+            maxlength: 255,
+        },
+        description: {
+            required: false,
+            maxlength: 255,
+        },
+        triggers: {
+            required: true,
+        },
+        exercises: {
+            required: true,
+        },
+        correctReward: {
+            required: true,
+        },
+        wrongReward: {
+            required: true,
+        },
+        explanation: {
+            required: false,
+            maxlength: 255,
+        }
+    }
+};
 
 async function fetchTriggers() {
-    try {
-        const response = await fetch('/api/v1/triggers');
-        if (!response.ok) {
-            throw new Error("Error while getting triggers");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error while loading triggers:", error);
-        return [];
-    }
+    return await fetchJson('/api/v1/triggers')
 }
 
 async function fetchExercises() {
-    try {
-        const response = await fetch('/api/v1/exercises');
-        if (!response.ok) {
-            throw new Error("Error while getting exercises");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error while loading exercises:", error);
-        return [];
-    }
+    return await fetchJson('/api/v1/exercises')
 }
 
 async function fetchRewards() {
-    try {
-        const response = await fetch('/api/v1/rewards');
-        if (!response.ok) {
-            throw new Error("Error while getting rewards");
-        }
-        return await response.json();
-    } catch (error) {
-        console.error("Error while loading rewards:", error);
-        return [];
-    }
+    return await fetchJson('/api/v1/rewards')
 }

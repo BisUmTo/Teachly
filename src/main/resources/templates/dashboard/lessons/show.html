@@ -33,8 +33,7 @@
                             <!-- card-body -->
                             <div class="card-body">
                                 <dl class="row mb-0">
-                                    <dt class="col-sm-4 col-md-3">Description</dt>
-                                    <dd class="col-sm-8 col-md-9" th:text="${lesson.getDescription()}"></dd>
+                                    <th:block th:replace="~{fragments/show :: description (${e})}"></th:block>
                                     <dt class="col-sm-4 col-md-3">Explanation</dt>
                                     <dd class="col-sm-8 col-md-9" th:text="${lesson.getExplanation()}"></dd>
                                     <th:block th:replace="~{fragments/show :: tags (${e})}"></th:block>

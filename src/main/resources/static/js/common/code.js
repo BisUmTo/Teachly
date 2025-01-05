@@ -25,7 +25,7 @@ function initializeCodeArea(options) {
 
     return (async () => {
         const blocklyDiv = document.getElementById(options.blocklyDivId);
-        const state = JSON.parse(blocklyDiv.innerHTML || '{}');
+        const state = JSON.parse(blocklyDiv.innerText || '{}');
         blocklyDiv.innerHTML = '';
 
         // Register blocks, validators and generators

@@ -55,22 +55,19 @@ VALIDATE_OPTIONS = {
     rules: {
         name: {
             required: true,
-            maxLength: 255,
+            minlength: 5,
+            maxlength: 255,
         },
         type: {
             required: true,
         },
-        description: {
-            required: false,
-            maxLength: 255,
-        },
         MULTIPLE_CHOICE_question: {
             required_from_group: [1, '[data-json-key="question"]'],
-            maxLength: 255,
+            maxlength: 255,
         },
         OPEN_QUESTION_question: {
             required_from_group: [1, '[data-json-key="question"]'],
-            maxLength: 255,
+            maxlength: 255,
         },
         MULTIPLE_CHOICE_options: {
             required_from_group: [1, '[data-json-key="hints"]'],

@@ -32,7 +32,7 @@
                                     <div th:replace="~{fragments/create :: create-description (5)}"></div>
                                     <div class="form-group">
                                         <label for="explanation">Explanation</label>
-                                        <textarea data-json-key="explanation" id="explanation"
+                                        <textarea data-json-key="explanation" id="explanation" name="explanation"
                                                   class="form-control" rows="5"></textarea>
                                     </div>
                                     <div th:replace="~{fragments/create :: create-tags}"></div>
@@ -52,7 +52,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="triggers" style="display: none;">Exercises</label>
-                                        <input data-json-key="triggers" type="text" id="triggers"
+                                        <input data-json-key="triggers" type="text" id="triggers" name="triggers"
                                                class="form-control tagify-input">
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="exercises" style="display: none;">Exercises</label>
-                                        <input data-json-key="exercises" type="text" id="exercises"
+                                        <input data-json-key="exercises" type="text" id="exercises" name="exercises"
                                                class="form-control tagify-input">
                                     </div>
                                 </div>
@@ -83,27 +83,20 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="correct-reward">Correct Answers Reward</label>
-                                        <input data-json-key="correctReward" type="text" id="correct-reward"
+                                        <input data-json-key="correctReward" type="text" id="correct-reward" name="correct-reward"
                                                class="form-control tagify-input">
                                     </div>
                                     <div class="form-group">
                                         <label for="wrong-reward">Wrong Answers Reward</label>
-                                        <input data-json-key="wrongReward" type="text" id="wrong-reward"
+                                        <input data-json-key="wrongReward" type="text" id="wrong-reward" name="wrong-reward"
                                                class="form-control tagify-input">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div th:replace="~{fragments/create :: create-submit-button}"></div>
                 </form>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="float-right">
-                            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
-                            <button id="save-button" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- /.content -->

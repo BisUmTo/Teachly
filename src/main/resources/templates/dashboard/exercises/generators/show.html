@@ -20,12 +20,7 @@
                             <div class="card-header d-flex">
                                 <h3 class="card-title">
                                     <th:block th:fragment="card-title (generator)">
-                                        <i th:if="${generator.getType().toString()} == 'OPEN_QUESTION'"
-                                           class="fas fa-comment-dots mr-2"></i>
-                                        <i th:if="${generator.getType().toString()} == 'MULTIPLE_CHOICE'"
-                                           class="fas fa-th-list mr-2"></i>
-                                        <i th:if="${generator.getType().toString()} == 'TRUE_FALSE'"
-                                           class="fas fa-check-double mr-2"></i>
+                                        <i class="fas fa-industry mr-2"></i>
                                         <span th:text="${generator.getName()}">Generator Name</span>
                                     </th:block>
                                 </h3>
@@ -85,7 +80,7 @@
         <!-- /.content -->
         <th:block th:replace="~{fragments/code :: libraries ('exercises/generators')}"></th:block>
         <script th:src="@{/js/common/show.js}"></script>
-        <script th:src="@{/js/exercises/show.js}"></script>
+        <script th:src="@{/js/exercises/generators/show.js}"></script>
     </div>
     <!-- /.content-wrapper -->
 </div>

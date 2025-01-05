@@ -48,12 +48,12 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="MULTIPLE_CHOICE_question">Question</label>
-                                        <textarea data-json-key="question" id="MULTIPLE_CHOICE_question"
+                                        <textarea data-json-key="question" id="MULTIPLE_CHOICE_question" name="question"
                                                   class="form-control" rows="4"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="MULTIPLE_CHOICE_options">Answer options</label>
-                                        <input data-json-key="hints" type="text" id="MULTIPLE_CHOICE_options"
+                                        <input data-json-key="hints" type="text" id="MULTIPLE_CHOICE_options" name="options"
                                                class="form-control tagify-input">
                                     </div>
                                     <div class="form-group">
@@ -63,7 +63,7 @@
                                                title="Any option is equally correct"
                                             ></i>
                                         </label>
-                                        <input data-json-key="solutions" type="text" id="MULTIPLE_CHOICE_solutions"
+                                        <input data-json-key="solutions" type="text" id="MULTIPLE_CHOICE_solutions" name="solutions"
                                                class="form-control tagify-input">
                                     </div>
                                 </div>
@@ -81,12 +81,12 @@
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="OPEN_QUESTION_question">Question</label>
-                                        <textarea data-json-key="question" id="OPEN_QUESTION_question"
+                                        <textarea data-json-key="question" id="OPEN_QUESTION_question" name="question"
                                                   class="form-control" rows="4"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="OPEN_QUESTION_hints">Hints</label>
-                                        <input data-json-key="hints" type="text" id="OPEN_QUESTION_hints"
+                                        <input data-json-key="hints" type="text" id="OPEN_QUESTION_hints" name="hints"
                                                class="form-control tagify-input">
                                     </div>
                                     <div class="form-group">
@@ -96,7 +96,7 @@
                                                title="Any answer is equally correct"
                                             ></i>
                                         </label>
-                                        <input data-json-key="solutions" type="text" id="OPEN_QUESTION_solutions"
+                                        <input data-json-key="solutions" type="text" id="OPEN_QUESTION_solutions" name="solutions"
                                                class="form-control tagify-input">
                                     </div>
                                 </div>
@@ -135,15 +135,8 @@
                             </div>
                         </div>
                     </div>
+                    <div th:replace="~{fragments/create :: create-submit-button}"></div>
                 </form>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="float-right">
-                            <button id="cancel-button" class="btn btn-secondary">Cancel</button>
-                            <button id="save-button" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
         <!-- /.content -->

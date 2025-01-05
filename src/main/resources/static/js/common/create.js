@@ -4,19 +4,54 @@ document.addEventListener("DOMContentLoaded", () => {
         window.history.back();
     });
 
-    const saveButton = $('#save-button');
-    saveButton.on('click', sendForm);
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid",
+        submitHandler: sendForm,
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        messages: {
+            name: {
+                required: "An unique name is required",
+                minlength: "A longer name is required",
+                maxlength: "Name must be at most 255 characters long"
+            },
+            description: {
+                maxlength: "Description must be at most 255 characters long"
+            },
+            triggers: {
+                required: "At least one trigger is required"
+            },
+            exercises: {
+                required: "At least one exercise is required"
+            },
+            correctReward: {
+                required: "A correct reward is required"
+            },
+            wrongReward: {
+                required: "A wrong reward is required"
+            },
+            explanation: {
+                maxlength: "Explanation must be at most 255 characters long, use external links to store more information"
+            },
+        }
+    });
+
+    $('#create-form').validate(VALIDATE_OPTIONS);
 
     for (let key in clone) {
         $('[data-json-key="' + key + '"]').val(clone[key]);
     }
 
-    jQuery.validator.setDefaults({
-        debug: true,
-        success: "valid"
-    });
-
-    $('form').validate(VALIDATE_OPTIONS);
 });
 
 function sendForm(){
