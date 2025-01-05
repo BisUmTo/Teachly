@@ -6,6 +6,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const saveButton = $('#save-button');
     saveButton.on('click', sendForm);
+
+    for (let key in clone) {
+        $('[data-json-key="' + key + '"]').val(clone[key]);
+    }
+
+    jQuery.validator.setDefaults({
+        debug: true,
+        success: "valid"
+    });
+
+    $('form').validate(VALIDATE_OPTIONS);
 });
 
 function sendForm(){
@@ -19,17 +30,17 @@ function sendForm(){
     $(form).find('[data-json-key]:not(:hidden)').each((index, element) => {
         const key = $(element).data('json-key');
         if ($(element).hasClass('tagify-input')) {
-            json[key] = JSON.parse($(element).val()).map(tag => tag.value);
+            json[key] = JSON.parse($(element).val() || '[]').map(tag => tag.value);
         } else {
             json[key] = $(element).val();
         }
     });
 
-    // I blocchi .tagify-input vanno messi a [] se vuoti
-    $(form).find('.tagify-input').each((index, element) => {
-        const key = $(element).data('json-key');
-        if (!json[key])  json[key] = [];
-    });
+    // se c'è solo una soluzione, la trasformo in array
+    if (json['solutions'] && !Array.isArray(json['solutions'])) {
+        json['solutions'] = [json['solutions']];
+    }
+
 
     // Blockly JavaScript
     const blocklyDiv = document.getElementById('blocklyDiv');
@@ -98,3 +109,4 @@ function initializeTags() {
 }
 
 let API_TAG_FETCH_URL = '';
+let VALIDATE_OPTIONS = {rules:{}}

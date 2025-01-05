@@ -25,13 +25,8 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The name of the exercise generator", example = "Pythagorean triples generator")
     private String name;
 
-    @Column(nullable = false)
-    @Schema(description = "The type of the exercise", example = "MULTIPLE_CHOICE")
-    private ExerciseType type;
-
-    @Enumerated(EnumType.STRING)
-    @Schema(description = "The difficulty of the exercise", example = "EASY")
-    private ExerciseDifficulty difficulty;
+    @Schema(description = "The description of the exercise generator", example = "This generator creates exercises about Pythagorean triples")
+    private String description;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "exercise_generators_tags", joinColumns = @JoinColumn(name = "exercise_id"))
@@ -48,11 +43,10 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
     @Schema(description = "The date of the last generation of the exercise with this generator", example = "2024-12-26T23:35:38Z")
     private Date lastGeneration;
 
-    public ExerciseGenerator(String name, ExerciseType type, ExerciseDifficulty difficulty, List<String> tags, String blocklyJsonCode) {
+    public ExerciseGenerator(String name, String description, List<String> tags, String blocklyJsonCode) {
         super();
         this.name = name;
-        this.type = type;
-        this.difficulty = difficulty;
+        this.description = description;
         this.tags = tags;
         this.blocklyJsonCode = blocklyJsonCode;
     }
@@ -63,22 +57,6 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
 
     public UUID getId() {
         return id;
-    }
-
-    public ExerciseType getType() {
-        return type;
-    }
-
-    public void setType(ExerciseType type) {
-        this.type = type;
-    }
-
-    public ExerciseDifficulty getDifficulty() {
-        return difficulty;
-    }
-
-    public void setDifficulty(ExerciseDifficulty difficulty) {
-        this.difficulty = difficulty;
     }
 
     public String getBlocklyJsonCode() {
@@ -118,5 +96,13 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

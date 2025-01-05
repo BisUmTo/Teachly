@@ -42,6 +42,10 @@ async function customBlocksLoader(json_path) {
                         [
                             "hints",
                             "hints"
+                        ],
+                        [
+                            "player",
+                            "player"
                         ]
                     ]
                 },

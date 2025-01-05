@@ -21,7 +21,7 @@ function gameEventsGenerators(){
         const getter = block.getFieldValue('GETTER');
 
         const code = `${event}.${getter}()`;
-        return [code, Order.NONE];
+        return [code, Blockly.JavaScript.ORDER_MEMBER];
     }
 
     // Event setter block

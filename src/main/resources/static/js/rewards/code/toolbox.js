@@ -18,6 +18,13 @@ function customBlocksToolbox() {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
+                            "VARIABLE": "player"
+                        }
+                    },
+                    {
+                        "kind": "block",
+                        "type": "reward_variable",
+                        "fields": {
                             "VARIABLE": "response"
                         }
                     },

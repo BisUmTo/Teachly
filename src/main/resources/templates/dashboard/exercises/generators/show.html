@@ -38,9 +38,8 @@
                             <!-- card-body -->
                             <div class="card-body" th:fragment="card-body (generator)">
                                 <dl class="row mb-0">
+                                    <th:block th:replace="~{fragments/show :: description (${generator})}"></th:block>
                                     <th:block th:replace="~{fragments/show :: tags (${generator})}"></th:block>
-                                    <th:block th:replace="~{fragments/show :: difficulty (${generator})}"></th:block>
-                                    <th:block th:replace="~{fragments/show :: type (${generator})}"></th:block>
                                 </dl>
                             </div>
                             <!-- /.card-body -->
@@ -75,7 +74,7 @@
                                         </div>
                                     </div>
                                 </dd>
-
+                                <div th:replace="~{fragments/code :: codeCard (${generator.getBlocklyJsonCode()})}"></div>
                             </div>
                             <div th:replace="~{fragments/show :: card-footer (${generator}, 'exercises/generators')}" ></div>
                         </div>
@@ -84,6 +83,7 @@
             </div>
         </section>
         <!-- /.content -->
+        <th:block th:replace="~{fragments/code :: libraries ('exercises/generators')}"></th:block>
         <script th:src="@{/js/common/show.js}"></script>
         <script th:src="@{/js/exercises/show.js}"></script>
     </div>

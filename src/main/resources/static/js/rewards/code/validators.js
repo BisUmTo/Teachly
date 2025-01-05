@@ -16,6 +16,9 @@ function customBlocksValidators() {
                         this.outputConnection.setCheck('String');
                         this.setStyle('text_blocks');
                         break;
+                    case 'player':
+                        this.outputConnection.setCheck('Player');
+                        this.setStyle('variable_dynamic_blocks');
                 }
 
                 // Disable invalid blocks (unless it's in a toolbox flyout,

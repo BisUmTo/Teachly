@@ -1,5 +1,6 @@
 package net.delugan.teachly.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
@@ -22,6 +23,7 @@ public class User extends DateTracked implements Serializable {
     private String username;
 
     @Column(nullable = false, unique = true)
+    @JsonIgnore
     @Schema(description = "The email of the User", example = "teachly@delugan.net")
     private String email;
 

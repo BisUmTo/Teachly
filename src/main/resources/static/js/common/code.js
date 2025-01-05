@@ -23,7 +23,7 @@ function initializeCodeArea(options) {
     const areaHeight = windowHeight - topCoordinate - footerHeight;
     blocklyArea.style.height = areaHeight + 'px';
 
-    (async () => {
+    return (async () => {
         const blocklyDiv = document.getElementById(options.blocklyDivId);
         const state = JSON.parse(blocklyDiv.innerHTML || '{}');
         blocklyDiv.innerHTML = '';
@@ -105,6 +105,8 @@ function initializeCodeArea(options) {
             });
             resizeObserver.observe(blocklyCard[0]);
         }
+
+        return workspace;
     })();
 }
 

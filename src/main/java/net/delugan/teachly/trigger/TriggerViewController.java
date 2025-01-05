@@ -1,5 +1,6 @@
 package net.delugan.teachly.trigger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import net.delugan.teachly.user.UserRepository;
 import net.delugan.teachly.utils.AuthenticatedModelAndView;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

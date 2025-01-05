@@ -48,14 +48,8 @@
               class="form-control" th:rows="${rows}"></textarea>
 </div>
 
-<script th:fragment="clone-values (clone)" th:inline="text">
-/*<![CDATA[*/
-    let clone = /*[[${clone}]]*/ {};
-    clone = JSON.parse(clone) || {};
-    for (let key in clone) {
-        $('[data-json-key="' + key + '"]').val(clone[key]);
-    }
-/*]]>*/
+<script th:fragment="clone-values (clone)" th:inline="javascript">
+    let clone = /*[[ ${clone}?${clone}:'{}' ]]*/ {};
 </script>
 
 </body>

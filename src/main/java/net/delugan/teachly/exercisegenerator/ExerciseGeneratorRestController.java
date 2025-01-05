@@ -41,8 +41,7 @@ class ExerciseGeneratorRestController {
     public ExerciseGenerator addExerciseGenerator(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody ExerciseGenerator new_exerciseGenerator) {
         ExerciseGenerator exerciseGenerator = new ExerciseGenerator(
                 new_exerciseGenerator.getName(),
-                new_exerciseGenerator.getType(),
-                new_exerciseGenerator.getDifficulty(),
+                new_exerciseGenerator.getDescription(),
                 new_exerciseGenerator.getTags(),
                 new_exerciseGenerator.getBlocklyJsonCode()
         );
@@ -60,8 +59,8 @@ class ExerciseGeneratorRestController {
         if(!exerciseGenerator.isAuthor(userRepository.getByOAuth2(oAuth2User))) {
             throw new AuthorizationDeniedException("You are not the author of this exercise generator");
         }
-        exerciseGenerator.setType(new_exerciseGenerator.getType());
-        exerciseGenerator.setDifficulty(new_exerciseGenerator.getDifficulty());
+        exerciseGenerator.setName(new_exerciseGenerator.getName());
+        exerciseGenerator.setDescription(new_exerciseGenerator.getDescription());
         exerciseGenerator.setBlocklyJsonCode(new_exerciseGenerator.getBlocklyJsonCode());
         exerciseGenerator.updateLastModified();
         exerciseGeneratorRepository.save(exerciseGenerator);

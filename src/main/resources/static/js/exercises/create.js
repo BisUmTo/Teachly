@@ -48,8 +48,45 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hintsTagify = new Tagify(hintsInput, {delimiters: "\n|\r"});
     const solutions2Tagify = new Tagify(solutions2Input, {delimiters: "\n|\r"});
-
-    console.info('Creation page loaded');
 });
 
 API_TAG_FETCH_URL = '/api/v1/exercises/tags';
+VALIDATE_OPTIONS = {
+    rules: {
+        name: {
+            required: true,
+            maxLength: 255,
+        },
+        type: {
+            required: true,
+        },
+        description: {
+            required: false,
+            maxLength: 255,
+        },
+        MULTIPLE_CHOICE_question: {
+            required_from_group: [1, '[data-json-key="question"]'],
+            maxLength: 255,
+        },
+        OPEN_QUESTION_question: {
+            required_from_group: [1, '[data-json-key="question"]'],
+            maxLength: 255,
+        },
+        MULTIPLE_CHOICE_options: {
+            required_from_group: [1, '[data-json-key="hints"]'],
+            pattern: /^\[(\{"value":"[^"]{1,255}?"},?)+]$/,
+        },
+        MULTIPLE_CHOICE_solutions: {
+            required_from_group: [1, '[data-json-key="solutions"]'],
+            pattern: /^\[(\{"value":"[^"]{1,255}?"},?)+]$/,
+        },
+        OPEN_QUESTION_hints: {
+            required_from_group: [1, '[data-json-key="hints"]'],
+            pattern: /^\[(\{"value":"[^"]{1,255}?"},?)+]$/,
+        },
+        OPEN_QUESTION_solutions: {
+            required_from_group: [1, '[data-json-key="solutions"]'],
+            pattern: /^\[(\{"value":"[^"]{1,255}?"},?)+]$/,
+        },
+    }
+}
