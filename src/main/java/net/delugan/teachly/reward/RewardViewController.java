@@ -50,7 +50,8 @@ public class RewardViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/rewards/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("reward", rewardRepository.findById(id).orElseThrow());
+        Reward original = rewardRepository.findById(id).orElseThrow();
+        modelAndView.addObject("reward", original);
         return modelAndView;
     }
 

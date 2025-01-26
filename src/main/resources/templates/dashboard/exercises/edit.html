@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{::link})}">
+    <title>Create Exercise - Teachly</title>
+    <!-- DataTables -->
+    <link rel="stylesheet" th:href="@{/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-responsive/css/responsive.bootstrap4.min.css}">
+    <link rel="stylesheet" th:href="@{/plugins/datatables-buttons/css/buttons.bootstrap4.min.css}">
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header('Edit Exercise')}"></div>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid  pb-3">
+                <form action="/api/v1/exercises" method="put" id="create-form">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-book mr-2"></i>
+                                        Exercise
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div th:replace="~{fragments/create :: create-name}"></div>
+                                    <div th:replace="~{fragments/create :: create-type}"></div>
+                                    <div th:replace="~{fragments/create :: create-difficulty}"></div>
+                                    <div th:replace="~{fragments/create :: create-tags}"></div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        </div>
+                        <!-- Multiple choice -->
+                        <div class="col-6 question-details" data-type-value="MULTIPLE_CHOICE">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-th-list mr-2"></i>
+                                        Multiple choice
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_question">Question</label>
+                                        <textarea data-json-key="question" id="MULTIPLE_CHOICE_question" name="question"
+                                                  class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_options">Answer options</label>
+                                        <input data-json-key="hints" type="text" id="MULTIPLE_CHOICE_options" name="options"
+                                               class="form-control tagify-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="MULTIPLE_CHOICE_solutions">Correct options
+                                            <i class="fas fa-info-circle"
+                                               data-toggle="tooltip" data-placement="bottom"
+                                               title="Any option is equally correct"
+                                            ></i>
+                                        </label>
+                                        <input data-json-key="solutions" type="text" id="MULTIPLE_CHOICE_solutions" name="solutions"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Open question -->
+                        <div class="col-6 question-details" data-type-value="OPEN_QUESTION" style="display: none;">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-comment-dots mr-2"></i>
+                                        Open Question
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_question">Question</label>
+                                        <textarea data-json-key="question" id="OPEN_QUESTION_question" name="question"
+                                                  class="form-control" rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_hints">Hints</label>
+                                        <input data-json-key="hints" type="text" id="OPEN_QUESTION_hints" name="hints"
+                                               class="form-control tagify-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="OPEN_QUESTION_solutions">Correct answers
+                                            <i class="fas fa-info-circle"
+                                               data-toggle="tooltip" data-placement="bottom"
+                                               title="Any answer is equally correct"
+                                            ></i>
+                                        </label>
+                                        <input data-json-key="solutions" type="text" id="OPEN_QUESTION_solutions" name="solutions"
+                                               class="form-control tagify-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- True false -->
+                        <div class="col-6 question-details" data-type-value="TRUE_FALSE" style="display: none;">
+                            <div class="card card-primary card-outline">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                        <i class="fas fa-check-double mr-2"></i>
+                                        True or False
+                                    </h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="TRUE_FALSE_question">Question</label>
+                                        <textarea data-json-key="question" id="TRUE_FALSE_question" class="form-control"
+                                                  rows="4"></textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="form-check col-6 text-center">
+                                                <input data-json-key="solutions" class="form-check-input" type="radio"
+                                                       id="TRUE_FALSE_true" name="TRUE_FALSE_solutions" value='true' />
+                                                <label for="TRUE_FALSE_true" class="form-check-label">True</label>
+                                            </div>
+                                            <div class="form-check col-6 text-center">
+                                                <input class="form-check-input" type="radio" id="TRUE_FALSE_false"
+                                                       name="TRUE_FALSE_solutions" value='false' checked=""/>
+                                                <label for="TRUE_FALSE_false" class="form-check-label">False</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:replace="~{fragments/create :: create-submit-button}"></div>
+                </form>
+            </div>
+        </section>
+        <!-- /.content -->
+        <script th:src="@{/js/common/create.js}"></script>
+        <script th:src="@{/js/exercises/create.js}"></script>
+    </div>
+    <!-- /.content-wrapper -->
+</div>
+<!--end::App Main-->
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+<script th:replace="~{fragments/create :: clone-values (${exercise})}"></script>
+</body>
+<!--end::Body-->
+</html>

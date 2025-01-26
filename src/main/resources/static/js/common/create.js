@@ -5,9 +5,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     jQuery.validator.setDefaults({
-        debug: true,
+        //debug: true,
         success: "valid",
-        submitHandler: sendForm,
+        submitHandler: (form)=>sendForm($(form).attr('method')),
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
@@ -43,7 +43,8 @@ document.addEventListener("DOMContentLoaded", () => {
             explanation: {
                 maxlength: "Explanation must be at most 255 characters long, use external links to store more information"
             },
-        }
+        },
+        ignore: '.tagify__tag, .tagify__input'
     });
 
     $('#create-form').validate(VALIDATE_OPTIONS);
@@ -54,11 +55,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
-function sendForm(){
+function sendForm(method = 'post') {
     const form = document.querySelector('form');
-    const formData = new FormData(form);
-    const url = form.action;
-    const method = form.method;
+    const url = form.action + (method === 'put' ? '/' + clone.id : '');
 
     // Converti i dati del form in URLSearchParams, data-json-key come chiave dei campi JSON, ma non quelli nascosti
     const json = {};
@@ -115,6 +114,7 @@ function sendForm(){
             console.log("Success:", data);
             let id = data.id;
             let currentUrl = window.location.href;
+            currentUrl = currentUrl.replace(/\/[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}/, '');
             window.location.href = currentUrl.substring(0, currentUrl.lastIndexOf('/')) + '/show/' + id;
         })
         .catch(error => {

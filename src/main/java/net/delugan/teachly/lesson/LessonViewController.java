@@ -47,7 +47,8 @@ public class LessonViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/lessons/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("lesson", lessonRepository.findById(id).orElseThrow());
+        Lesson original = lessonRepository.findById(id).orElseThrow();
+        modelAndView.addObject("lesson", original);
         return modelAndView;
     }
 

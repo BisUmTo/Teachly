@@ -52,7 +52,9 @@ public class ExerciseGeneratorViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("generator", exerciseGeneratorRepository.findById(id).orElseThrow());
+        ExerciseGenerator original = exerciseGeneratorRepository.findById(id).orElseThrow();
+        modelAndView.addObject("generator", original);
+        modelAndView.addObject("blocklyCode", original.getBlocklyJsonCode());
         return modelAndView;
     }
 

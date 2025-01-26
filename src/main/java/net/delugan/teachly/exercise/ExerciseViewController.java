@@ -45,7 +45,8 @@ public class ExerciseViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("exercise", exerciseRepository.findById(id).orElseThrow());
+        Exercise original = exerciseRepository.findById(id).orElseThrow();
+        modelAndView.addObject("exercise", original);
         return modelAndView;
     }
 

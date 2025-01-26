@@ -49,7 +49,8 @@ public class TriggerViewController {
     @GetMapping("edit/{id}")
     public ModelAndView edit(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/triggers/edit", userRepository.getByOAuth2(oAuth2User));
-        modelAndView.addObject("trigger", triggerRepository.findById(id).orElseThrow());
+        Trigger original = triggerRepository.findById(id).orElseThrow();
+        modelAndView.addObject("trigger", original);
         return modelAndView;
     }
 
