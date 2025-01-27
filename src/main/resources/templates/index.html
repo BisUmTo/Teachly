@@ -16,59 +16,51 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Tutorial (ITA 🇮🇹)</h5>
+                            </div>
                             <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-
-                                <p class="card-text">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                </p>
-
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
+                                <p class="card-text">Watch the video to learn how to use Teachly.</p>
+                                <iframe width="100%"  src="https://www.youtube.com/embed/ScMzIvxBSi4"
+                                        frameborder="0" id="videoTutorial"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>
+                                <script>
+                                    const videoTutorial = document.getElementById('videoTutorial');
+                                    videoTutorial.style.height = videoTutorial.offsetWidth * 0.5625 + 'px';
+                                </script>
                             </div>
                         </div>
-
-                        <div class="card card-primary card-outline">
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-
-                                <p class="card-text">
-                                    Some quick example text to build on the card title and make up the bulk of the
-                                    card's
-                                    content.
-                                </p>
-                                <a href="#" class="card-link">Card link</a>
-                                <a href="#" class="card-link">Another link</a>
-                            </div>
-                        </div><!-- /.card -->
                     </div>
-                    <!-- /.col-md-6 -->
                     <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
+                                <h5 class="card-title">F.A.Q.</h5>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <h5 class="card-title">What is Teachly?</h5>
+                                <p class="card-text">Teachly is a platform that allows you to create <a th:href="@{/dashboard/lessons}">lessons</a> by combining
+                                    games and <a th:href="@{/dashboard/exercises}">exercises</a>.<br>
+                                    You can create your own <a th:href="@{/dashboard/triggers}">triggers</a> (events that trigger the execution of exercises) and
+                                    <a th:href="@{/dashboard/rewards}">rewards</a> (rewards that students can earn by completing exercises correctly or wrongly).</p>
                             </div>
                         </div>
-
-                        <div class="card card-primary card-outline">
+                        <div class="card">
                             <div class="card-header">
-                                <h5 class="m-0">Featured</h5>
+                                <h5 class="card-title">Latest Lessons</h5>
                             </div>
                             <div class="card-body">
-                                <h6 class="card-title">Special title treatment</h6>
-
-                                <p class="card-text">With supporting text below as a natural lead-in to additional
-                                    content.</p>
-                                <a href="#" class="btn btn-primary">Go somewhere</a>
+                                <p><br>TOFIX<br></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">Community</h5>
+                            </div>
+                            <div class="card-body">
+                                <p><br>TOFIX<br></p>
                             </div>
                         </div>
                     </div>

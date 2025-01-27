@@ -3,29 +3,29 @@
 <head th:insert="~{fragments/libraries :: head (~{::title},~{})}">
     <title>Login</title>
 </head>
-<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
-<div class="app-wrapper">
-    <!--begin::App Main-->
-    <main class="app-main">
+<body class="sidebar-collapse layout-top-nav bg-body-tertiary">
+<div class="wrapper">
+    <main class="content-wrapper">
 
-        <!--begin::App Content-->
-        <div class="app-content">
+        <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3 col-6">
+                <div class="row p-3">
+                    <div class="col-6">
                         <form th:action="@{/oauth2/authorization/google}" method="get">
-                            <button type="submit" class="btn btn-primary">Login with Google</button>
+                            <button type="submit" class="login-with-google-btn">Login with Google</button>
                         </form>
                     </div>
                 </div>
+                <div class="row">
+                    <!-- Logo image -->
+                    <div class="col-lg-6">
+                        <img src="/img/delugan_net.png" alt="Teachly Logo" class="img-fluid w-50 mx-auto">
+                    </div>
+                </div>
             </div>
-            <!-- /.container-fluid -->
         </div>
-        <!--end::App Content-->
     </main>
-    <!--end::App Main-->
 </div>
-<!--end::App Wrapper-->
 <th:block th:replace="~{fragments/libraries :: body}"></th:block>
 </body>
 <!--end::Body-->
