@@ -95,17 +95,28 @@ function sendForm(method = 'post') {
     })
         .then(response => {
             if (!response.ok) {
-                // Handle errors more gracefully.  Check the status code
-                if (response.status === 400) { // Example: Bad Request
-                    return response.json().then(errorData => {
-                        // Display specific error messages from the server
-                        alert("Bad Request: " + errorData.message || "Please check your input.");
-                    });
-                } else {
-                    return response.text().then(text => {
-                        alert("Error: " + response.status + " - " + text);
-                    });
-                }
+                return response.json().then(error => {
+                    let body = 'Unknown error';
+                    // ERROR: duplicate key value violates unique constraint [...] Key (name)
+                    if (error.message.includes('ERROR: duplicate key value violates unique constraint')) {
+                        let element = error.message.match(/Key \(([^)]+)\)/)[1];
+                        body = `An element with the same ${element} already exists`;
+
+                        // Highlight the field with the error and show the error message
+                        $('[data-json-key="' + element + '"]').addClass('is-invalid');
+                        $(`#${element}-error`).html(`Already in use`);
+                    }
+
+                    $(document).Toasts('create', {
+                        class: 'bg-danger',
+                        title: error.error,
+                        subtitle: error.status,
+                        body: body
+                    })
+
+                    console.error("Error:", error);
+                    throw new Error(error);
+                });
             }
             return response.json(); // Parse the JSON response from the server
         })
@@ -118,8 +129,7 @@ function sendForm(method = 'post') {
             window.location.href = currentUrl.substring(0, currentUrl.lastIndexOf('/')) + '/show/' + id;
         })
         .catch(error => {
-            console.error("Error:", error); // Log the error to the console for debugging
-            alert("An error occurred: " + error.message); // Show a user-friendly message
+            // Handle the error
         });
 }
 

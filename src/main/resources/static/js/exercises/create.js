@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     typeInput.change();
 
-    const tagifyOptions = {delimiters: "\n|\r"};
+    const tagifyOptions = {delimiters: "\n|\r|,"};
 
     // MUTLIPLE CHOICE
     const optionsInput = document.querySelector('#MULTIPLE_CHOICE_options');

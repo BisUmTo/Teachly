@@ -52,9 +52,11 @@ function customBlocksToolbox() {
                         "inputs": {
                             "STATEMENT": {
                                 "block": {
+                                    "type": "controls_if",
                                     "inputs": {
                                         "IF0": {
                                             "block": {
+                                                "type": "logic_compare",
                                                 "fields": {
                                                     "OP": "EQ"
                                                 },

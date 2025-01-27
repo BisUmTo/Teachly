@@ -29,23 +29,23 @@ async function customBlocksLoader(json_path) {
                     "options": [
                         [
                             "response",
-                            "response"
+                            "event.getResponse()"
                         ],
                         [
                             "solutions",
-                            "solutions"
+                            "event.getExercise().getSolutions()"
                         ],
                         [
                             "first solution",
-                            "solutions[0]"
+                            "event.getExercise().getSolutions()[0]"
                         ],
                         [
                             "hints",
-                            "hints"
+                            "event.getExercise().getHints()"
                         ],
                         [
                             "player",
-                            "player"
+                            "event.getPlayer()"
                         ]
                     ]
                 },

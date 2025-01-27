@@ -36,6 +36,7 @@ public class User extends DateTracked implements Serializable {
     private Date lastLogin;
 
     @Column(name = "google_id", unique = true, nullable = false)
+    @JsonIgnore
     @Schema(description = "The Google ID of the User", example = "1234567890")
     private String googleId;
 
