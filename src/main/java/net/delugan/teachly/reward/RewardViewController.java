@@ -52,6 +52,7 @@ public class RewardViewController {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/rewards/edit", userRepository.getByOAuth2(oAuth2User));
         Reward original = rewardRepository.findById(id).orElseThrow();
         modelAndView.addObject("reward", original);
+        modelAndView.addObject("blocklyCode", original.getBlocklyJsonCode());
         return modelAndView;
     }
 

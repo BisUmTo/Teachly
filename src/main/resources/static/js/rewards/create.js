@@ -5,6 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 });
 
+function initializeJson() {
+    let workspace = Blockly.getMainWorkspace();
+    let code = Blockly.JavaScript.workspaceToCode(workspace);
+    return {
+        'blockly_generated_code': code
+    };
+}
+
 API_TAG_FETCH_URL = '/api/v1/rewards/tags';
 VALIDATE_OPTIONS = {
     rules: {

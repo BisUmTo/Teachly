@@ -35,9 +35,8 @@ public class RewardRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Reward addReward(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Reward new_reward) {
-        Reward reward = new Reward(new_reward.getName(), new_reward.getDescription(), new_reward.getBlocklyJsonCode());
+        Reward reward = new Reward(new_reward.getName(), new_reward.getDescription(), new_reward.getBlocklyJsonCode(), new_reward.getBlocklyGeneratedCode(), new_reward.getTags());
         reward.setAuthor(userRepository.getByOAuth2(oAuth2User));
-        reward.setTags(new_reward.getTags());
         reward.updateLastModified();
         rewardRepository.save(reward);
         return reward;
@@ -54,6 +53,7 @@ public class RewardRestController {
         reward.setName(new_reward.getName());
         reward.setDescription(new_reward.getDescription());
         reward.setBlocklyJsonCode(new_reward.getBlocklyJsonCode());
+        reward.setBlocklyGeneratedCode(new_reward.getBlocklyGeneratedCode());
         reward.setTags(new_reward.getTags());
         reward.updateLastModified();
         rewardRepository.save(reward);

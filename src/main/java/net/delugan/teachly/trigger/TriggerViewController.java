@@ -51,6 +51,7 @@ public class TriggerViewController {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/triggers/edit", userRepository.getByOAuth2(oAuth2User));
         Trigger original = triggerRepository.findById(id).orElseThrow();
         modelAndView.addObject("trigger", original);
+        modelAndView.addObject("blocklyCode", original.getBlocklyJsonCode());
         return modelAndView;
     }
 

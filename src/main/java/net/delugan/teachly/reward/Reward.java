@@ -29,16 +29,22 @@ public class Reward extends AuthorAndDateTracked {
     @Schema(description = "The Blockly JSON code of the reward", example = "{\"blocks\": {\"languageVersion\": 0,\"blocks\": [{...}]}}")
     private String blocklyJsonCode;
 
+    @Column(name = "blocklu_generated_code", nullable = true, length = 10485760)
+    @Schema(description = "The Blockly generated JS code of the reward", example = "function reward() {\n  // code\n}")
+    private String blocklyGeneratedCode;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "reward_tags", joinColumns = @JoinColumn(name = "reward_id"))
     @Schema(description = "The tags of the reward", example = "[\"math\", \"geometry\"]")
     private List<String> tags;
 
-    public Reward(String name, String description, String blocklyJsonCode) {
+    public Reward(String name, String description, String blocklyJsonCode, String blocklyGeneratedCode, List<String> tags) {
         super();
         this.name = name;
         this.description = description;
         this.blocklyJsonCode = blocklyJsonCode;
+        this.blocklyGeneratedCode = blocklyGeneratedCode;
+        this.tags = tags;
     }
 
     protected Reward() {
@@ -79,5 +85,13 @@ public class Reward extends AuthorAndDateTracked {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getBlocklyGeneratedCode() {
+        return blocklyGeneratedCode;
+    }
+
+    public void setBlocklyGeneratedCode(String blocklyGeneratedCode) {
+        this.blocklyGeneratedCode = blocklyGeneratedCode;
     }
 }

@@ -35,9 +35,8 @@ public class TriggerRestController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Trigger addTrigger(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Trigger new_trigger) {
-        Trigger trigger = new Trigger(new_trigger.getName(), new_trigger.getDescription(), new_trigger.getBlocklyJsonCode());
+        Trigger trigger = new Trigger(new_trigger.getName(), new_trigger.getDescription(), new_trigger.getBlocklyJsonCode(), new_trigger.getBlocklyGeneratedCode(), new_trigger.getTags());
         trigger.setAuthor(userRepository.getByOAuth2(oAuth2User));
-        trigger.setTags(new_trigger.getTags());
         trigger.updateLastModified();
         triggerRepository.save(trigger);
         return trigger;
@@ -54,6 +53,7 @@ public class TriggerRestController {
         trigger.setName(new_trigger.getName());
         trigger.setDescription(new_trigger.getDescription());
         trigger.setBlocklyJsonCode(new_trigger.getBlocklyJsonCode());
+        trigger.setBlocklyGeneratedCode(new_trigger.getBlocklyGeneratedCode());
         trigger.updateLastModified();
         trigger.setTags(new_trigger.getTags());
         triggerRepository.save(trigger);

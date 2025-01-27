@@ -1,7 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
     const cancelButton = $('#cancel-button');
-    cancelButton.on('click', () => {
+    cancelButton.on('click', (event) => {
         window.history.back();
+        event.preventDefault();
     });
 
     jQuery.validator.setDefaults({
@@ -60,7 +61,7 @@ function sendForm(method = 'post') {
     const url = form.action + (method === 'put' ? '/' + clone.id : '');
 
     // Converti i dati del form in URLSearchParams, data-json-key come chiave dei campi JSON, ma non quelli nascosti
-    const json = {};
+    const json = initializeJson();
     $(form).find('[data-json-key]:not(:hidden)').each((index, element) => {
         const key = $(element).data('json-key');
         if ($(element).hasClass('tagify-input')) {
@@ -151,6 +152,10 @@ function initializeTags() {
         tagsTagify.settings.whitelist.push(...existingTags);
         tagsTagify.dropdown.refilter();
     })();
+}
+
+function initializeJson() {
+    return {}
 }
 
 let API_TAG_FETCH_URL = '';

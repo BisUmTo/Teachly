@@ -29,16 +29,22 @@ public class Trigger extends AuthorAndDateTracked {
     @Schema(description = "The Blockly JSON code of the reward", example = "{\"blocks\": {\"languageVersion\": 0,\"blocks\": [{...}]}}")
     private String blocklyJsonCode;
 
+    @Column(name = "blockly_generated_code", nullable = true, length = 10485760)
+    @Schema(description = "The Blockly generated JS code of the reward", example = "function reward() {\n  // code\n}")
+    private String blocklyGeneratedCode;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "trigger_tags", joinColumns = @JoinColumn(name = "trigger_id"))
     @Schema(description = "The tags of the trigger", example = "[\"math\", \"geometry\"]")
     private List<String> tags;
 
-    public Trigger(String name, String description, String blocklyJsonCode) {
+    public Trigger(String name, String description, String blocklyJsonCode, String blocklyGeneratedCode, List<String> tags) {
         super();
         this.name = name;
         this.description = description;
         this.blocklyJsonCode = blocklyJsonCode;
+        this.blocklyGeneratedCode = blocklyGeneratedCode;
+        this.tags = tags;
     }
 
     protected Trigger() {
@@ -79,5 +85,13 @@ public class Trigger extends AuthorAndDateTracked {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public String getBlocklyGeneratedCode() {
+        return blocklyGeneratedCode;
+    }
+
+    public void setBlocklyGeneratedCode(String blocklyGeneratedCode) {
+        this.blocklyGeneratedCode = blocklyGeneratedCode;
     }
 }
