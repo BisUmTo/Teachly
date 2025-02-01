@@ -34,7 +34,18 @@ function customBlocksToolbox() {
                         "inputs": {
                             "STATEMENT": {
                                 "block": {
-                                    "type": "assign_random_exercise"
+                                    "type": "assign_random_exercise",
+                                    "inputs": {
+                                        "PLAYER": {
+                                            "block": {
+                                                "type": "event_getter",
+                                                "fields": {
+                                                    "EVENT": "PlayerJumpEvent",
+                                                    "GETTER": "getPlayer"
+                                                }
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -84,6 +95,17 @@ function customBlocksToolbox() {
                                         "DO0": {
                                             "block": {
                                                 "type": "assign_random_exercise",
+                                                "inputs": {
+                                                    "PLAYER": {
+                                                        "block": {
+                                                            "type": "event_getter",
+                                                            "fields": {
+                                                                "EVENT": "PlayerPickupItemEvent",
+                                                                "GETTER": "getPlayer"
+                                                            }
+                                                        }
+                                                    }
+                                                }
                                             }
                                         }
                                     }
