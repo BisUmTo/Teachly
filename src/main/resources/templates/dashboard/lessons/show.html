@@ -128,9 +128,7 @@
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="btn-group btn-group-sm float-right">
-                                        <button type="button" class="btn btn-default disabled" data-toggle="modal" data-target="#downloadModal" id="download">
-                                            <i class="fa fa-download"></i>
-                                        </button>
+
                                         <!-- Download Modal -->
                                         <div class="modal fade" id="downloadModal" tabindex="-1" role="dialog" aria-labelledby="downloadModalLabel" aria-hidden="true">
                                             <div class="modal-dialog modal-xl" role="document">
@@ -142,7 +140,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <textarea id="generatedCode" th:text="${lesson.getJavascriptGeneratedCode()}"></textarea>
+                                                        <textarea id="generatedCode" th:text="${lesson.getBlocklyGeneratedCode()}"></textarea>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -151,9 +149,15 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#" class="btn btn-success"
+                                        <a href="#" class="btn btn-success" id="generate-button"
                                            data-toggle="tooltip" title="Generate" data-placement="top"
-                                        >Generate Lesson</a>
+                                           th:attr="data-generate-url=@{/api/v1/lessons/{id}/generate(id=${e.getId()})}">
+                                            <i class="fas fa-cogs"></i>
+                                            Generate Lesson
+                                        </a>
+                                        <button type="button" class="btn btn-default disabled" data-toggle="modal" data-target="#downloadModal" id="download">
+                                            <i class="fa fa-download"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>

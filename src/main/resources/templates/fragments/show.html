@@ -55,8 +55,9 @@
                 <a th:href="@{/dashboard/{item}/create(id=${e.getId()},item=${item})}" class="btn btn-info"
                    data-toggle="tooltip" title="Clone" data-placement="top"
                 ><i class="fas fa-clone"></i></a>
-                <a th:if="${e.getAuthorId() == me.getId()}" th:href="@{/dashboard/{item}/delete/{id}(id=${e.getId()},item=${item})}" class="btn btn-danger"
-                   data-toggle="tooltip" title="Delete" data-placement="top"
+                <a th:if="${e.getAuthorId() == me.getId()}" href="#" class="btn btn-danger"
+                   data-toggle="tooltip" title="Delete" data-placement="top" id="delete-button"
+                   th:attr="data-delete-url=@{/api/v1/{item}/{id}(id=${e.getId()},item=${item})}"
                 ><i class="fas fa-trash"></i></a>
             </div>
         </div>

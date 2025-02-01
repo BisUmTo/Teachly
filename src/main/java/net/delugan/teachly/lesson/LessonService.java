@@ -1,5 +1,8 @@
 package net.delugan.teachly.lesson;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import jakarta.persistence.EntityNotFoundException;
 import net.delugan.teachly.exercise.Exercise;
 import net.delugan.teachly.exercise.ExerciseRepository;
@@ -9,10 +12,12 @@ import net.delugan.teachly.trigger.Trigger;
 import net.delugan.teachly.trigger.TriggerRepository;
 import net.delugan.teachly.user.User;
 import net.delugan.teachly.user.UserRepository;
+import net.minidev.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -87,5 +92,36 @@ public class LessonService {
         lesson.setWrongReward(wrongReward);
 
         return lesson;
+    }
+
+    public void generateLesson(Lesson lesson) throws JsonProcessingException {
+        Date now = new Date();
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        StringBuilder generatedCode = new StringBuilder();
+        generatedCode.append("// Generated code for lesson: ").append(lesson.getName()).append("\n");
+        generatedCode.append("// Last modified: ").append(now).append("\n\n");
+
+        generatedCode.append("// Exercises\n");
+        generatedCode.append("const EXERCISES = [\n");
+        for (Exercise exercise : lesson.getExercises()) {
+            String json = ow.writeValueAsString(exercise);
+            json = json.replaceAll("(?m)^", "\t");
+            generatedCode.append(json).append(",\n");
+        }
+        generatedCode.append("];\n");
+
+        generatedCode.append("\n// Triggers\n");
+        for (Trigger trigger : lesson.getTriggers()) {
+            generatedCode.append(trigger.getBlocklyGeneratedCode());
+        }
+
+        generatedCode.append("\n// Correct reward\n");
+        generatedCode.append(lesson.getCorrectReward().getBlocklyGeneratedCode());
+
+        generatedCode.append("\n// Wrong reward\n");
+        generatedCode.append(lesson.getWrongReward().getBlocklyGeneratedCode());
+        generatedCode.append("\n");
+
+        lesson.setBlocklyGeneratedCode(generatedCode.toString());
     }
 }

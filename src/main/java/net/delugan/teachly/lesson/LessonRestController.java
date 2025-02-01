@@ -65,6 +65,21 @@ class LessonRestController {
         lessonRepository.deleteById(id);
     }
 
+    @PostMapping("{id}/generate")
+    public Lesson generateLesson(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
+        Lesson lesson = lessonRepository.findById(id).orElseThrow();
+        if(!lesson.isAuthor(userRepository.getByOAuth2(oAuth2User))) {
+            throw new AuthorizationDeniedException("You are not the author of this lesson");
+        }
+        try {
+            lessonService.generateLesson(lesson);
+        } catch (Exception e) {
+            throw new RuntimeException("Error while generating the lesson", e);
+        }
+        lessonRepository.save(lesson);
+        return lesson;
+    }
+
     @GetMapping("/tags")
     public List<String> getTags() {
         return lessonRepository.getAllTags();

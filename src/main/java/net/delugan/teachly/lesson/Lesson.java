@@ -69,8 +69,8 @@ public class Lesson extends AuthorAndDateTracked {
     @Schema(description = "The reward given when the student answers incorrectly")
     private Reward wrongReward;
 
-    @Column(name = "javascript_generated_code", length = 10485760)
-    private String javascriptGeneratedCode;
+    @Column(name = "blockly_generated_code", length = 10485760)
+    private String blocklyGeneratedCode;
 
     @Column(name = "last_generation")
     @Temporal(TemporalType.TIMESTAMP)
@@ -155,12 +155,12 @@ public class Lesson extends AuthorAndDateTracked {
         this.wrongReward = wrongReward;
     }
 
-    public String getJavascriptGeneratedCode() {
-        return javascriptGeneratedCode;
+    public String getBlocklyGeneratedCode() {
+        return blocklyGeneratedCode;
     }
 
-    public void setJavascriptGeneratedCode(String javascriptGeneratedCode) {
-        this.javascriptGeneratedCode = javascriptGeneratedCode;
+    public void setBlocklyGeneratedCode(String blocklyGeneratedCode) {
+        this.blocklyGeneratedCode = blocklyGeneratedCode;
         this.lastGeneration = new Date();
     }
 

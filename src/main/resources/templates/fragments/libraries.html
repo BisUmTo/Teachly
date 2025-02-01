@@ -13,6 +13,9 @@
     <link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
     <!-- Tagify -->
     <link rel="stylesheet" th:href="@{/plugins/tagify/tagify.css}">
+    <!-- CodeMirror -->
+    <link rel="stylesheet" th:href="@{/plugins/codemirror/codemirror.css}">
+    <link rel="stylesheet" th:href="@{/plugins/codemirror/theme/monokai.css}">
     <!-- Theme style -->
     <link rel="stylesheet" th:href="@{/css/adminlte.min.css}">
     <link rel="stylesheet" th:href="@{/css/teachly.css}">
@@ -36,6 +39,9 @@
     <!-- Data Tables -->
     <th:block th:replace="~{fragments/datatable :: libraries}"></th:block>
     <script th:src="@{/js/teachly.js}"></script>
+    <!-- CodeMirror -->
+    <script th:src="@{/plugins/codemirror/codemirror.js}"></script>
+    <script th:src="@{/plugins/codemirror/mode/javascript/javascript.js}"></script>
 </th:block>
 </body>
 </html>
