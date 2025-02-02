@@ -48,6 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const hintsTagify = new Tagify(hintsInput, {delimiters: "\n|\r"});
     const solutions2Tagify = new Tagify(solutions2Input, {delimiters: "\n|\r"});
+
+    initializeClone();
 });
 
 API_TAG_FETCH_URL = '/api/v1/exercises/tags';

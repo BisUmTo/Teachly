@@ -8,7 +8,10 @@ document.addEventListener("DOMContentLoaded", () => {
     jQuery.validator.setDefaults({
         //debug: true,
         success: "valid",
-        submitHandler: (form)=>sendForm($(form).attr('method')),
+        submitHandler: (form, e)=> {
+            e.preventDefault();
+            sendForm();
+        },
         errorElement: 'span',
         errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
@@ -49,16 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     $('#create-form').validate(VALIDATE_OPTIONS);
-
-    for (let key in clone) {
-        $('[data-json-key="' + key + '"]').val(clone[key]);
-    }
-
+    initializeClone();
+    // TOFIX: schedule
+    setTimeout(() => {
+        initializeClone();
+    }, 1000);
 });
 
-function sendForm(method = 'post') {
+function sendForm() {
     const form = document.querySelector('form');
-    const url = form.action + (method === 'put' ? '/' + clone.id : '');
 
     // Converti i dati del form in URLSearchParams, data-json-key come chiave dei campi JSON, ma non quelli nascosti
     const json = initializeJson();
@@ -85,10 +87,10 @@ function sendForm(method = 'post') {
         json['blocklyJsonCode'] = JSON.stringify(blockly_json);
     }
 
-    console.warn(json);
+    console.info(json);
 
-    fetch(url, {
-        method: method,
+    fetch(form.action, {
+        method: $(form).attr('method'),
         headers: {
             'Content-Type': 'application/json' // Crucial: Tell the server it's JSON
         },
@@ -116,7 +118,7 @@ function sendForm(method = 'post') {
                     })
 
                     console.error("Error:", error);
-                    throw new Error(error);
+                    throw new Error("Login required");
                 });
             }
             return response.json(); // Parse the JSON response from the server
@@ -130,7 +132,9 @@ function sendForm(method = 'post') {
             window.location.href = currentUrl.substring(0, currentUrl.lastIndexOf('/')) + '/show/' + id;
         })
         .catch(error => {
-            // Handle the error
+            if (error.message === "Login required") {
+                window.open('/login', '_blank');
+            }
         });
 }
 
@@ -152,6 +156,20 @@ function initializeTags() {
         tagsTagify.settings.whitelist.push(...existingTags);
         tagsTagify.dropdown.refilter();
     })();
+}
+
+function initializeClone(){
+    for (let key in clone) {
+        let value = clone[key];
+        if (Array.isArray(clone[key])) {
+            if (typeof clone[key][0] === 'object' && 'id' in clone[key][0]) {
+                value = clone[key].map(obj => obj.id);
+            }
+        } else if (typeof clone[key] === 'object' && 'id' in clone[key]) {
+            value = clone[key].id;
+        }
+        $(`[data-json-key="${key}"]`).val(value);
+    }
 }
 
 function initializeJson() {

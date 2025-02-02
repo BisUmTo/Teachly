@@ -116,11 +116,17 @@ public class LessonService {
         }
 
         generatedCode.append("\n// Correct reward\n");
+        generatedCode.append("function onCorrectAnswer(event) {\n  ");
         generatedCode.append(lesson.getCorrectReward().getBlocklyGeneratedCode());
+        generatedCode.append("}\n");
+        generatedCode.append("$.subscribe('CorrectAnswerEvent', 'onCorrectAnswer');\n");
 
         generatedCode.append("\n// Wrong reward\n");
+        generatedCode.append("function onWrongAnswer(event) {\n   ");
         generatedCode.append(lesson.getWrongReward().getBlocklyGeneratedCode());
-        generatedCode.append("\n");
+        generatedCode.append("}\n");
+        generatedCode.append("$.subscribe('WrongAnswerEvent', 'onWrongAnswer');\n");
+
 
         lesson.setBlocklyGeneratedCode(generatedCode.toString());
     }

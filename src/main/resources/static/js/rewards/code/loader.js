@@ -28,8 +28,8 @@ async function customBlocksLoader(json_path) {
                     "name": "VARIABLE",
                     "options": [
                         [
-                            "response",
-                            "event.getResponse()"
+                            "answer",
+                            "event.getAnswer()"
                         ],
                         [
                             "solutions",

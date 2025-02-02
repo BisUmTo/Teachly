@@ -9,7 +9,7 @@ function initializeJson() {
     let workspace = Blockly.getMainWorkspace();
     let code = Blockly.JavaScript.workspaceToCode(workspace);
     return {
-        'blockly_generated_code': code
+        'blocklyGeneratedCode': code
     };
 }
 

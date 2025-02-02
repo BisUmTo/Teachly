@@ -5,7 +5,12 @@ function gameEventsGenerators(){
     forBlock['event_procedure'] = function(block, generator) {
         const event = block.getFieldValue('EVENT');
         const statement = generator.statementToCode(block,'STATEMENT');
-        return `$.subscribe("${event.replace(/Event$/, '')}", (${event})=>{\n${indentCode(statement)}});\n`;
+        const addEvent = generator.provideFunction_(
+            `on${event.replace(/Event$/, '')}`,
+            `function ${generator.FUNCTION_NAME_PLACEHOLDER_}(event) {\n` +
+            `${indentCode(statement)}` +
+            `}`);
+        return `$.subscribe("${event}", "${addEvent}");\n`;
     }
 
     // Event getter block

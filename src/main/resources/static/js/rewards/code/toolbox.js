@@ -25,7 +25,7 @@ function customBlocksToolbox() {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "response"
+                            "VARIABLE": "answer"
                         }
                     },
                     {
