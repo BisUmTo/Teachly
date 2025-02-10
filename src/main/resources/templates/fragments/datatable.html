@@ -43,12 +43,19 @@
             </div>
         </td>
         <td th:fragment="create (item, name)" class="align-middle py-0">
-            <a class="btn btn-success btn btn-success create-button btn-s px-3 w-100" th:href="@{/dashboard/{item}/create(item=${item})}">
+            <a class="btn btn-success btn btn-success create-button btn-s px-3 float-right" th:href="@{/dashboard/{item}/create(item=${item})}">
                 <i class="fas fa-plus mr-1"></i> new <span th:text="${name}"></span>
             </a>
         </td>
+        <td th:fragment="search" class="align-middle py-0">
+            <div id="list_filter" class="dataTables_filter">
+                <label>Search:
+                    <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="list">
+                </label>
+            </div>
+        </td>
         <td th:fragment="invite" class="align-middle py-0">
-            <a class="btn btn-success btn btn-success invite-button btn-s px-3 w-100" onclick="shareApp()">
+            <a class="btn btn-success btn btn-success invite-button btn-s px-3 float-right" onclick="shareApp()">
                 <i class="fas fa-user-plus mr-1"></i> invite friends
             </a>
         </td>
