@@ -67,8 +67,9 @@
         </nav>
         <!-- /.sidebar-menu -->
 
+
         <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-auto pt-2 pb-3 d-flex border-secondary border-top">
+        <div class="user-panel mt-auto pt-2 pb-3 d-flex border-secondary border-top" th:if="${me != null}">
             <div class="image">
                 <a th:href="@{/dashboard/profile}">
                     <img th:src="${me.getPicture()}" class="img-circle elevation-2" alt="User Image" referrerpolicy="no-referrer">
@@ -84,9 +85,15 @@
                     ><i class="nav-icon fas fa-sign-out-alt"></i></a>
                 </div>
             </div>
-
         </div>
-
+        <!-- Sidebar login panel (optional) -->
+        <div class="user-panel mt-auto pt-2 pb-3 d-flex border-secondary border-top" th:unless="${me != null}">
+            <div class="info w-100" style="display: flex !important;">
+                <form th:action="@{/oauth2/authorization/google}" method="get">
+                    <button type="submit" class="login-with-google-btn">Login with Google</button>
+                </form>
+            </div>
+        </div>
     </div>
     <!-- /.sidebar -->
 </aside>

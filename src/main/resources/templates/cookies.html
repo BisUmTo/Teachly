@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+  <title>Cookie Policy  - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+  <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+  <div class="content-wrapper">
+    <div th:replace="~{fragments/header :: header ('Cookie Policy')}"></div>
+    <div class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <p>Last Updated: 10 February 2025</p>
+            <h2>1. Introduction</h2>
+            <p>This Cookie Policy explains how Teachly uses cookies and similar technologies to ensure the proper functioning of our service, particularly for managing authentication via Google OAuth. We use only strictly necessary cookies to enable secure access and manage the user's session. No cookies for profiling, analytics, or advertising purposes are used.</p>
+            <h2>2. Which Cookies We Use</h2>
+            <h3>Strictly Necessary Cookies</h3>
+            <p>Authentication and Session Management Cookies:</p>
+            <p>These cookies are used solely to securely identify the user who has logged in via Google OAuth and to maintain the user's session during site navigation. Without these cookies, the service would not function properly.</p>
+            <p>Note: These cookies do not store personal information beyond what is strictly necessary for login functionality and are considered essential for delivering the requested service.</p>
+            <h2>3. Purpose of the Cookies</h2>
+            <p>The cookies used by Teachly serve the following purposes:
+            <ul>
+              <li>Authentication: To allow users to securely access the service via Google OAuth.</li>
+              <li>Session Management: To keep the user's session active during navigation, ensuring continuous and secure service use.</li>
+            </ul>
+            </p>
+            <h2>4. Cookie Duration</h2>
+            <p>The authentication cookies are session cookies and are automatically deleted when the browser is closed. In some cases, they may be set with a limited duration to ensure proper service operation (for example, to prevent unauthorized persistent sessions).</p>
+            <h2>5. Legal Basis for Processing</h2>
+            <p>The processing of data via strictly necessary cookies is based on our legitimate interest and the need to perform a contract (i.e., the provision of authentication and session management services) in accordance with Regulation (EU) 2016/679 (GDPR) and the applicable ePrivacy legislation.</p>
+            <h2>6. Your Rights</h2>
+            <p>Regarding the processing of your personal data via cookies, you have the following rights:
+            <ul>
+              <li>Access: The right to obtain confirmation of the existence of data processing and to access the data.</li>
+              <li>Rectification: The right to have inaccurate or incomplete data corrected.</li>
+              <li>Deletion: The right to have your personal data deleted, except in cases provided by law.</li>
+              <li>Objection: The right to object to the processing of your data on legitimate grounds.</li>
+              <li>Restriction: The right to request the restriction of processing.</li>
+              <li>Portability: The right to receive your data in a structured, commonly used, and machine-readable format.</li>
+            </ul>
+            </p>
+            <p>To exercise these rights or if you have any questions or concerns about how your data is processed, please contact us using the details provided in the "Contact Us" section below.</p>
+            <h2>7. Data Controller</h2>
+            <p>The Data Controller for Teachly is:<br>
+              <b>Kevin Delugan</b><br>
+              <a href="mailto:teachly@delugan.net">teachly@delugan.net</a>
+            </p>
+            <h2>8. Changes to this Cookie Policy</h2>
+            <p>We reserve the right to modify this Cookie Policy at any time by publishing an updated version on our website. We encourage you to review this page periodically to be informed of any changes.</p>
+            <h2>9. Contact Us</h2>
+            <p>If you have any questions or concerns about this Cookie Policy or our privacy practices, please contact us at:<br>
+              <a href="mailto:teachly@delugan.net">teachly@delugan.net</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--end::App Main-->
+  <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+</html>

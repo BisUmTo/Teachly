@@ -34,5 +34,9 @@ public class HomeController {
         return "blockly";
     }
 
+    @GetMapping("/cookies")
+    public String cookies() {
+        return "cookies";
+    }
 
 }
