@@ -54,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
         wrongRewardTagify.settings.whitelist.push(...existingRewards);
         wrongRewardTagify.dropdown.refilter();
     })();
+    // TOFIX: UUID replacement
 
     console.info('Creation page loaded');
 });

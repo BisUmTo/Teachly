@@ -9,7 +9,7 @@ async function customBlocksLoader(json_path) {
                 {
                     "type": "input_value",
                     "name": "PLAYER",
-                    "check": "Player"
+                    "check": "org.bukkit.entity.Player"
                 }
             ],
             "previousStatement": null,

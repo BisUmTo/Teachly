@@ -29,23 +29,23 @@ async function customBlocksLoader(json_path) {
                     "options": [
                         [
                             "answer",
-                            "event.getAnswer()"
+                            "event.getAnswer();;String"
                         ],
                         [
                             "solutions",
-                            "event.getExercise().getSolutions()"
+                            "event.getExercise().getSolutions();;Array"
                         ],
                         [
                             "first solution",
-                            "event.getExercise().getSolutions()[0]"
+                            "event.getExercise().getSolutions()[0];;String"
                         ],
                         [
                             "hints",
-                            "event.getExercise().getHints()"
+                            "event.getExercise().getHints();;Array"
                         ],
                         [
                             "player",
-                            "event.getPlayer()"
+                            "event.getPlayer();;org.bukkit.entity.Player"
                         ]
                     ]
                 },
@@ -56,7 +56,7 @@ async function customBlocksLoader(json_path) {
             "output": null,
             "colour": 345,
             "extensions": [
-                "reward_auto_field_extension"
+                "reward_getter_extension"
             ]
         }
     ]

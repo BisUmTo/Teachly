@@ -18,35 +18,35 @@ function customBlocksToolbox() {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "player"
+                            "VARIABLE": "event.getPlayer();;org.bukkit.entity.Player"
                         }
                     },
                     {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "answer"
+                            "VARIABLE": "event.getExercise().getSolutions();;Array"
                         }
                     },
                     {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "solutions"
+                            "VARIABLE": "event.getAnswer();;String"
                         }
                     },
                     {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "solutions[0]"
+                            "VARIABLE": "event.getExercise().getSolutions()[0];;String"
                         }
                     },
                     {
                         "kind": "block",
                         "type": "reward_variable",
                         "fields": {
-                            "VARIABLE": "hints"
+                            "VARIABLE": "event.getExercise().getHints();;Array"
                         }
                     }
                ]

@@ -24,7 +24,7 @@ async function gameEventsLoader(json_path) {
             "type": "event_getter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "from %1 get %2 %3",
+            "message0": "%1from event get %2 %3",
             "args0": [
                 {
                     "type": "field_label_serializable",
@@ -44,13 +44,13 @@ async function gameEventsLoader(json_path) {
             ],
             "output": null,
             "style":"variable_dynamic_blocks",
-            "extensions": ['event_auto_field_extension']
+            "extensions": ['event_getter_extension']
         },
         {
             "type": "event_boolean_getter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "is %1 %2 %3",
+            "message0": "%1is event %2 %3",
             "args0": [
                 {
                     "type": "field_label_serializable",
@@ -70,13 +70,13 @@ async function gameEventsLoader(json_path) {
             ],
             "output": "Boolean",
             "style": "logic_blocks",
-            "extensions": ['event_auto_field_extension']
+            "extensions": ['event_boolean_getter_extension']
         },
         {
             "type": "event_setter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "set %1 's %2 to %3",
+            "message0": "%1set event's %2 to %3",
             "args0": [
                 {
                     "type": "field_label_serializable",
@@ -97,7 +97,7 @@ async function gameEventsLoader(json_path) {
             "previousStatement": null,
             "nextStatement": null,
             "style":"variable_dynamic_blocks",
-            "extensions": ['event_auto_field_extension']
+            "extensions": ['event_setter_extension']
         }
     ]
     loadBlocksFromJson(json);

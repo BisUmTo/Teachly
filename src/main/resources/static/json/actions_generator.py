@@ -47,7 +47,7 @@ def categorize_methods(methods, ereditate_methods=([],[],[],[])):
             else:
                 getters.append([camel_to_spaced(name.replace("get", "")), full_name])
         elif len(arguments) == 1 and return_type == "void":
-            setters.append([camel_to_spaced(arguments[0]["name"]), full_name])
+            setters.append([camel_to_spaced(name.replace("set", "")), full_name])
         else:
             arg_types = ', '.join([arg["type"] for arg in arguments])
             unsupported.append([camel_to_spaced(name), name, f'returns: {return_type}; argument types: {arg_types}']) 
@@ -114,11 +114,9 @@ def generateHierarchy():
 
 def main():
     input_folders = [
-        "./interfaces/com/destroystokyo/paper/event/player",
-        "./interfaces/io/papermc/paper/event/player",
-        "./interfaces/org/bukkit/event/player"
+        "./interfaces/"
     ]
-    output_file = "game_events.json"
+    output_file = "game_actions.json"
     
     actions = []
     getters_dict = EMPTY.copy()
@@ -135,14 +133,14 @@ def main():
                     file_path = os.path.join(root, file_name)
                     full_name, (getters, boolean_getters, setters, unsupported) = process_file(file_path, ([],[],[],[]))
                     class_name = full_name.split(".")[-1]
-                    actions.append([camel_to_spaced(class_name.replace("Event", "")), full_name])
+                    actions.append([camel_to_spaced(class_name), full_name])
                     getters_dict[full_name] = getters
                     boolean_getters_dict[full_name] = boolean_getters
                     setters_dict[full_name] = setters
                     if unsupported: unsupported_dict[full_name] = unsupported
             
     result = {
-        "events": actions,
+        "actions": actions,
         "getters": getters_dict,
         "boolean_getters": boolean_getters_dict,
         "setters": setters_dict,

@@ -1,23 +1,22 @@
 function customBlocksValidators() {
     return {
-        'reward_auto_field_extension' : function() {
+        'reward_getter_extension' : function() {
             this.setOnChange(function (event) {
                 let invalid = checkRewardBlock(this);
 
                 const variable = this.getFieldValue('VARIABLE');
-                switch (variable) {
-                    case 'solutions':
-                    case 'hints':
+                const returnType = variable.split(';')[2];
+                switch (returnType) {
+                    case 'Array':
                         this.outputConnection.setCheck('Array');
                         this.setStyle('list_blocks');
                         break;
-                    case 'response':
-                    case 'solutions[0]':
+                    case 'String':
                         this.outputConnection.setCheck('String');
                         this.setStyle('text_blocks');
                         break;
-                    case 'player':
-                        this.outputConnection.setCheck('Player');
+                    case 'org.bukkit.entity.Player':
+                        this.outputConnection.setCheck('org.bukkit.entity.Player');
                         this.setStyle('variable_dynamic_blocks');
                 }
 

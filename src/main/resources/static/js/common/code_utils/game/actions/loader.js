@@ -5,12 +5,11 @@ async function gameActionsLoader(json_path) {
             "type": "action_getter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "from %1 %2 get %3 %4",
+            "message0": "%1from %2 get %3 %4",
             "args0": [
                 {
-                    "type": "field_dropdown",
+                    "type": "field_label_serializable",
                     "name": "ACTION",
-                    "options": actions['actions']
                 },
                 {
                     "type": "input_value",
@@ -28,19 +27,18 @@ async function gameActionsLoader(json_path) {
                 }
             ],
             "output": null,
-            "style":"variable_dynamic_blocks",
-            "extensions": []
+            "style":"colour_blocks",
+            "extensions": ['action_getter_extension']
         },
         {
             "type": "action_boolean_getter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "is %1 %2 %3 %4",
+            "message0": "%1is %2 %3 %4",
             "args0": [
                 {
-                    "type": "field_dropdown",
+                    "type": "field_label_serializable",
                     "name": "ACTION",
-                    "options": actions['actions']
                 },
                 {
                     "type": "input_value",
@@ -58,17 +56,17 @@ async function gameActionsLoader(json_path) {
                 }
             ],
             "output": null,
-            "style":"variable_dynamic_blocks",
-            "extensions": []
+            "style": "logic_blocks",
+            "extensions": ['action_boolean_getter_extension']
         },
         {
             "type": "action_setter",
             "tooltip": "",
             "helpUrl": "",
-            "message0": "set %1 %2's %3 %4 to %5",
+            "message0": "%1set %2's %3 %4 to %5",
             "args0": [
                 {
-                    "type": "field_dropdown",
+                    "type": "field_label_serializable",
                     "name": "ACTION",
                     "options": actions['actions']
                 },
@@ -93,8 +91,8 @@ async function gameActionsLoader(json_path) {
             ],
             "previousStatement": null,
             "nextStatement": null,
-            "style":"variable_dynamic_blocks",
-            "extensions": []
+            "style":"colour_blocks",
+            "extensions": ['action_setter_extension']
         }
     ]
     loadBlocksFromJson(json)

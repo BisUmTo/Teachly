@@ -16,7 +16,7 @@ function gameEventsGenerators(){
     // Event getter block
     forBlock['event_getter'] = forBlock['event_boolean_getter'] = function(block, generator) {
         const event = block.getFieldValue('EVENT');
-        const getter = block.getFieldValue('GETTER');
+        const [getter, argType, returnType] = block.getFieldValue('GETTER').split(';');
 
         const code = `${event}.${getter}()`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
@@ -25,7 +25,7 @@ function gameEventsGenerators(){
     // Event setter block
     forBlock['event_setter'] = function(block, generator) {
         const event = block.getFieldValue('EVENT');
-        const setter = block.getFieldValue('SETTER');
+        const [setter, argType, returnType] = block.getFieldValue('SETTER').split(';');
         const value = generator.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || "null";
         return `${event}.${setter}(${value});\n`;
     }
