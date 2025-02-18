@@ -39,4 +39,13 @@ public class HomeController {
         return "cookies";
     }
 
+    @GetMapping("/privacy")
+    public String privacy() {
+        return "privacy";
+    }
+
+    @GetMapping("/tos")
+    public String tos() {
+        return "tos";
+    }
 }

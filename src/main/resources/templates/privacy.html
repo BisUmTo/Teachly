@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Privacy Policy - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header ('Privacy Policy')}"></div>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Last Updated: 10 February 2025</p>
+                        <p>
+                            This Privacy Policy explains how Teachly ("Teachly", "we", "our", "us") collects, uses, and
+                            shares information about you ("you", "your", "user") when you access or use our websites
+                            ("Services").
+                        </p>
+                        <p>
+                            Users are responsible for any third-party data they provide or share through the Services
+                            and confirm that they have obtained consent from the third party to provide us with such
+                            data.
+                        </p>
+                        <h2>Information We Collect</h2>
+                        <h3>Account Information</h3>
+                        <p>If you create an account on the Services, we collect
+                            the information you provide us related to the account, such as first and last name,
+                            username, password, email address, and profile image.</p>
+
+                        <h2>How We Use Your Information</h2>
+                        <p>We use the information we collect to provide, maintain, and improve our Services and other
+                            interactions we have with you. For example, we use the collected information to:</p>
+                        <ul>
+                            <li>Enhance and improve our online experience;</li>
+                            <li>Provide services, authenticate users, and send you related information, including
+                                confirmations, customer experience surveys, and product or service alerts;
+                            </li>
+                            <li>Respond to your comments and inquiries and provide customer service;</li>
+                            <li>Send you notifications or promotional messages if you have opted to receive them;</li>
+                            <li>Detect, investigate, and prevent fraudulent or illegal activities and protect our
+                                rights, property, and others;
+                            </li>
+                            <li>Comply with our legal and financial obligations;</li>
+                        </ul>
+
+                        <h2>How We May Share Information</h2>
+                        <p>We may share your personal information in the following situations:</p>
+                        <ul>
+                            <li><strong>Third-party Service Providers.</strong> We may share data with service
+                                providers, vendors, contractors, or agents who complete transactions or perform services
+                                on our behalf, such as those assisting us with business operations, fraud prevention,
+                                customer service, experience personalization, marketing, and advertising;
+                            </li>
+                            <li><strong>Business Changes.</strong> We may share data in connection with a business
+                                transaction, such as a merger, acquisition, joint venture, corporate reorganization,
+                                insolvency or bankruptcy, financing, or sale of business assets;
+                            </li>
+                            <li><strong>To Comply with the Law.</strong> We may share data to facilitate legal processes
+                                in response to legitimate requests by public authorities, including to meet national
+                                security or law enforcement requests as permitted by law.
+                            </li>
+                            <li><strong>With Your Consent.</strong> We may share data with third parties when we have
+                                your consent.
+                            </li>
+                        </ul>
+
+                        <h2>Data Security</h2>
+                        <p>
+                            We implement commercially reasonable security measures designed to protect your information.
+                            However, despite our best efforts, no security measure is completely impenetrable.
+                        </p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::App Main-->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+</html>

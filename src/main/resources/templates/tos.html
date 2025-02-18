@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="~{fragments/libraries :: head (~{::title},~{})}">
+    <title>Terms and Conditions - Teachly</title>
+</head>
+<body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+<div class="wrapper" id="#swup">
+    <aside th:replace="~{fragments/sidebar :: sidebar}"></aside>
+    <div class="content-wrapper">
+        <div th:replace="~{fragments/header :: header ('Terms and Conditions')}"></div>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <p>Last Updated: 10 February 2025</p>
+                        <h2>1. Introduction</h2>
+                        <p>Welcome to Teachly. By using our platform, you agree to these Terms and Conditions. Please read them carefully before starting to use our services.</p>
+
+                        <h2>2. Definitions</h2>
+                        <ul>
+                            <li><strong>Platform</strong>: The Teachly website and applications.</li>
+                            <li><strong>User</strong>: Any individual who accesses or uses the Platform.</li>
+                            <li><strong>Content</strong>: Materials, data, information, texts, images, videos, or other content uploaded to the Platform by users.</li>
+                        </ul>
+
+                        <h2>3. Use of the Platform</h2>
+                        <h3>3.1 Access and Registration</h3>
+                        <p>Access to the Platform is allowed to all users. However, some features may require registration and account creation.</p>
+
+                        <h3>3.2 User Responsibilities</h3>
+                        <p>Users are responsible for:</p>
+                        <ul>
+                            <li>Maintaining the confidentiality of their login credentials.</li>
+                            <li>Uploading only appropriate content suitable for public viewing.</li>
+                            <li>Ensuring they have the necessary rights to upload and share content on the Platform.</li>
+                        </ul>
+
+                        <h2>4. Uploading and Sharing Content</h2>
+                        <h3>4.1 Content Visibility</h3>
+                        <p>All content uploaded to the Platform will be publicly available and visible to all users. Therefore, it is the user's responsibility to filter and upload only content suitable for public viewing.</p>
+
+                        <h3>4.2 Content License</h3>
+                        <p>By uploading content to the Platform, the user grants Teachly a non-exclusive, worldwide, royalty-free, sublicensable license to use, reproduce, modify, adapt, publish, and distribute such content in connection with providing the Platform's services.</p>
+
+                        <h2>5. Use of Third-Party Content</h2>
+                        <h3>5.1 License Compliance</h3>
+                        <p>Users may use content from other users on the Platform, provided they comply with the license attached to such content. Specifically, if content is distributed under the MIT license, users must adhere to the terms of that license, available at <a href="https://opensource.org/license/MIT">https://opensource.org/license/MIT</a>.</p>
+
+                        <h3>5.2 Attribution</h3>
+                        <p>When using third-party content, proper attribution to the original author is mandatory, as required by the applicable license.</p>
+
+                        <h2>6. User Conduct</h2>
+                        <p>Users agree not to:</p>
+                        <ul>
+                            <li>Upload illegal, offensive, defamatory, or inappropriate content.</li>
+                            <li>Violate third-party intellectual property rights.</li>
+                            <li>Use the Platform for fraudulent or harmful purposes.</li>
+                        </ul>
+                        <p>Teachly reserves the right to remove any content that violates these Terms and to suspend or terminate the accounts of responsible users.</p>
+
+                        <h2>7. Limitation of Liability</h2>
+                        <p>The Platform is provided "as is." Teachly does not guarantee that the services will meet users' specific needs or be error-free. To the extent permitted by law, Teachly will not be liable for direct, indirect, incidental, or consequential damages arising from the use or inability to use the Platform.</p>
+
+                        <h2>8. Changes to the Terms</h2>
+                        <p>Teachly reserves the right to modify these Terms at any time. Changes will be communicated to users through the Platform. Continued use of the Platform after such changes implies acceptance of the new Terms.</p>
+
+                        <h2>9. Governing Law and Jurisdiction</h2>
+                        <p>These Terms are governed by Italian law. Any disputes arising from or related to these Terms will be subject to the exclusive jurisdiction of the courts of Bolzano, Italy.</p>
+
+                        <h2>10. Contact</h2>
+                        <p>For questions or clarifications regarding these Terms, users can contact Teachly at the email address: <a href="mailto:teachly@delugan.net">teachly@delugan.net</a>.</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end::App Main-->
+    <footer th:replace="~{fragments/footer :: footer}"></footer>
+</div>
+<!--end::App Wrapper-->
+<th:block th:replace="~{fragments/libraries :: body}"></th:block>
+</body>
+</html>
