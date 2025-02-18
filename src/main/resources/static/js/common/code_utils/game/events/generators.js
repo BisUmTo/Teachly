@@ -26,7 +26,7 @@ function gameEventsGenerators(){
     forBlock['event_setter'] = function(block, generator) {
         const event = block.getFieldValue('EVENT');
         const setter = block.getFieldValue('SETTER');
-        const value = generator.valueToCode(block, 'VALUE', Order.NONE) || "''";
+        const value = generator.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || "null";
         return `${event}.${setter}(${value});\n`;
     }
 

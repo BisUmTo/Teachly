@@ -1,2 +1,58 @@
 {
+  "actions": [
+    [
+      "player",
+      "Player"
+    ]
+  ],
+  "getters": {
+    "": [
+      [
+        "",
+        ""
+      ]
+    ],
+    "Player": [
+      [
+        "health",
+        "getHealth"
+      ],
+      [
+        "max health",
+        "getMaxHealth"
+      ]
+    ]
+  },
+  "boolean_getters": {
+    "": [
+      [
+        "",
+        ""
+      ]
+    ],
+    "Player": [
+      [
+        "dead",
+        "isDead"
+      ]
+    ]
+  },
+  "setters": {
+    "": [
+      [
+        "",
+        ""
+      ]
+    ],
+    "Player": [
+      [
+        "health",
+        "setHealth"
+      ],
+      [
+        "max health",
+        "setMaxHealth"
+      ]
+    ]
+  }
 }

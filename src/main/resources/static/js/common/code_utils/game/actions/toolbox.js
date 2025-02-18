@@ -4,7 +4,27 @@ function gameActionsToolbox() {
         "name": "Actions",
         "category_style": "mutex_category",
         "contents" : [
-            // TODO
+            {
+                "kind": "block",
+                "type": "action_getter",
+                "fields": {
+                    "ACTION": ""
+                }
+            },
+            {
+                "kind": "block",
+                "type": "action_boolean_getter",
+                "fields": {
+                    "ACTION": ""
+                }
+            },
+            {
+                "kind": "block",
+                "type": "action_setter",
+                "fields": {
+                    "ACTION": ""
+                }
+            }
         ]
     }
 }

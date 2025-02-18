@@ -4566,10 +4566,7 @@
             ]
         ],
         "PlayerJumpEvent": [
-            [
-                "cancelled",
-                "isCancelled"
-            ],
+
             [
                 "call event",
                 "callEvent"
