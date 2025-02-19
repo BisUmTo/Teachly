@@ -17,7 +17,7 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid  pb-3">
-                <form action="/api/v1/exercises/generators" method="put" id="create-form">
+                <form th:action="'/api/v1/exercises/generators/'+${generator.id}" method="put" id="create-form">
                     <div class="row">
                         <div class="col-12">
                             <div class="card card-primary card-outline">
