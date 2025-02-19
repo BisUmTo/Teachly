@@ -29,7 +29,7 @@ function customBlocksToolbox() {
                         "kind": "block",
                         "type": "event_procedure",
                         "fields": {
-                            "EVENT": "PlayerJumpEvent"
+                            "EVENT": "com.destroystokyo.paper.event.player.PlayerJumpEvent"
                         },
                         "inputs": {
                             "STATEMENT": {
@@ -40,8 +40,8 @@ function customBlocksToolbox() {
                                             "block": {
                                                 "type": "event_getter",
                                                 "fields": {
-                                                    "EVENT": "PlayerJumpEvent",
-                                                    "GETTER": "getPlayer"
+                                                    "EVENT": "com.destroystokyo.paper.event.player.PlayerJumpEvent",
+                                                    "GETTER": "getPlayer;;org.bukkit.entity.Player,org.bukkit.entity.HumanEntity,org.bukkit.conversations.Conversable,org.bukkit.OfflinePlayer,org.bukkit.plugin.messaging.PluginMessageRecipient,net.kyori.adventure.identity.Identified,net.kyori.adventure.bossbar.BossBarViewer,com.destroystokyo.paper.network.NetworkClient,org.bukkit.entity.LivingEntity,org.bukkit.entity.AnimalTamer,org.bukkit.inventory.InventoryHolder,org.bukkit.attribute.Attributable,org.bukkit.entity.Damageable,org.bukkit.projectiles.ProjectileSource,io.papermc.paper.entity.Frictional,org.bukkit.entity.Entity,org.bukkit.metadata.Metadatable,org.bukkit.command.CommandSender,org.bukkit.Nameable,org.bukkit.persistence.PersistentDataHolder,net.kyori.adventure.text.event.HoverEventSource<net.kyori.adventure.text.event.HoverEvent.ShowEntity>,net.kyori.adventure.sound.Sound.Emitter,net.kyori.adventure.audience.Audience,org.bukkit.permissions.Permissible,io.papermc.paper.persistence.PersistentDataViewHolder,org.bukkit.permissions.ServerOperator,org.bukkit.configuration.serialization.ConfigurationSerializable"
                                                 }
                                             }
                                         }
@@ -58,7 +58,7 @@ function customBlocksToolbox() {
                         "kind": "block",
                         "type": "event_procedure",
                         "fields": {
-                            "EVENT": "PlayerPickupItemEvent"
+                            "EVENT": "org.bukkit.event.player.PlayerPickupItemEvent"
                         },
                         "inputs": {
                             "STATEMENT": {
@@ -76,8 +76,8 @@ function customBlocksToolbox() {
                                                         "block": {
                                                             "type": "event_getter",
                                                             "fields": {
-                                                                "EVENT": "PlayerPickupItemEvent",
-                                                                "GETTER": "getRemaining"
+                                                                "EVENT": "org.bukkit.event.player.PlayerPickupItemEvent",
+                                                                "GETTER": "getRemaining;;Number"
                                                             }
                                                         }
                                                     },
@@ -100,8 +100,8 @@ function customBlocksToolbox() {
                                                         "block": {
                                                             "type": "event_getter",
                                                             "fields": {
-                                                                "EVENT": "PlayerPickupItemEvent",
-                                                                "GETTER": "getPlayer"
+                                                                "EVENT": "org.bukkit.event.player.PlayerPickupItemEvent",
+                                                                "GETTER": "getPlayer;;org.bukkit.entity.Player,org.bukkit.entity.HumanEntity,org.bukkit.conversations.Conversable,org.bukkit.OfflinePlayer,org.bukkit.plugin.messaging.PluginMessageRecipient,net.kyori.adventure.identity.Identified,net.kyori.adventure.bossbar.BossBarViewer,com.destroystokyo.paper.network.NetworkClient,org.bukkit.entity.LivingEntity,org.bukkit.entity.AnimalTamer,org.bukkit.inventory.InventoryHolder,org.bukkit.attribute.Attributable,org.bukkit.entity.Damageable,org.bukkit.projectiles.ProjectileSource,io.papermc.paper.entity.Frictional,org.bukkit.entity.Entity,org.bukkit.metadata.Metadatable,org.bukkit.command.CommandSender,org.bukkit.Nameable,org.bukkit.persistence.PersistentDataHolder,net.kyori.adventure.text.event.HoverEventSource<net.kyori.adventure.text.event.HoverEvent.ShowEntity>,net.kyori.adventure.sound.Sound.Emitter,net.kyori.adventure.audience.Audience,org.bukkit.permissions.Permissible,io.papermc.paper.persistence.PersistentDataViewHolder,org.bukkit.permissions.ServerOperator,org.bukkit.configuration.serialization.ConfigurationSerializable"
                                                             }
                                                         }
                                                     }

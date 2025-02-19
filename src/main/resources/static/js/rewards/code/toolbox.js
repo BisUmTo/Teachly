@@ -91,7 +91,7 @@ function customBlocksToolbox() {
                                                                     "block": {
                                                                         "type": "reward_variable",
                                                                         "fields": {
-                                                                            "VARIABLE": "solutions"
+                                                                            "VARIABLE": "event.getExercise().getSolutions();;Array"
                                                                         }
                                                                     }
                                                                 },
@@ -99,7 +99,7 @@ function customBlocksToolbox() {
                                                                     "block": {
                                                                         "type": "reward_variable",
                                                                         "fields": {
-                                                                            "VARIABLE": "response"
+                                                                            "VARIABLE": "event.getAnswer();;String"
                                                                         }
                                                                     }
                                                                 }
@@ -168,7 +168,7 @@ function customBlocksToolbox() {
                                                                             "block": {
                                                                                 "type": "reward_variable",
                                                                                 "fields": {
-                                                                                    "VARIABLE": "solutions[0]"
+                                                                                    "VARIABLE": "event.getExercise().getSolutions()[0];;String"
                                                                                 }
                                                                             }
                                                                         }
