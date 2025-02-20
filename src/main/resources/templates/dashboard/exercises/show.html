@@ -56,7 +56,7 @@
                                         </ul>
                                     </dd>
                                     <th:block th:if=" ${exercise.getHints().size() > 0}">
-                                        <dt class="col-sm-4 col-md-3" th:test="${exercise.getType().toString()} == 'OPEN_QUESTION' ? 'Hints' : 'Options'"></dt>
+                                        <dt class="col-sm-4 col-md-3" th:text="${exercise.getType().toString()} == 'OPEN_QUESTION' ? 'Hints' : 'Options'"></dt>
                                         <dd class="col-sm-8 col-md-9">
                                             <ul class="list-unstyled">
                                                 <li th:each="hint : ${exercise.getHints()}" th:text="${hint}">Hint</li>

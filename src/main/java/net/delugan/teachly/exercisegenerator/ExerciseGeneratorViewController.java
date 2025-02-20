@@ -62,7 +62,7 @@ public class ExerciseGeneratorViewController {
     public ModelAndView show(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         AuthenticatedModelAndView modelAndView = new AuthenticatedModelAndView("dashboard/exercises/generators/show", userRepository.getByOAuth2(oAuth2User));
         modelAndView.addObject("generator", exerciseGeneratorRepository.findById(id).orElseThrow());
-        modelAndView.addObject("generatedExercises", exerciseRepository.findAllByGeneratorId(id));
+        modelAndView.addObject("generatedExercises", exerciseRepository.findAllByGeneratorIdOrderByName(id));
         return modelAndView;
     }
 

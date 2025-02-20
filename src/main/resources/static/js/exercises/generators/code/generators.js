@@ -11,30 +11,62 @@ function customBlocksGenerators() {
         const hints = hintsInput?generator.valueToCode(block, 'HINTS', Blockly.JavaScript.ORDER_ATOMIC):'[]';
         const solutions = generator.valueToCode(block, 'SOLUTIONS', Blockly.JavaScript.ORDER_ATOMIC);
 
-        // TOFIX: Generator and name
+        const stringifyFunction = generator.provideFunction_(
+            'stringify',
+            `function ${generator.FUNCTION_NAME_PLACEHOLDER_}(value) {\n` +
+            `    if (Array.isArray(value)) {\n` +
+            `        return value.map(stringify);\n` +
+            `    }\n` +
+            '    return `${value}`;\n' +
+            `}\n`
+        )
+
+        const stringifiedArrayFunction = generator.provideFunction_(
+            'stringifiedArray',
+            `function ${generator.FUNCTION_NAME_PLACEHOLDER_}(value) {\n` +
+            `    if (!Array.isArray(value)) {\n` +
+            `        return ${stringifyFunction}([value]);\n` +
+            `    }\n` +
+            `    return ${stringifyFunction}(value);\n` +
+            `}\n`
+        )
+
         const generateQuestion = generator.provideFunction_(
             'generateQuestion',
-            `function ${generator.FUNCTION_NAME_PLACEHOLDER_}(type, difficulty, question, hints, solutions) {\n` +
+            `async function ${generator.FUNCTION_NAME_PLACEHOLDER_}(type, difficulty, question_, hints_, solutions_) {\n` +
             // FETCH POST /api/v1/exercises
-            `    fetch('/api/v1/exercises', {\n` +
-            `        method: 'POST',\n` +
-            `        headers: {\n` +
-            `            'Content-Type': 'application/json'\n` +
-            `        },\n` +
-            `        body: JSON.stringify({\n` +
-            `            type,\n` +
-            `            difficulty,\n` +
-            `            question,\n` +
-            `            hints,\n` +
-            `            solutions\n` +
-            `        })\n` +
-            `    })\n` +
-            `    .then(response => response.json())\n` +
-            `    .then(data => console.log(data))\n` +
-            `    .catch(error => console.error('Error:', error));\n` +
+            `    const generatorId = window.location.pathname.split('/').pop();\n` +
+            `    const question = ${stringifyFunction}(question_);\n` +
+            `    const hints = ${stringifiedArrayFunction}(hints_);\n` +
+            `    const solutions = ${stringifiedArrayFunction}(solutions_);\n` +
+            `    try {\n` +
+            `        let response = await fetch('/api/v1/exercises/generators/'+generatorId+'/generate', {\n` +
+            `            method: 'POST',\n` +
+            `            headers: {\n` +
+            `                'Content-Type': 'application/json'\n` +
+            `            },\n` +
+            `                 body: JSON.stringify({\n` +
+            `                 type,\n` +
+            `                 difficulty,\n` +
+            `                 question,\n` +
+            `                 hints,\n` +
+            `                 solutions\n` +
+            `            })\n` +
+            `        });\n` +
+            `        let data = await response.json()\n` +
+            `        console.log(data);\n` +
+            `    } catch (error) {\n` +
+            `        console.error('Error:', error);\n` +
+            `    }\n` +
             `}\n`
         );
-        return `${generateQuestion}("${type}", "${difficulty}", ${question}, ${hints}, ${solutions});\n`;
+        return `await ${generateQuestion}(\n` +
+               `    "${type}",\n` +
+               `    "${difficulty}",\n` +
+               `    ${question},\n`+
+               `    ${hints},\n` +
+               `    ${solutions}\n` +
+               `);\n`;
     }
     return forBlock;
 }

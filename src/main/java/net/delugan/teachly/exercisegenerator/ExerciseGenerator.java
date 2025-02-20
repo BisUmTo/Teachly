@@ -3,9 +3,7 @@ package net.delugan.teachly.exercisegenerator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
-import net.delugan.teachly.exercise.Exercise;
-import net.delugan.teachly.exercise.ExerciseDifficulty;
-import net.delugan.teachly.exercise.ExerciseType;
+import net.delugan.teachly.exercise.*;
 import net.delugan.teachly.utils.AuthorAndDateTracked;
 import net.delugan.teachly.utils.JsonString;
 
@@ -73,13 +71,6 @@ public class ExerciseGenerator extends AuthorAndDateTracked {
 
     public void setLastGeneration(Date lastGeneration) {
         this.lastGeneration = lastGeneration;
-    }
-
-    public List<Exercise> generateExercise() {
-        setLastGeneration(new Date());
-        List<Exercise> exercises = null;
-        // TODO: Implement exercise generation
-        return exercises;
     }
 
     public String getName() {

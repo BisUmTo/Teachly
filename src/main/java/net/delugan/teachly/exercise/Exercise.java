@@ -139,7 +139,7 @@ public class Exercise extends AuthorAndDateTracked {
     }
 
     public UUID getGeneratorId() {
-        return generatorId;
+        return this.generator != null ? this.generator.getId() : null;
     }
 
     public ExerciseGenerator getGenerator() {

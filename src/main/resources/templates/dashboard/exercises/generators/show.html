@@ -46,16 +46,20 @@
                                         <span th:text="${generator.getLastGeneration()==null?' / ':#dates.format(generator.getLastGeneration(), 'yyyy-MM-dd hh:mm')}" id="last-generation"></span>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-6 mb-2">
                                     <div class="btn-group btn-group-sm float-right">
-                                        <a href="#" class="btn btn-success"
+                                        <a id="generate-button" href="#" class="btn btn-success"
                                            data-toggle="tooltip" title="Generate" data-placement="top"
                                         >Generate Exercises</a>
+                                        <a id="delete-generated-button" href="#" class="btn btn-danger"
+                                           data-toggle="tooltip" title="Delete" data-placement="top"
+                                        >Delete Generated Exercises</a>
                                     </div>
                                 </div>
+                                <div th:replace="~{fragments/code :: codeCard (${generator.getBlocklyJsonCode()})}"></div>
                                 <dd class="col-12 mt-2" id="exercises">
                                     <th:block th:if="${generatedExercises.size() == 0}">
-                                        <span>No exercises found</span>
+                                        <span>No generated exercises found</span>
                                     </th:block>
                                     <div th:unless="${generatedExercises.size() == 0}" class="card card-primary" th:each="exercise : ${generatedExercises}">
                                         <div class="card-header">
@@ -69,7 +73,6 @@
                                         </div>
                                     </div>
                                 </dd>
-                                <div th:replace="~{fragments/code :: codeCard (${generator.getBlocklyJsonCode()})}"></div>
                             </div>
                             <div th:replace="~{fragments/show :: card-footer (${generator}, 'exercises/generators')}" ></div>
                         </div>

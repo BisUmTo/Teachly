@@ -104,6 +104,8 @@ public class LessonService {
         generatedCode.append("// Exercises\n");
         generatedCode.append("const EXERCISES = [\n");
         for (Exercise exercise : lesson.getExercises()) {
+            // TOFIX: This is a workaround to ignore @JsonIgnore properties
+            exercise.setGenerator(null);
             String json = ow.writeValueAsString(exercise);
             json = json.replaceAll("(?m)^", "\t");
             generatedCode.append(json).append(",\n");

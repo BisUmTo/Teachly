@@ -108,6 +108,8 @@ function sendForm() {
                         // Highlight the field with the error and show the error message
                         $('[data-json-key="' + element + '"]').addClass('is-invalid');
                         $(`#${element}-error`).html(`Already in use`);
+                    } else {
+                        throw new Error("Login required");
                     }
 
                     $(document).Toasts('create', {
@@ -118,7 +120,6 @@ function sendForm() {
                     })
 
                     console.error("Error:", error);
-                    throw new Error("Login required");
                 });
             }
             return response.json(); // Parse the JSON response from the server

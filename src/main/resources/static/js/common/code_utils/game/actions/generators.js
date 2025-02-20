@@ -5,9 +5,11 @@ function gameActionsGenerators() {
     forBlock['action_getter'] = forBlock['action_boolean_getter'] = function(block, generator) {
         const action = block.getFieldValue('ACTION');
         const [getter, argType, returnType] = block.getFieldValue('GETTER').split(';');
-        const object = generator.valueToCode(block, 'OBJECT', Blockly.JavaScript.ORDER_ATOMIC) || "null";
+        let object = generator.valueToCode(block, 'OBJECT', Blockly.JavaScript.ORDER_ATOMIC) || "null";
+        // TOFIX: This is a workaround
+        object = object.split(';')[0];
 
-        const code = `${object}.${getter}()`;
+        const code = `${object}.${getter}();\n`;
         return [code, Blockly.JavaScript.ORDER_MEMBER];
     }
 
@@ -16,7 +18,9 @@ function gameActionsGenerators() {
         const action = block.getFieldValue('ACTION');
         const [setter, argType, returnType] = block.getFieldValue('SETTER').split(';');
         const value = generator.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || "null";
-        const object = generator.valueToCode(block, 'OBJECT', Blockly.JavaScript.ORDER_ATOMIC) || "null";
+        let object = generator.valueToCode(block, 'OBJECT', Blockly.JavaScript.ORDER_ATOMIC) || "null";
+        // TOFIX: This is a workaround
+        object = object.split(';')[0];
 
         return `${object}.${setter}(${value});\n`;
     }

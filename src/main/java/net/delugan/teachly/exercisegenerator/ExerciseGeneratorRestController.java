@@ -2,12 +2,15 @@ package net.delugan.teachly.exercisegenerator;
 
 import net.delugan.teachly.exercise.Exercise;
 import net.delugan.teachly.exercise.ExerciseRepository;
+import net.delugan.teachly.exercise.ExerciseRequest;
+import net.delugan.teachly.lesson.LessonRequest;
 import net.delugan.teachly.user.User;
 import net.delugan.teachly.user.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authorization.AuthorizationDeniedException;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,11 +22,13 @@ class ExerciseGeneratorRestController {
     public final ExerciseGeneratorRepository exerciseGeneratorRepository;
     public final ExerciseRepository exerciseRepository;
     public final UserRepository userRepository;
+    public final ExerciseGeneratorService exerciseGeneratorService;
 
-    public ExerciseGeneratorRestController(ExerciseGeneratorRepository exerciseGeneratorRepository, ExerciseRepository exerciseRepository, UserRepository userRepository) {
+    public ExerciseGeneratorRestController(ExerciseGeneratorRepository exerciseGeneratorRepository, ExerciseRepository exerciseRepository, UserRepository userRepository, ExerciseGeneratorService exerciseGeneratorService) {
         this.exerciseGeneratorRepository = exerciseGeneratorRepository;
         this.exerciseRepository = exerciseRepository;
         this.userRepository = userRepository;
+        this.exerciseGeneratorService = exerciseGeneratorService;
     }
 
     @GetMapping
@@ -76,14 +81,15 @@ class ExerciseGeneratorRestController {
         exerciseGeneratorRepository.deleteById(id);
     }
 
-    @GetMapping("{id}/generate")
-    public List<Exercise> generateExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
+    @Transactional
+    @PostMapping("{id}/generate")
+    public Exercise generateExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody ExerciseRequest exerciseRequest) {
         User user = userRepository.getByOAuth2(oAuth2User);
         ExerciseGenerator exerciseGenerator = exerciseGeneratorRepository.findById(id).orElseThrow();
         if(!exerciseGenerator.isAuthor(user)) {
             throw new AuthorizationDeniedException("You are not the author of this exercise generator");
         }
-        return exerciseGenerator.generateExercise();
+        return exerciseGeneratorService.generateExercise(exerciseGenerator, exerciseRequest);
     }
 
     @GetMapping("{id}/generated")
