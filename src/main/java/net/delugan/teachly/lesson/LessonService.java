@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import jakarta.persistence.EntityNotFoundException;
 import net.delugan.teachly.exercise.Exercise;
 import net.delugan.teachly.exercise.ExerciseRepository;
+import net.delugan.teachly.exercisegenerator.ExerciseGenerator;
 import net.delugan.teachly.reward.Reward;
 import net.delugan.teachly.reward.RewardRepository;
 import net.delugan.teachly.trigger.Trigger;
@@ -105,8 +106,10 @@ public class LessonService {
         generatedCode.append("const EXERCISES = [\n");
         for (Exercise exercise : lesson.getExercises()) {
             // TOFIX: This is a workaround to ignore @JsonIgnore properties
+            ExerciseGenerator generator = exercise.getGenerator();
             exercise.setGenerator(null);
             String json = ow.writeValueAsString(exercise);
+            exercise.setGenerator(generator);
             json = json.replaceAll("(?m)^", "\t");
             generatedCode.append(json).append(",\n");
         }

@@ -10,7 +10,12 @@ import java.util.stream.Collectors;
 
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
     default List<Exercise> findAllByGeneratorId(UUID generatorId){
-        return findAll().stream().filter(exercise -> exercise.getGenerator().getId().equals(generatorId)).toList();
+        return findAll().stream().filter(exercise -> {
+            if (exercise.getGenerator() == null) {
+                return false;
+            }
+            return exercise.getGeneratorId().equals(generatorId);
+        }).toList();
     }
     default List<String> getAllTags(){
         return findAll().stream().map(Exercise::getTags).flatMap(List::stream).distinct().toList();
