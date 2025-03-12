@@ -12,8 +12,18 @@ import org.thymeleaf.spring6.SpringTemplateEngine;
 import org.thymeleaf.spring6.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+/**
+ * Configuration class for Spring MVC.
+ * Configures resource handlers, template resolvers, and URL handling.
+ */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
+    /**
+     * Configures resource handlers for static resources.
+     * Ensures that requests to /static/** are handled correctly.
+     *
+     * @param registry The ResourceHandlerRegistry to configure
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         if (!registry.hasMappingForPattern("/static/**")) {
@@ -21,6 +31,12 @@ public class MvcConfig implements WebMvcConfigurer {
         }
     }
 
+    /**
+     * Creates a template resolver for Thymeleaf templates.
+     * Configures the template location, suffix, mode, and caching.
+     *
+     * @return The configured SpringResourceTemplateResolver
+     */
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -31,6 +47,12 @@ public class MvcConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
+    /**
+     * Creates a template engine for Thymeleaf templates.
+     * Configures the template resolver and enables Spring EL compiler.
+     *
+     * @return The configured SpringTemplateEngine
+     */
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -39,8 +61,14 @@ public class MvcConfig implements WebMvcConfigurer {
         return templateEngine;
     }
 
+    /**
+     * Creates a filter registration bean for URL handling.
+     * Configures a trailing slash handler for dashboard URLs.
+     *
+     * @return The configured FilterRegistrationBean
+     */
     @Bean
-    public FilterRegistrationBean urlHandlerFilterRegistrationBean() {
+    public FilterRegistrationBean<OncePerRequestFilter> urlHandlerFilterRegistrationBean() {
         FilterRegistrationBean<OncePerRequestFilter> registrationBean = new FilterRegistrationBean<>();
         UrlHandlerFilter urlHandlerFilter = UrlHandlerFilter.trailingSlashHandler("/dashboard/**").
                 redirect(HttpStatus.PERMANENT_REDIRECT).

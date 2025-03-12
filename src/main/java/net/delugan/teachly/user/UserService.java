@@ -9,14 +9,34 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Service class for managing user authentication and registration.
+ * Handles OAuth2 authentication flow and user creation/updates.
+ */
 @Service
 public class UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+    /**
+     * Repository for accessing and managing users.
+     */
     private final UserRepository userRepository;
 
+    /**
+     * Constructs a new UserService with the required repository.
+     *
+     * @param userRepository Repository for users
+     */
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Loads the user from the OAuth2 authentication process.
+     * If the user doesn't exist, creates a new user record.
+     * Updates the last login time for existing users.
+     *
+     * @param userRequest The OAuth2 user request
+     * @return The authenticated OAuth2User
+     */
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) {
         OAuth2User oAuth2User = new DefaultOAuth2UserService().loadUser(userRequest);

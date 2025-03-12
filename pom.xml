@@ -108,6 +108,8 @@
                             <arguments>
                                 <argument>install</argument>
                             </arguments>
+                            <!-- Add skip property to avoid errors when frontend doesn't exist -->
+                            <skip>${skip.npm}</skip>
                         </configuration>
                     </execution>
                     <execution>
@@ -123,11 +125,23 @@
                                 <argument>run</argument>
                                 <argument>build</argument>
                             </arguments>
+                            <!-- Add skip property to avoid errors when frontend doesn't exist -->
+                            <skip>${skip.npm}</skip>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
+            <!-- Add JavaDoc plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <show>private</show>
+                    <nohelp>true</nohelp>
+                    <source>${java.version}</source>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
 </project>

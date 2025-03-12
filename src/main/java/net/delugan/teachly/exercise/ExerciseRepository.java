@@ -8,7 +8,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+/**
+ * Repository interface for Exercise entities.
+ * Provides methods for accessing and managing exercises in the database.
+ */
 public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
+    /**
+     * Finds all exercises created by a specific generator.
+     *
+     * @param generatorId The ID of the generator
+     * @return A list of exercises created by the specified generator
+     */
     default List<Exercise> findAllByGeneratorId(UUID generatorId){
         return findAll().stream().filter(exercise -> {
             if (exercise.getGenerator() == null) {
@@ -17,9 +27,23 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
             return exercise.getGeneratorId().equals(generatorId);
         }).toList();
     }
+    
+    /**
+     * Retrieves all unique tags used across all exercises.
+     *
+     * @return A list of all unique tags
+     */
     default List<String> getAllTags(){
         return findAll().stream().map(Exercise::getTags).flatMap(List::stream).distinct().toList();
     }
+    
+    /**
+     * Finds all exercises created by a specific generator and orders them by name.
+     * The ordering is based on numeric suffixes in the names, if present.
+     *
+     * @param generatorId The ID of the generator
+     * @return A sorted list of exercises created by the specified generator
+     */
     default List<Exercise> findAllByGeneratorIdOrderByName(UUID generatorId) {
         return findAllByGeneratorId(generatorId)
                 .stream()
@@ -35,6 +59,13 @@ public interface ExerciseRepository extends JpaRepository<Exercise, UUID> {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Extracts a numeric suffix from a string, if present.
+     * Used for natural sorting of exercise names.
+     *
+     * @param name The string to extract a number from
+     * @return The extracted number, or 0 if no number is found
+     */
     static int extractNumber(String name) {
         Pattern pattern = Pattern.compile(".*?(\\d+)$");
         Matcher matcher = pattern.matcher(name);

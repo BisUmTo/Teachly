@@ -11,27 +11,63 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * REST controller for exercise-related operations.
+ * Provides endpoints for creating, retrieving, updating, and deleting exercises.
+ */
 @RestController
 @RequestMapping("/api/v1/exercises")
 class ExerciseRestController {
+    /**
+     * Repository for accessing and managing exercises.
+     */
     public final ExerciseRepository exerciseRepository;
+    
+    /**
+     * Repository for accessing and managing users.
+     */
     private final UserRepository userRepository;
 
+    /**
+     * Constructs a new ExerciseRestController with the required repositories.
+     *
+     * @param exerciseRepository Repository for exercises
+     * @param userRepository Repository for users
+     */
     public ExerciseRestController(ExerciseRepository exerciseRepository, UserRepository userRepository) {
         this.exerciseRepository = exerciseRepository;
         this.userRepository = userRepository;
     }
 
+    /**
+     * Retrieves all exercises.
+     *
+     * @return Iterable of all exercises
+     */
     @GetMapping
     public Iterable<Exercise> getExercises() {
         return exerciseRepository.findAll();
     }
 
+    /**
+     * Retrieves an exercise by its ID.
+     *
+     * @param id The ID of the exercise to retrieve
+     * @return The exercise with the specified ID
+     * @throws java.util.NoSuchElementException if no exercise is found with the given ID
+     */
     @GetMapping("{id}")
     public Exercise getExerciseById(@PathVariable UUID id) {
         return exerciseRepository.findById(id).orElseThrow();
     }
 
+    /**
+     * Creates a new exercise.
+     *
+     * @param oAuth2User The authenticated user
+     * @param new_exercise The exercise data to create
+     * @return The created exercise
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Exercise addExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @RequestBody Exercise new_exercise) {
@@ -50,6 +86,15 @@ class ExerciseRestController {
         return exercise;
     }
 
+    /**
+     * Updates an existing exercise.
+     *
+     * @param oAuth2User The authenticated user
+     * @param id The ID of the exercise to update
+     * @param new_exercise The updated exercise data
+     * @return The updated exercise
+     * @throws AuthorizationDeniedException if the authenticated user is not the author of the exercise
+     */
     @PutMapping("{id}")
     public Exercise updateExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id, @RequestBody Exercise new_exercise) {
         User user = userRepository.getByOAuth2(oAuth2User);
@@ -71,6 +116,14 @@ class ExerciseRestController {
         return exercise;
     }
 
+    /**
+     * Deletes an exercise.
+     *
+     * @param oAuth2User The authenticated user
+     * @param id The ID of the exercise to delete
+     * @throws AuthorizationDeniedException if the authenticated user is not the author of the exercise
+     * @throws java.util.NoSuchElementException if no exercise is found with the given ID
+     */
     @DeleteMapping("{id}")
     public void deleteExercise(@AuthenticationPrincipal OAuth2User oAuth2User, @PathVariable UUID id) {
         Exercise exercise = exerciseRepository.findById(id).orElseThrow();
@@ -80,6 +133,11 @@ class ExerciseRestController {
         exerciseRepository.deleteById(id);
     }
 
+    /**
+     * Retrieves all unique tags used in exercises.
+     *
+     * @return List of all unique tags
+     */
     @GetMapping("/tags")
     public List<String> getTags() {
         return exerciseRepository.getAllTags();
