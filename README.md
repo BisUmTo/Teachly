@@ -23,8 +23,6 @@ Teachly allows to export lessons to a script-file that can be executed by the ga
 - **Authentication**: OAuth2 for secure user authentication
 - **UI Framework**: AdminLTE for responsive design
 
-<br><br>
-
 ## Self-Hosting and Deployment
 
 ### Prerequisites
